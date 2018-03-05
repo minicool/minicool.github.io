@@ -12,9 +12,9 @@
 
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>迷你酷的博客 | minicool Blog</title>
+    <title>SQL concurrency controlr - 迷你酷的博客 | minicool Blog</title>
 
-    <link rel="canonical" href="https://minicool.github.io//">
+    <link rel="canonical" href="https://minicool.github.io//%E7%AC%94%E8%AE%B0/2014/07/28/SQL-concurrency-control/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -141,267 +141,177 @@
 </script>
 
 
-    <!-- Page Header -->
-<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-2015.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/post-bg-2015.jpg')
+    }
+</style>
+<header class="intro-header" >
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
-                <div class="site-heading">
-                    <h1>MiniCool World</h1>
-                    <!--<hr class="small">-->
-                    <span class="subheading">- 发现这个有趣的迷你世界 -</span>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#SQL" title="SQL">SQL</a>
+                        
+                        <a class="tag" href="/tags/#基础知识" title="基础知识">基础知识</a>
+                        
+                    </div>
+                    <h1>SQL concurrency controlr</h1>
+                    
+                    
+                    <h2 class="subheading">乐观锁，悲观锁</h2>
+                    
+                    <span class="meta">Posted by minicool on July 28, 2014</span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-	<div class="row">
-        
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
 
-<!-- USE SIDEBAR -->
     <!-- Post Container -->
-    		<div class="
-                col-lg-8 col-lg-offset-1
-                col-md-8 col-md-offset-1
-                col-sm-12
-                col-xs-12
-                post-container
-            ">
-    			
-<div class="post-preview">
-    <a href="/%E8%BD%AC%E8%BD%BD/2017/01/01/reproduce/">
-        <h2 class="post-title">
-            reproduce
-        </h2>
-        
-        <h3 class="post-subtitle">
-            转载
-        </h3>
-        
-        <div class="post-content-preview">
-            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
 
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by minicool on January 1, 2017
-    </p>
-</div>
-<hr>
+                <!-- Multi-Lingual -->
+                                
 
-<div class="post-preview">
-    <a href="/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2017/01/01/analusis/">
-        <h2 class="post-title">
-            code analysis
-        </h2>
-        
-        <h3 class="post-subtitle">
-            源码分析
-        </h3>
-        
-        <div class="post-content-preview">
-            
+				<h3 id="乐观锁">乐观锁</h3>
 
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by minicool on January 1, 2017
-    </p>
-</div>
-<hr>
+<p>乐观锁做为关系性数据库中的一种并发控制方法。它假设数据库运行提交事务处理时候，并不会相互影响。各事务能够在不产生锁的情况下进行处理各自数据。在提交数据更新之前，每个事务会先检查在该事务读取数据后，有没有其他事务又修改了该数据。如果其他事务有更新的话，正在提交的事务会进行回滚。</p>
 
-<div class="post-preview">
-    <a href="/%E7%BF%BB%E8%AF%91/2017/01/01/translation/">
-        <h2 class="post-title">
-            translation
-        </h2>
-        
-        <h3 class="post-subtitle">
-            翻译
-        </h3>
-        
-        <div class="post-content-preview">
-            
+<h4 id="应用">应用</h4>
+<p>乐观并发控制多数用于数据争用不大、冲突较少的环境中，这种环境中，偶尔回滚事务的成本会低于读取数据时锁定数据的成本，因此可以获得比其他并发控制方法更高的吞吐量。</p>
 
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by minicool on January 1, 2017
-    </p>
-</div>
-<hr>
+<h4 id="控制阶段">控制阶段</h4>
+<p>乐观并发控制的事务包括以下阶段：
+读取：事务将数据读入缓存，这时系统会给事务分派一个时间戳。
+校验：事务执行完毕后，进行提交。这时同步校验所有事务，如果事务所读取的数据在读取之后又被其他事务修改，则产生冲突，事务被中断回滚。
+写入：通过校验阶段后，将更新的数据写入数据库。</p>
 
-<div class="post-preview">
-    <a href="/%E5%B0%8F%E8%AF%B4/2017/01/01/story/">
-        <h2 class="post-title">
-            story
-        </h2>
-        
-        <h3 class="post-subtitle">
-            小说
-        </h3>
-        
-        <div class="post-content-preview">
-            
+<h4 id="优缺点">优缺点</h4>
+<p>乐观并发控制相信事务之间的数据竞争(data race)的概率是比较小的，因此尽可能直接做下去，直到提交的时候才去锁定，所以不会产生任何锁和死锁。但如果直接简单这么做，还是有可能会遇到不可预期的结果，例如两个事务都读取了数据库的某一行，经过修改以后写回数据库，这时就遇到了问题。</p>
 
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by minicool on January 1, 2017
-    </p>
-</div>
-<hr>
+<h3 id="悲观锁">悲观锁</h3>
+<p>它可以阻止一个事务以影响其他用户的方式来修改数据。如果一个事务执行的操作读某行数据应用了锁，那只有当这个事务把锁释放，其他事务才能够执行与该锁冲突的操作。</p>
+
+<h4 id="应用-1">应用</h4>
+<p>悲观并发控制主要用于数据争用激烈的环境，以及发生并发冲突时使用锁保护数据的成本要低于回滚事务的成本的环境中。</p>
+
+<h4 id="控制阶段-1">控制阶段</h4>
+
+<h4 id="优缺点-1">优缺点</h4>
+<p>悲观并发控制实际上是“先取锁再访问”的保守策略[1]，为数据处理的安全提供了保证。但是在效率方面，处理加锁的机制会让数据库产生额外的开销，还有增加产生死锁的机会；另外，在只读型事务处理中由于不会产生冲突，也没必要使用锁，这样做只能增加系统负载；还有会降低了并行性，一个事务如果锁定了某行数据，其他事务就必须等待该事务处理完才可以处理那行数据。</p>
+
+<h4 id="acid">ACID</h4>
+<p>ACID，是指数据库管理系统（DBMS）在写入或更新资料的过程中，为保证事务（transaction）是正确可靠的，所必须具备的四个特性：原子性（atomicity，或称不可分割性）、一致性（consistency）、隔离性（isolation，又称独立性）、持久性（durability）。</p>
+
+<p>在数据库系统中，一个事务是指：由一系列数据库操作组成的一个完整的逻辑过程。例如银行转帐，从原账户扣除金额，以及向目标账户添加金额，这两个数据库操作的总和，构成一个完整的逻辑过程，不可拆分。这个过程被称为一个事务，具有ACID特性。ACID的概念在ISO/IEC 10026-1:1992文件的第四段内有所说明。</p>
+
+<p>原子性：一个事务（transaction）中的所有操作，要么全部完成，要么全部不完成，不会结束在中间某个环节。事务在执行过程中发生错误，会被回滚（Rollback）到事务开始前的状态，就像这个事务从来没有执行过一样。
+一致性：在事务开始之前和事务结束以后，数据库的完整性没有被破坏。这表示写入的资料必须完全符合所有的预设规则，这包含资料的精确度、串联性以及后续数据库可以自发性地完成预定的工作。
+隔离性：数据库允许多个并发事务同时对其数据进行读写和修改的能力，隔离性可以防止多个事务并发执行时由于交叉执行而导致数据的不一致。事务隔离分为不同级别，包括读未提交（Read uncommitted）、读提交（read committed）、可重复读（repeatable read）和串行化（Serializable）。
+持久性：事务处理结束后，对数据的修改就是永久的，即便系统故障也不会丢失。</p>
 
 
-<!-- Pager -->
-
-<ul class="pager">
+                <hr style="visibility: hidden;">
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/%E7%AC%94%E8%AE%B0/2013/06/13/deadlock-livelock-starvation/" data-toggle="tooltip" data-placement="top" title="deadlock livelock starvation">
+                        Previous<br>
+                        <span>deadlock livelock starvation</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/%E7%AC%94%E8%AE%B0/2015/03/26/Encryption-algorithm-summary/" data-toggle="tooltip" data-placement="top" title="Encryption algorithm summary">
+                        Next<br>
+                        <span>Encryption algorithm summary</span>
+                        </a>
+                    </li>
+                    
+                </ul> 
+            </div>
     
+    <!-- Side Catalog Container -->
     
-    <li class="next">
-        <a href="/page2">Older Posts &rarr;</a>
-    </li>
-    
-</ul>
+    <div class="
+        col-lg-2 col-lg-offset-0
+        visible-lg-block
+        sidebar-container
+        catalog-container">
+        <div class="side-catalog">
+            <hr class="hidden-sm hidden-xs">
+            <h5>
+                <a class="catalog-toggle" href="#">CATALOG</a>
+            </h5>
+            <ul class="catalog-body"></ul>
+        </div>
+    </div>
+            
 
-
-    		</div>
     <!-- Sidebar Container -->
             <div class="
-                col-lg-3 col-lg-offset-0
-                col-md-3 col-md-offset-0
-                col-sm-12
-                col-xs-12
-                sidebar-container
-            ">
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
                 <!-- Featured Tags -->
                 
                 <section>
                     <hr class="hidden-sm hidden-xs">
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
-                        
+        				
                             
-                                <a href="/tags/#SQL" title="SQL" rel="2">
+                				<a href="/tags/#SQL" title="SQL" rel="2">
                                     SQL
                                 </a>
                             
-                        
+        				
                             
-                                <a href="/tags/#基础知识" title="基础知识" rel="3">
+                				<a href="/tags/#基础知识" title="基础知识" rel="3">
                                     基础知识
                                 </a>
                             
-                        
+        				
                             
-                                <a href="/tags/#密码学" title="密码学" rel="2">
+                				<a href="/tags/#密码学" title="密码学" rel="2">
                                     密码学
                                 </a>
                             
-                        
+        				
                             
-                                <a href="/tags/#算法" title="算法" rel="2">
+                				<a href="/tags/#算法" title="算法" rel="2">
                                     算法
                                 </a>
                             
-                        
+        				
                             
-                                <a href="/tags/#code" title="code" rel="1">
+                				<a href="/tags/#code" title="code" rel="1">
                                     code
                                 </a>
                             
-                        
-                    </div>
+        				
+        			</div>
                 </section>
                 
 
-                <!-- Category -->
-                
-                <section>
-                    <hr class="hidden-sm hidden-xs">
-                    <h5><a href="/categories/">CATEGORY</a></h5>
-                    <div class="tags">
-                        
-                            <a href="/categories/#笔记-ref" title="笔记" rel="5">
-                                笔记
-                            </a>
-                        
-                            <a href="/categories/#原创-ref" title="原创" rel="1">
-                                原创
-                            </a>
-                        
-                            <a href="/categories/#小说-ref" title="小说" rel="1">
-                                小说
-                            </a>
-                        
-                            <a href="/categories/#翻译-ref" title="翻译" rel="1">
-                                翻译
-                            </a>
-                        
-                            <a href="/categories/#源码分析-ref" title="源码分析" rel="1">
-                                源码分析
-                            </a>
-                        
-                            <a href="/categories/#转载-ref" title="转载" rel="1">
-                                转载
-                            </a>
-                        
-                    </div>
-                </section>
-                              
-
-                <!-- Short About -->
-                <section class="visible-md visible-lg">
-                    <hr><h5><a href="/about/">ABOUT ME</a></h5>
-                    <div class="short-about">
-                        
-                            <img src="/img/me/avatar.jpeg" />
-                        
-                        
-                            <p>假如生活欺骗了你，不要悲伤，不要哭泣。 -做个有趣的灵魂</p>
-                        
-                        <!-- SNS Link -->
-                        <ul class="list-inline">
-                            
-                            
-                            <li>
-                                <a href="mailto:minicool.software@gmail.com">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            
-                            
-                            <li>
-                                <a href="https://twitter.com/minicool">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            
-                            
-                            
-                            
-                            
-                            <li>
-                                <a target="_blank" href="https://github.com/minicool">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            
-                        </ul>
-                    </div>
-                </section>
                 <!-- Friends Blog -->
                 
                 <hr>
@@ -419,17 +329,72 @@
                 
                 <hr>
                 <h5>READ ANALY</h5>
-                <span id="busuanzi_container_site_pv">
-                        本站 总访问量 <span id="busuanzi_value_site_pv"></span> 次
-                    </span><br>
-                <span id="busuanzi_container_site_uv">
-                        本站 访客数 <span id="busuanzi_value_site_uv"></span> 人次
-                    </span>    
-                                  
-    		</div>
-        
-	</div>
-</div>
+                <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span>
+                     
+                
+                <!-- gitment start -->                
+                
+                <div id="container"></div>
+                <script>
+                  var gitment = new Gitment({
+                    id: window.location.pathname, 
+                    owner: 'minicool',
+                    repo: 'minicool.github.io',
+                    oauth: {
+                    client_id: '5d7b7a70ed66f348595e',
+                    client_secret: '',
+                    },
+                  })
+                  gitment.render('container')
+                </script>
+                
+                <!-- gitment end -->                      
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
 
 
     <!-- Footer -->
@@ -584,6 +549,62 @@
 
 
 <!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+
+        // interop with multilangual 
+         
+        _containerSelector = 'div.post-container'
+         
+
+        // init
+        var P = $(_containerSelector),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        // clean
+        $(selector).html('')
+
+        // appending
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
 
 
 <!-- Multi-Lingual -->
