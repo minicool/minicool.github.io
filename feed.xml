@@ -5,76 +5,9 @@
     <description>年迈的工程师</description>
     <link>https://minicool.github.io//</link>
     <atom:link href="https://minicool.github.io//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 05 Mar 2018 16:37:51 +0800</pubDate>
-    <lastBuildDate>Mon, 05 Mar 2018 16:37:51 +0800</lastBuildDate>
+    <pubDate>Mon, 05 Mar 2018 23:17:43 +0800</pubDate>
+    <lastBuildDate>Mon, 05 Mar 2018 23:17:43 +0800</lastBuildDate>
     <generator>Jekyll v3.7.3</generator>
-    
-      <item>
-        <title>reproduce</title>
-        <description>
-</description>
-        <pubDate>Sun, 01 Jan 2017 20:00:00 +0800</pubDate>
-        <link>https://minicool.github.io//%E8%BD%AC%E8%BD%BD/2017/01/01/reproduce/</link>
-        <guid isPermaLink="true">https://minicool.github.io//%E8%BD%AC%E8%BD%BD/2017/01/01/reproduce/</guid>
-        
-        
-        <category>转载</category>
-        
-      </item>
-    
-      <item>
-        <title>code analysis</title>
-        <description>
-</description>
-        <pubDate>Sun, 01 Jan 2017 20:00:00 +0800</pubDate>
-        <link>https://minicool.github.io//%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2017/01/01/analusis/</link>
-        <guid isPermaLink="true">https://minicool.github.io//%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2017/01/01/analusis/</guid>
-        
-        <category>code</category>
-        
-        
-        <category>源码分析</category>
-        
-      </item>
-    
-      <item>
-        <title>translation</title>
-        <description>
-</description>
-        <pubDate>Sun, 01 Jan 2017 00:00:00 +0800</pubDate>
-        <link>https://minicool.github.io//%E7%BF%BB%E8%AF%91/2017/01/01/translation/</link>
-        <guid isPermaLink="true">https://minicool.github.io//%E7%BF%BB%E8%AF%91/2017/01/01/translation/</guid>
-        
-        
-        <category>翻译</category>
-        
-      </item>
-    
-      <item>
-        <title>story</title>
-        <description>
-</description>
-        <pubDate>Sun, 01 Jan 2017 00:00:00 +0800</pubDate>
-        <link>https://minicool.github.io//%E5%B0%8F%E8%AF%B4/2017/01/01/story/</link>
-        <guid isPermaLink="true">https://minicool.github.io//%E5%B0%8F%E8%AF%B4/2017/01/01/story/</guid>
-        
-        
-        <category>小说</category>
-        
-      </item>
-    
-      <item>
-        <title>original</title>
-        <description>
-</description>
-        <pubDate>Sun, 01 Jan 2017 00:00:00 +0800</pubDate>
-        <link>https://minicool.github.io//%E5%8E%9F%E5%88%9B/2017/01/01/original/</link>
-        <guid isPermaLink="true">https://minicool.github.io//%E5%8E%9F%E5%88%9B/2017/01/01/original/</guid>
-        
-        
-        <category>原创</category>
-        
-      </item>
     
       <item>
         <title>RSA encryption algorithm</title>
@@ -267,6 +200,73 @@
         
         
         <category>笔记</category>
+        
+      </item>
+    
+      <item>
+        <title>translation</title>
+        <description>
+</description>
+        <pubDate>Fri, 01 Jan 2010 20:00:00 +0800</pubDate>
+        <link>https://minicool.github.io//%E7%BF%BB%E8%AF%91/2010/01/01/translation/</link>
+        <guid isPermaLink="true">https://minicool.github.io//%E7%BF%BB%E8%AF%91/2010/01/01/translation/</guid>
+        
+        
+        <category>翻译</category>
+        
+      </item>
+    
+      <item>
+        <title>story</title>
+        <description>
+</description>
+        <pubDate>Fri, 01 Jan 2010 20:00:00 +0800</pubDate>
+        <link>https://minicool.github.io//%E5%B0%8F%E8%AF%B4/2010/01/01/story/</link>
+        <guid isPermaLink="true">https://minicool.github.io//%E5%B0%8F%E8%AF%B4/2010/01/01/story/</guid>
+        
+        
+        <category>小说</category>
+        
+      </item>
+    
+      <item>
+        <title>reproduce</title>
+        <description>
+</description>
+        <pubDate>Fri, 01 Jan 2010 20:00:00 +0800</pubDate>
+        <link>https://minicool.github.io//%E8%BD%AC%E8%BD%BD/2010/01/01/reproduce/</link>
+        <guid isPermaLink="true">https://minicool.github.io//%E8%BD%AC%E8%BD%BD/2010/01/01/reproduce/</guid>
+        
+        
+        <category>转载</category>
+        
+      </item>
+    
+      <item>
+        <title>original</title>
+        <description>
+</description>
+        <pubDate>Fri, 01 Jan 2010 20:00:00 +0800</pubDate>
+        <link>https://minicool.github.io//%E5%8E%9F%E5%88%9B/2010/01/01/original/</link>
+        <guid isPermaLink="true">https://minicool.github.io//%E5%8E%9F%E5%88%9B/2010/01/01/original/</guid>
+        
+        
+        <category>原创</category>
+        
+      </item>
+    
+      <item>
+        <title>Upsource</title>
+        <description>
+</description>
+        <pubDate>Fri, 01 Jan 2010 20:00:00 +0800</pubDate>
+        <link>https://minicool.github.io//%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/2010/01/01/develop-tool/</link>
+        <guid isPermaLink="true">https://minicool.github.io//%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/2010/01/01/develop-tool/</guid>
+        
+        <category>JetBrains</category>
+        
+        
+        <category>开发工具</category>
         
       </item>
     
