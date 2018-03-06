@@ -5,9 +5,108 @@
     <description>年迈的工程师</description>
     <link>https://minicool.github.io//</link>
     <atom:link href="https://minicool.github.io//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 06 Mar 2018 00:18:52 +0800</pubDate>
-    <lastBuildDate>Tue, 06 Mar 2018 00:18:52 +0800</lastBuildDate>
+    <pubDate>Tue, 06 Mar 2018 22:05:21 +0800</pubDate>
+    <lastBuildDate>Tue, 06 Mar 2018 22:05:21 +0800</lastBuildDate>
     <generator>Jekyll v3.7.3</generator>
+    
+      <item>
+        <title>Gmssl</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;因公司业务需求，需开发搭建一套自发CA证书，符合国家密码标准的认证平台。所以对国密（国家商用密码）算法进行研究，意外发现一个基于国密开发的，类似OPENSSL且开源的密码工具箱。
+&lt;a href=&quot;gmssl.org&quot;&gt;Gmssl官网&lt;/a&gt; &lt;a href=&quot;https://github.com/guanzhi/Gmssl&quot;&gt;Gmssl GitHub&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;gmssl简介&quot;&gt;Gmssl简介&lt;/h3&gt;
+&lt;p&gt;GmSSL是一个开源的密码工具箱，支持SM2/SM3/SM4/SM9等国密(国家商用密码)算法、SM2国密数字证书及基于SM2证书的SSL/TLS安全通信协议，支持国密硬件密码设备，提供符合国密规范的编程接口与命令行工具，可以用于构建PKI/CA、安全通信、数据加密等符合国密标准的安全应用。GmSSL项目是OpenSSL项目的分支，并与OpenSSL保持接口兼容。因此GmSSL可以替代应用中的OpenSSL组件，并使应用自动具备基于国密的安全能力。GmSSL项目采用对商业应用友好的类BSD开源许可证，开源且可以用于闭源的商业应用。GmSSL项目由北京大学关志副研究员的密码学研究组开发维护，项目源码托管于GitHub。自2014年发布以来，GmSSL已经在多个项目和产品中获得部署与应用，并获得2015年度“一铭杯”中国Linux软件大赛二等奖(年度最高奖项)与开源中国密码类推荐项目。GmSSL项目的核心目标是通过开源的密码技术推动国内网络空间安全建设。&lt;/p&gt;
+
+&lt;h3 id=&quot;gmssl算法集&quot;&gt;Gmssl算法集&lt;/h3&gt;
+&lt;p&gt;国密算法是国家商用密码算法的简称。自2012年以来，国家密码管理局以《中华人民共和国密码行业标准》的方式，陆续公布了SM2/SM3/SM4等密码算法标准及其应用规范。其中“SM”代表“商密”，即用于商用的、不涉及国家秘密的密码技术。其中SM2为基于椭圆曲线密码的公钥密码算法标准，包含数字签名、密钥交换和公钥加密，用于替换RSA/Diffie-Hellman/ECDSA/ECDH等国际算法；SM3为密码哈希算法，用于替代MD5/SHA-1/SHA-256等国际算法；SM4为分组密码，用于替代DES/AES等国际算法；SM9为基于身份的密码算法，可以替代基于数字证书的PKI/CA体系。通过部署国密算法，可以降低由弱密码和错误实现带来的安全风险和部署PKI/CA带来的开销。&lt;/p&gt;
+
+&lt;p&gt;椭圆曲线公钥加密国际标准ECIES
+国密SM2椭圆曲线公钥密码标准，包含数字签名算法、公钥加密算法、密钥交换协议及推荐椭圆曲线参数
+国密SM3密码杂凑算法、HMAC-SM3消息认证码算法、PBKDF2口令加密算法
+国密SM4/SMS4分组密码、ECB/CBC/CFB/OFB/CTR/GCM/FFX加密模式和CBC-MAC/CMAC消息认证码算法
+组合公钥(CPK)身份密码，可同时支持椭圆曲线国际标准算法和国密标准算法
+国密动态口令密码规范
+祖冲之(ZUC)序列密码&lt;/p&gt;
+
+&lt;p&gt;GmSSL还可以以安全中间件的方式访问PCI-E密码加速卡、USB Key等硬件密码设备，为上层应用提供密钥安全存储、密码计算硬件加速以及国密SM1分组密码、国密SSF33分组密码等硬件实现的保密算法。&lt;/p&gt;
+
+&lt;p&gt;GmSSL通过ENGINE机制支持符合不同接口规范的密码设备：
+提供国密算法和国密SKF接口规范实现的硬件密码设备
+提供Windows Crypto API Provider的密码硬件设备
+提供PKCS #11 (Cryptoki)接口实现的密码硬件设备&lt;/p&gt;
+
+&lt;h3 id=&quot;gmssl算法产品&quot;&gt;Gmssl算法产品&lt;/h3&gt;
+
+&lt;h3 id=&quot;gmssl授权许可证&quot;&gt;Gmssl授权许可证&lt;/h3&gt;
+&lt;p&gt;BSD/Apache&lt;/p&gt;
+</description>
+        <pubDate>Thu, 01 Mar 2018 20:00:00 +0800</pubDate>
+        <link>https://minicool.github.io//%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/2018/03/01/gmssl/</link>
+        <guid isPermaLink="true">https://minicool.github.io//%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/2018/03/01/gmssl/</guid>
+        
+        <category>openssl</category>
+        
+        
+        <category>开发工具</category>
+        
+      </item>
+    
+      <item>
+        <title>x.509</title>
+        <description>&lt;h3 id=&quot;x509&quot;&gt;X.509&lt;/h3&gt;
+
+&lt;p&gt;X.509是一种数字证书格式。数字证书是由权威机构——CA机构，又称为证书授权（Certificate Authority）中心发行的。用于对数字身份信息进行授权，用于验证的证书信息。&lt;/p&gt;
+
+&lt;h4 id=&quot;常见数据格式&quot;&gt;常见数据格式&lt;/h4&gt;
+&lt;p&gt;cer/crt是用于存放证书，它是2进制形式存放的，不含私钥。&lt;/p&gt;
+
+&lt;p&gt;pem跟crt/cer的区别是它以Ascii来表示，可以用于存放证书或私钥。&lt;/p&gt;
+
+&lt;p&gt;pfx/p12用于存放个人证书/私钥，他通常包含保护密码，2进制方式。&lt;/p&gt;
+
+&lt;p&gt;p10是证书请求。&lt;/p&gt;
+
+&lt;p&gt;p7r是CA对证书请求的回复，只用于导入&lt;/p&gt;
+
+&lt;p&gt;p7b以树状展示证书链(certificate chain)，同时也支持单个证书，不含私钥。&lt;/p&gt;
+
+&lt;h4 id=&quot;x509-数据格式&quot;&gt;x.509 数据格式&lt;/h4&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;n&quot;&gt;TBSCertificate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SEQUENCE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;version&lt;/span&gt;           &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;   &lt;span class=&quot;n&quot;&gt;EXPLICIT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Version&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DEFAULT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;        &lt;span class=&quot;err&quot;&gt;#版本号&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;serialNumber&lt;/span&gt;            &lt;span class=&quot;n&quot;&gt;CertificateSerialNumber&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;signature&lt;/span&gt;               &lt;span class=&quot;n&quot;&gt;AlgorithmIdentifier&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;issuer&lt;/span&gt;                  &lt;span class=&quot;n&quot;&gt;Name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;validity&lt;/span&gt;                &lt;span class=&quot;n&quot;&gt;Validity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;subject&lt;/span&gt;                 &lt;span class=&quot;n&quot;&gt;Name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;subjectPublicKeyInfo&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;SubjectPublicKeyInfo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;issuerUniqueID&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;   &lt;span class=&quot;n&quot;&gt;IMPLICIT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;UniqueIdentifier&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;OPTIONAL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;subjectUniqueID&lt;/span&gt;   &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;   &lt;span class=&quot;n&quot;&gt;IMPLICIT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;UniqueIdentifier&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;OPTIONAL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;extensions&lt;/span&gt;        &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;   &lt;span class=&quot;n&quot;&gt;EXPLICIT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Extensions&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;OPTIONAL&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;show&lt;/span&gt;
+  &lt;span class=&quot;vi&quot;&gt;@widget&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Widget&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;respond_to&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;html&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# show.html.erb&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;json&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;render&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;json: &lt;/span&gt;&lt;span class=&quot;vi&quot;&gt;@widget&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+</description>
+        <pubDate>Thu, 23 Apr 2015 20:00:00 +0800</pubDate>
+        <link>https://minicool.github.io//%E7%AC%94%E8%AE%B0/2015/04/23/x509/</link>
+        <guid isPermaLink="true">https://minicool.github.io//%E7%AC%94%E8%AE%B0/2015/04/23/x509/</guid>
+        
+        <category>openssl</category>
+        
+        <category>CA</category>
+        
+        
+        <category>笔记</category>
+        
+      </item>
     
       <item>
         <title>RSA encryption algorithm</title>
@@ -239,34 +338,6 @@
         
         
         <category>转载</category>
-        
-      </item>
-    
-      <item>
-        <title>original</title>
-        <description>
-</description>
-        <pubDate>Fri, 01 Jan 2010 20:00:00 +0800</pubDate>
-        <link>https://minicool.github.io//%E5%8E%9F%E5%88%9B/2010/01/01/original/</link>
-        <guid isPermaLink="true">https://minicool.github.io//%E5%8E%9F%E5%88%9B/2010/01/01/original/</guid>
-        
-        
-        <category>原创</category>
-        
-      </item>
-    
-      <item>
-        <title>Upsource</title>
-        <description>
-</description>
-        <pubDate>Fri, 01 Jan 2010 20:00:00 +0800</pubDate>
-        <link>https://minicool.github.io//%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/2010/01/01/develop-tool/</link>
-        <guid isPermaLink="true">https://minicool.github.io//%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/2010/01/01/develop-tool/</guid>
-        
-        <category>JetBrains</category>
-        
-        
-        <category>开发工具</category>
         
       </item>
     

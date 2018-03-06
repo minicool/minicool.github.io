@@ -23,13 +23,21 @@
     <link rel="stylesheet" href="/css/blog.min.css">
 
     <!-- Pygments Github CSS -->
-    <link rel="stylesheet" href="/css/syntax.css">
+    <!-- <link rel="stylesheet" href="/css/syntax.css"> -->
+
+    <link rel="stylesheet" href="/css/rouge.css">
+
+    <!-- <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/default.min.css">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script> -->
 
     <!-- Custom Fonts -->
     <!-- overseas CDN font-awesome -->
     <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
     <!-- china CDN font-awesome -->
-     <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <!-- local font-awesome -->   
     <!-- <link rel="stylesheet" href="/css/fontawesome-all.min.css"> -->
     
@@ -40,16 +48,9 @@
     css'>
     -->
 
-    <!-- Read Analy -->  
-    <!-- busuanzi http://busuanzi.ibruce.info/-->  
-    
-    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    
-
     <!-- Gitment -->  
     
     <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
     
 
 
@@ -175,6 +176,61 @@
             ">
     			
 <div class="post-preview">
+    <a href="/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/2018/03/01/gmssl/">
+        <h2 class="post-title">
+            Gmssl
+        </h2>
+        
+        <h3 class="post-subtitle">
+            国家密码 SM2/SM3/SM4/SM9
+        </h3>
+        
+        <div class="post-content-preview">
+            
+  因公司业务需求，需开发搭建一套自发CA证书，符合国家密码标准的认证平台。所以对国密（国家商用密码）算法进行研究，意外发现一个基于国密开发的，类似OPENSSL且开源的密码工具箱。
+Gmssl官网 Gmssl GitHub
+
+
+Gmssl简介
+GmSSL是一个开源的密码工具箱，支持SM2/SM3/SM4/SM9等国密(国家商用密码)算法、SM2国密数字证书及基于SM2证书的SSL/TLS...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by minicool on March 1, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/%E7%AC%94%E8%AE%B0/2015/04/23/x509/">
+        <h2 class="post-title">
+            x.509
+        </h2>
+        
+        <h3 class="post-subtitle">
+            X.509 证书
+        </h3>
+        
+        <div class="post-content-preview">
+            X.509
+
+X.509是一种数字证书格式。数字证书是由权威机构——CA机构，又称为证书授权（Certificate Authority）中心发行的。用于对数字身份信息进行授权，用于验证的证书信息。
+
+常见数据格式
+cer/crt是用于存放证书，它是2进制形式存放的，不含私钥。
+
+pem跟crt/cer的区别是它以Ascii来表示，可以用于存放证书或私钥。
+
+pfx/p12用于存放个人证书/...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by minicool on April 23, 2015
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/%E7%AC%94%E8%AE%B0/2015/04/23/RSA-encryption-algorithm/">
         <h2 class="post-title">
             RSA encryption algorithm
@@ -219,60 +275,6 @@
     </a>
     <p class="post-meta">
         Posted by minicool on March 26, 2015
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/%E7%AC%94%E8%AE%B0/2014/07/28/SQL-concurrency-control/">
-        <h2 class="post-title">
-            SQL concurrency controlr
-        </h2>
-        
-        <h3 class="post-subtitle">
-            乐观锁，悲观锁
-        </h3>
-        
-        <div class="post-content-preview">
-            乐观锁
-
-乐观锁做为关系性数据库中的一种并发控制方法。它假设数据库运行提交事务处理时候，并不会相互影响。各事务能够在不产生锁的情况下进行处理各自数据。在提交数据更新之前，每个事务会先检查在该事务读取数据后，有没有其他事务又修改了该数据。如果其他事务有更新的话，正在提交的事务会进行回滚。
-
-应用
-乐观并发控制多数用于数据争用不大、冲突较少的环境中，这种环境中，偶尔回滚事务的成本会低于读取数据时...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by minicool on July 28, 2014
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/%E7%AC%94%E8%AE%B0/2013/06/13/deadlock-livelock-starvation/">
-        <h2 class="post-title">
-            deadlock livelock starvation
-        </h2>
-        
-        <h3 class="post-subtitle">
-            死锁，活锁，饿死
-        </h3>
-        
-        <div class="post-content-preview">
-            死锁简述
-
-死锁发生的条件
-
-死锁例子
-
-活锁简述
-
-饿死简述
-
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by minicool on June 13, 2013
     </p>
 </div>
 <hr>
@@ -342,6 +344,18 @@
                                 </a>
                             
                         
+                            
+                                <a href="/tags/#openssl" title="openssl" rel="2">
+                                    openssl
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#CA" title="CA" rel="1">
+                                    CA
+                                </a>
+                            
+                        
                     </div>
                 </section>
                 
@@ -357,7 +371,7 @@
                                 源码分析
                             </a>
                         
-                            <a href="/categories/#开发工具-ref" title="开发工具" rel="2">
+                            <a href="/categories/#开发工具-ref" title="开发工具" rel="3">
                                 开发工具
                             </a>
                         
@@ -377,7 +391,7 @@
                                 翻译
                             </a>
                         
-                            <a href="/categories/#笔记-ref" title="笔记" rel="5">
+                            <a href="/categories/#笔记-ref" title="笔记" rel="6">
                                 笔记
                             </a>
                         
@@ -537,6 +551,16 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="/js/blog.min.js "></script>
+
+<!-- Gitment JavaScript-->  
+
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+
+
+<!-- Read Analy JavaScript-->  
+<!-- busuanzi http://busuanzi.ibruce.info/-->  
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
 <!-- async load function -->

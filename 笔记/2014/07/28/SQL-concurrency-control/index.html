@@ -23,13 +23,21 @@
     <link rel="stylesheet" href="/css/blog.min.css">
 
     <!-- Pygments Github CSS -->
-    <link rel="stylesheet" href="/css/syntax.css">
+    <!-- <link rel="stylesheet" href="/css/syntax.css"> -->
+
+    <link rel="stylesheet" href="/css/rouge.css">
+
+    <!-- <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/default.min.css">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script> -->
 
     <!-- Custom Fonts -->
     <!-- overseas CDN font-awesome -->
     <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
     <!-- china CDN font-awesome -->
-     <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <!-- local font-awesome -->   
     <!-- <link rel="stylesheet" href="/css/fontawesome-all.min.css"> -->
     
@@ -40,16 +48,9 @@
     css'>
     -->
 
-    <!-- Read Analy -->  
-    <!-- busuanzi http://busuanzi.ibruce.info/-->  
-    
-    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    
-
     <!-- Gitment -->  
     
     <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
     
 
 
@@ -266,7 +267,7 @@
             <ul class="catalog-body"></ul>
         </div>
     </div>
-            
+                
 
     <!-- Sidebar Container -->
             <div class="
@@ -274,7 +275,7 @@
                 col-md-10 col-md-offset-1
                 sidebar-container">
 
-                <!-- Featured Tags -->
+                <!-- Featured Tags start-->
                 
                 <section>
                     <hr class="hidden-sm hidden-xs">
@@ -317,11 +318,25 @@
                                 </a>
                             
         				
+                            
+                				<a href="/tags/#openssl" title="openssl" rel="2">
+                                    openssl
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#CA" title="CA" rel="1">
+                                    CA
+                                </a>
+                            
+        				
         			</div>
                 </section>
                 
+                <!-- Featured Tags end-->                
 
-                <!-- Friends Blog -->
+
+                <!-- Friends Blog start-->
                 
                 <hr>
                 <h5>FRIENDS</h5>
@@ -333,13 +348,15 @@
                     
                 </ul>
                 
+                <!-- Friends Blog start-->
 
-                <!-- READ ANALY -->
+                <!-- READ ANALY start-->
                 
                 <hr>
                 <h5>READ ANALY</h5>
                 <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span>
-                     
+                   
+                <!-- READ ANALY end-->                  
                 
                 <!-- gitment start -->                
                 
@@ -362,12 +379,6 @@
         </div>
     </div>
 </article>
-
-
-
-
-
-
 
 
 <!-- async load function -->
@@ -479,6 +490,16 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="/js/blog.min.js "></script>
+
+<!-- Gitment JavaScript-->  
+
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+
+
+<!-- Read Analy JavaScript-->  
+<!-- busuanzi http://busuanzi.ibruce.info/-->  
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
 <!-- async load function -->

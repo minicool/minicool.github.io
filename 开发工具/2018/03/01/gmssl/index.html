@@ -12,9 +12,9 @@
 
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>deadlock livelock starvation - 迷你世界 | minicool Blog</title>
+    <title>Gmssl - 迷你世界 | minicool Blog</title>
 
-    <link rel="canonical" href="https://minicool.github.io//%E7%AC%94%E8%AE%B0/2013/06/13/deadlock-livelock-starvation/">
+    <link rel="canonical" href="https://minicool.github.io//%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/2018/03/01/gmssl/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -162,15 +162,15 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#基础知识" title="基础知识">基础知识</a>
+                        <a class="tag" href="/tags/#openssl" title="openssl">openssl</a>
                         
                     </div>
-                    <h1>deadlock livelock starvation</h1>
+                    <h1>Gmssl</h1>
                     
                     
-                    <h2 class="subheading">死锁，活锁，饿死</h2>
+                    <h2 class="subheading">国家密码 SM2/SM3/SM4/SM9</h2>
                     
-                    <span class="meta">Posted by minicool on June 13, 2013</span>
+                    <span class="meta">Posted by minicool on March 1, 2018</span>
                 </div>
             </div>
         </div>
@@ -191,34 +191,48 @@
                 <!-- Multi-Lingual -->
                                 
 
-				<h3 id="死锁简述">死锁简述</h3>
+				<blockquote>
+  <p>因公司业务需求，需开发搭建一套自发CA证书，符合国家密码标准的认证平台。所以对国密（国家商用密码）算法进行研究，意外发现一个基于国密开发的，类似OPENSSL且开源的密码工具箱。
+<a href="gmssl.org">Gmssl官网</a> <a href="https://github.com/guanzhi/Gmssl">Gmssl GitHub</a></p>
+</blockquote>
 
-<h4 id="死锁发生的条件">死锁发生的条件</h4>
+<h3 id="gmssl简介">Gmssl简介</h3>
+<p>GmSSL是一个开源的密码工具箱，支持SM2/SM3/SM4/SM9等国密(国家商用密码)算法、SM2国密数字证书及基于SM2证书的SSL/TLS安全通信协议，支持国密硬件密码设备，提供符合国密规范的编程接口与命令行工具，可以用于构建PKI/CA、安全通信、数据加密等符合国密标准的安全应用。GmSSL项目是OpenSSL项目的分支，并与OpenSSL保持接口兼容。因此GmSSL可以替代应用中的OpenSSL组件，并使应用自动具备基于国密的安全能力。GmSSL项目采用对商业应用友好的类BSD开源许可证，开源且可以用于闭源的商业应用。GmSSL项目由北京大学关志副研究员的密码学研究组开发维护，项目源码托管于GitHub。自2014年发布以来，GmSSL已经在多个项目和产品中获得部署与应用，并获得2015年度“一铭杯”中国Linux软件大赛二等奖(年度最高奖项)与开源中国密码类推荐项目。GmSSL项目的核心目标是通过开源的密码技术推动国内网络空间安全建设。</p>
 
-<h4 id="死锁例子">死锁例子</h4>
+<h3 id="gmssl算法集">Gmssl算法集</h3>
+<p>国密算法是国家商用密码算法的简称。自2012年以来，国家密码管理局以《中华人民共和国密码行业标准》的方式，陆续公布了SM2/SM3/SM4等密码算法标准及其应用规范。其中“SM”代表“商密”，即用于商用的、不涉及国家秘密的密码技术。其中SM2为基于椭圆曲线密码的公钥密码算法标准，包含数字签名、密钥交换和公钥加密，用于替换RSA/Diffie-Hellman/ECDSA/ECDH等国际算法；SM3为密码哈希算法，用于替代MD5/SHA-1/SHA-256等国际算法；SM4为分组密码，用于替代DES/AES等国际算法；SM9为基于身份的密码算法，可以替代基于数字证书的PKI/CA体系。通过部署国密算法，可以降低由弱密码和错误实现带来的安全风险和部署PKI/CA带来的开销。</p>
 
-<h3 id="活锁简述">活锁简述</h3>
+<p>椭圆曲线公钥加密国际标准ECIES
+国密SM2椭圆曲线公钥密码标准，包含数字签名算法、公钥加密算法、密钥交换协议及推荐椭圆曲线参数
+国密SM3密码杂凑算法、HMAC-SM3消息认证码算法、PBKDF2口令加密算法
+国密SM4/SMS4分组密码、ECB/CBC/CFB/OFB/CTR/GCM/FFX加密模式和CBC-MAC/CMAC消息认证码算法
+组合公钥(CPK)身份密码，可同时支持椭圆曲线国际标准算法和国密标准算法
+国密动态口令密码规范
+祖冲之(ZUC)序列密码</p>
 
-<h3 id="饿死简述">饿死简述</h3>
+<p>GmSSL还可以以安全中间件的方式访问PCI-E密码加速卡、USB Key等硬件密码设备，为上层应用提供密钥安全存储、密码计算硬件加速以及国密SM1分组密码、国密SSF33分组密码等硬件实现的保密算法。</p>
+
+<p>GmSSL通过ENGINE机制支持符合不同接口规范的密码设备：
+提供国密算法和国密SKF接口规范实现的硬件密码设备
+提供Windows Crypto API Provider的密码硬件设备
+提供PKCS #11 (Cryptoki)接口实现的密码硬件设备</p>
+
+<h3 id="gmssl算法产品">Gmssl算法产品</h3>
+
+<h3 id="gmssl授权许可证">Gmssl授权许可证</h3>
+<p>BSD/Apache</p>
 
 
                 <hr style="visibility: hidden;">
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/%E7%AC%94%E8%AE%B0/2013/05/27/SQL-execution-order/" data-toggle="tooltip" data-placement="top" title="SQL execution order">
+                        <a href="/%E7%AC%94%E8%AE%B0/2015/04/23/x509/" data-toggle="tooltip" data-placement="top" title="x.509">
                         Previous<br>
-                        <span>SQL execution order</span>
+                        <span>x.509</span>
                         </a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/%E7%AC%94%E8%AE%B0/2014/07/28/SQL-concurrency-control/" data-toggle="tooltip" data-placement="top" title="SQL concurrency controlr">
-                        Next<br>
-                        <span>SQL concurrency controlr</span>
-                        </a>
-                    </li>
                     
                 </ul> 
             </div>
