@@ -12,9 +12,9 @@
 
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>x.509 - 迷你世界 | minicool Blog</title>
+    <title>etherum & code analysis - 迷你世界 | minicool Blog</title>
 
-    <link rel="canonical" href="http://localhost:4000/%E7%AC%94%E8%AE%B0/2015/04/23/x509/">
+    <link rel="canonical" href="http://localhost:4000/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2018/02/01/etherum-code-analy/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -141,17 +141,17 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#openssl" title="openssl">openssl</a>
+                        <a class="tag" href="/tags/#code" title="code">code</a>
                         
-                        <a class="tag" href="/tags/#CA" title="CA">CA</a>
+                        <a class="tag" href="/tags/#etherum" title="etherum">etherum</a>
                         
                     </div>
-                    <h1>x.509</h1>
+                    <h1>etherum & code analysis</h1>
                     
                     
-                    <h2 class="subheading">X.509 证书</h2>
+                    <h2 class="subheading">以太坊源码分析（一）</h2>
                     
-                    <span class="meta">Posted by minicool on April 23, 2015</span>
+                    <span class="meta">Posted by minicool on February 1, 2018</span>
                 </div>
             </div>
         </div>
@@ -172,54 +172,108 @@
                 <!-- Multi-Lingual -->
                                 
 
-				<h3 id="x509">X.509</h3>
+				<blockquote>
+  <p>区块链作为新的技术，能否真正产生效率，一直是大家争论的话题。但随着数字货币，例如比特币，以太币兑换法币的价值越来越高的时候。争论似乎都已经停止，如何加入到这个资本盛宴才是大家最急迫的一件事。如何真正的了解以太坊等数字平台，不被眼前所蒙蔽，源码称为了解其本质的唯一途径。源码即是真理。</p>
+</blockquote>
 
-<p>X.509是一种数字证书格式。数字证书是由权威机构——CA机构，又称为证书授权（Certificate Authority）中心发行的。用于对数字身份信息进行授权，用于验证的证书信息。</p>
+<h4 id="何为以太坊">何为以太坊？</h4>
+<blockquote>
+  <p>作为了解一个新事物的入口，必然需要知道它是什么，从哪来，能干什么。所以从缘由说起更能很好的了解。</p>
+</blockquote>
 
-<h4 id="常见数据格式">常见数据格式</h4>
-<p>cer/crt是用于存放证书，它是2进制形式存放的，不含私钥。</p>
+<p>以太坊（英语：Ethereum）是一个开源的有智能合约功能的公共区块链平台。通过其专用加密货币以太币（Ether，又称“以太币”）提供去中心化的虚拟机（称为“以太虚拟机”Ethereum Virtual Machine）来处理点对点合约。</p>
 
-<p>pem跟crt/cer的区别是它以Ascii来表示，可以用于存放证书或私钥。</p>
+<p>区块链(Blockchain)是指通过去中心化和去信任的方式集体维护一个可靠数据库的技术方案。该技术方案让参与系统中的任意多个节点，把一段时间系统内全部事务通过密码学算法计算并记录到一个数据块(block)，生成该数据块的hash用于链接下个数据块，系统所有参与节点来共同检验记录是否为真，并且每个区块的内容都由后续子链上的区块来保证其内容不可被篡改。各个参与节点可以在新区块产生确认及奖励分配上达成共识，从而逐渐形成的一个庞大、去中心化的公开账本。</p>
 
-<p>pfx/p12用于存放个人证书/私钥，他通常包含保护密码，2进制方式。</p>
+<h4 id="源码分析准备">源码分析准备</h4>
 
-<p>p10是证书请求。</p>
+<h5 id="资料准备">资料准备</h5>
+<ol>
+  <li><a href="http://ethdocs.org/en/latest/introduction/what-is-ethereum.html">以太坊文档资料</a>[英文]</li>
+</ol>
 
-<p>p7r是CA对证书请求的回复，只用于导入</p>
+<h5 id="源码准备">源码准备</h5>
+<ol>
+  <li>以太坊源码地址 <a href="https://github.com/ethereum/go-ethereum">Go Ethereum</a></li>
+  <li>以太合约语言地址 <a href="https://github.com/ethereum/solidity">Solidity</a></li>
+  <li>go语言开发套件 <a href="https://www.jetbrains.com/go/">goLand</a></li>
+  <li>cpp语言开发套件 <a href="https://developer.apple.com/xcode/">xcode</a> [因本人是MAC系统所以选择自带Xcode，windows系统 建议选Visual Studio开发套件]</li>
+  <li>编辑器套件 <a href="https://code.visualstudio.com/Download">visual stdio code</a> [vscode不仅作为编辑器使用，也可以通过配置go,cpp等套件进行对应开发套件]</li>
+</ol>
 
-<p>p7b以树状展示证书链(certificate chain)，同时也支持单个证书，不含私钥。</p>
+<h5 id="下载源码">下载源码</h5>
+<p>下载Go Ethereum并编译源码</p>
 
-<h4 id="x509-数据格式">x.509 数据格式</h4>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">git</span> <span class="nb">clone</span> <span class="n">https</span><span class="ss">:/</span><span class="o">/</span><span class="n">github</span><span class="p">.</span><span class="nf">com</span><span class="o">/</span><span class="n">ethereum</span><span class="o">/</span><span class="n">go</span><span class="o">-</span><span class="n">ethereum</span><span class="p">.</span><span class="nf">git</span>
+<span class="n">cd</span>  <span class="n">go</span><span class="o">-</span><span class="n">ethereum</span>
+<span class="n">git</span> <span class="n">checkout</span> <span class="n">v1</span><span class="o">.</span><span class="mf">8.0</span>
+<span class="n">make</span> <span class="n">geth</span>
+<span class="n">make</span> <span class="n">all</span></code></pre></figure>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">TBSCertificate</span><span class="o">::=</span><span class="n">SEQUENCE</span><span class="p">{</span>
-    <span class="n">version</span>           <span class="p">[</span><span class="mi">0</span><span class="p">]</span>   <span class="n">EXPLICIT</span> <span class="n">Version</span> <span class="n">DEFAULT</span> <span class="n">v1</span><span class="p">,</span>        <span class="err">#</span><span class="n">x</span><span class="mf">.509</span><span class="err">具体版本号</span>
-    <span class="n">serialNumber</span>            <span class="n">CertificateSerialNumber</span><span class="p">,</span>            <span class="err">#序列号加上唯一标示当前证书</span>
-    <span class="n">signature</span>               <span class="n">AlgorithmIdentifier</span><span class="p">,</span>                <span class="err">#证书签名的算法</span>
-    <span class="n">issuer</span>                  <span class="n">Name</span><span class="p">,</span>                               <span class="err">#</span><span class="n">CA</span><span class="err">的</span><span class="n">X</span><span class="mf">.509</span><span class="err">名字</span>
-    <span class="n">validity</span>                <span class="n">Validity</span><span class="p">,</span>                           <span class="err">#有效期的起止时间</span>
-    <span class="n">subject</span>                 <span class="n">Name</span><span class="p">,</span>                               <span class="err">#该证书所证明的密钥所有者实体</span>
-    <span class="n">subjectPublicKeyInfo</span>    <span class="n">SubjectPublicKeyInfo</span><span class="p">,</span>               <span class="err">#主题的公钥即使用算法的</span><span class="n">ID</span>
-    <span class="n">issuerUniqueID</span>    <span class="p">[</span><span class="mi">1</span><span class="p">]</span>   <span class="n">IMPLICIT</span> <span class="n">UniqueIdentifier</span> <span class="n">OPTIONAL</span><span class="p">,</span> <span class="err">#可选的</span><span class="n">ID</span><span class="err">，唯一标示证书的颁发者</span>
-    <span class="n">subjectUniqueID</span>   <span class="p">[</span><span class="mi">2</span><span class="p">]</span>   <span class="n">IMPLICIT</span> <span class="n">UniqueIdentifier</span> <span class="n">OPTIONAL</span><span class="p">,</span> <span class="err">#可选的</span><span class="n">ID</span><span class="err">，唯一标示证书的主题</span>
-    <span class="n">extensions</span>        <span class="p">[</span><span class="mi">3</span><span class="p">]</span>   <span class="n">EXPLICIT</span> <span class="n">Extensions</span> <span class="n">OPTIONAL</span>        <span class="err">#目前定义的扩展域</span>
-<span class="p">}</span></code></pre></figure>
+<p>查看geth版本信息</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="p">.</span><span class="nf">/</span><span class="n">build</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">geth</span> <span class="n">version</span>
+<span class="no">Geth</span>
+<span class="no">Version</span><span class="p">:</span> <span class="mf">1.8</span><span class="o">.</span><span class="mi">2</span><span class="o">-</span><span class="n">unstable</span>
+<span class="no">Git</span> <span class="no">Commit</span><span class="p">:</span> <span class="n">fa375955ad52bc7936f33c8d8cec68fb9007baaa</span>
+<span class="no">Architecture</span><span class="p">:</span> <span class="n">amd64</span>
+<span class="no">Protocol</span> <span class="no">Versions</span><span class="p">:</span> <span class="p">[</span><span class="mi">63</span> <span class="mi">62</span><span class="p">]</span>
+<span class="no">Network</span> <span class="no">Id</span><span class="p">:</span> <span class="mi">1</span>
+<span class="no">Go</span> <span class="no">Version</span><span class="p">:</span> <span class="n">go1</span><span class="o">.</span><span class="mf">8.3</span>
+<span class="no">Operating</span> <span class="no">System</span><span class="p">:</span> <span class="n">darwin</span></code></pre></figure>
+
+<h4 id="执行程序">执行程序</h4>
+<blockquote>
+  <p>cd ./build/bin</p>
+</blockquote>
+
+<p>获得12个执行程序
+abigen,bootnode,ethkey,evm,examples,faucet,geth,p2psim,puppeth,ripdump,swarm,wnode</p>
+
+<p>关键执行程序：
+【geth】:以太坊CLI（command-line interface）命令行客户端。它是作为连接以太坊网络的入口节点，以太坊网络包括主网络（现交易真实公有链网络），测试网络（应用测试环境网络），专用网络（自行的搭建私有链网络）。Geth默认能作为一个完整节点运行，并且可以作为单独回溯节点（保留所有历史数据）及轻量节点（实时数据检索）。它可以被其他进程用作进入以太坊网络的网关，通过HTTP，WebSocket，IPC传输或者JSON RPC访问。</p>
+
+<p>【abigen】：源代码生成器。它将以太坊智能合约定义(代码) 转换为易于使用的、编译时类型安全的Go软件包。 如果合约字节码可用的话，它可以在易用的以太坊智能合约ABI(Application Binary Interface)二进制应用接口上扩展功能。 同时也能编译Solidity源文件，使开发更加精简。</p>
+
+<p>【bootnode】：网络节点发现应用（以太坊客户端节点发现功能）。只参与网络节点的发现，不能运行任何更高级别的应用程序协议。它作为轻量级引导节点来帮助找到专用网络中的对等设备。</p>
+
+<p>【ethkey】: 密钥生成管理应用（以太坊客户端密钥管理）。具有生成密钥，检查密钥的管理功能。对发送消息进行签名及消息签名验证。</p>
+
+<p>【evm】:EVM（Ethereum Virtual Machine）可以进行开发实用工具版本的以太坊虚拟机。能够在可配置的环境和执行模式下运行字节码片段。其目的是允许对EVM操作码进行封装，细粒度的调试。</p>
+
+<p>【examples】:节点适配器例子。适配使用SIM,exec,docker.</p>
+
+<p>【faucet】:-未知。从帮助中看应该是对以太坊网络进行配置。后面源码分析再重新整理。</p>
+
+<p>【p2psim】:p2p仿真网络命令行工具。后面源码分析再重新整理。</p>
+
+<p>【puppeth】:管理私有以太坊网络工具。安装和维护私有以太坊网络工具。后面源码分析再重新整理。</p>
+
+<p>【ripdump】:RLP (Recursive Length Prefix) 前缀长度递归转换开发者通用工具，用来把二进制前缀长度递归 (以太坊协议中用于网络及一致性的数据编码) 转换成对用户友好的分层表示。</p>
+
+<p>【swarm】: swarm守护进程和工具。作为swarm网络的入口点。</p>
+
+<p>【wnode】:-未知</p>
+
+<p>以上为生成的执行程序。</p>
+
 
 
                 <hr style="visibility: hidden;">
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/%E7%AC%94%E8%AE%B0/2015/03/26/Encryption-algorithm-summary/" data-toggle="tooltip" data-placement="top" title="Encryption algorithm summary">
+                        <a href="/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2017/03/21/electron-demo/" data-toggle="tooltip" data-placement="top" title="electron & inno & demo">
                         Previous<br>
-                        <span>Encryption algorithm summary</span>
+                        <span>electron & inno & demo</span>
                         </a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2017/03/21/electron-demo/" data-toggle="tooltip" data-placement="top" title="electron & inno & demo">
+                        <a href="/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2018/02/01/etherum-code-analy-trie/" data-toggle="tooltip" data-placement="top" title="trie & code analysis">
                         Next<br>
-                        <span>electron & inno & demo</span>
+                        <span>trie & code analysis</span>
                         </a>
                     </li>
                     

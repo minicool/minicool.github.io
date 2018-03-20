@@ -3,53 +3,425 @@
   <channel>
     <title>MiniCool World</title>
     <description>年迈的工程师</description>
-    <link>https://minicool.github.io//</link>
-    <atom:link href="https://minicool.github.io//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 06 Mar 2018 22:05:21 +0800</pubDate>
-    <lastBuildDate>Tue, 06 Mar 2018 22:05:21 +0800</lastBuildDate>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Tue, 20 Mar 2018 21:02:45 +0800</pubDate>
+    <lastBuildDate>Tue, 20 Mar 2018 21:02:45 +0800</lastBuildDate>
     <generator>Jekyll v3.7.3</generator>
     
       <item>
-        <title>Gmssl</title>
+        <title>etherum &amp; geth CLI</title>
         <description>&lt;blockquote&gt;
-  &lt;p&gt;因公司业务需求，需开发搭建一套自发CA证书，符合国家密码标准的认证平台。所以对国密（国家商用密码）算法进行研究，意外发现一个基于国密开发的，类似OPENSSL且开源的密码工具箱。
-&lt;a href=&quot;gmssl.org&quot;&gt;Gmssl官网&lt;/a&gt; &lt;a href=&quot;https://github.com/guanzhi/Gmssl&quot;&gt;Gmssl GitHub&lt;/a&gt;&lt;/p&gt;
+  &lt;p&gt;前面介绍了以太坊生成的执行程序，作为主要执行程序geth，将作为分析的首要分析对象。首先从其输入命令标示分析开始。&lt;/p&gt;
+  &lt;h3 id=&quot;geth&quot;&gt;geth&lt;/h3&gt;
+  &lt;p&gt;以太坊CLI（command-line interface）命令行客户端。&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h3 id=&quot;gmssl简介&quot;&gt;Gmssl简介&lt;/h3&gt;
-&lt;p&gt;GmSSL是一个开源的密码工具箱，支持SM2/SM3/SM4/SM9等国密(国家商用密码)算法、SM2国密数字证书及基于SM2证书的SSL/TLS安全通信协议，支持国密硬件密码设备，提供符合国密规范的编程接口与命令行工具，可以用于构建PKI/CA、安全通信、数据加密等符合国密标准的安全应用。GmSSL项目是OpenSSL项目的分支，并与OpenSSL保持接口兼容。因此GmSSL可以替代应用中的OpenSSL组件，并使应用自动具备基于国密的安全能力。GmSSL项目采用对商业应用友好的类BSD开源许可证，开源且可以用于闭源的商业应用。GmSSL项目由北京大学关志副研究员的密码学研究组开发维护，项目源码托管于GitHub。自2014年发布以来，GmSSL已经在多个项目和产品中获得部署与应用，并获得2015年度“一铭杯”中国Linux软件大赛二等奖(年度最高奖项)与开源中国密码类推荐项目。GmSSL项目的核心目标是通过开源的密码技术推动国内网络空间安全建设。&lt;/p&gt;
+&lt;h4 id=&quot;geth--help&quot;&gt;geth -help&lt;/h4&gt;
 
-&lt;h3 id=&quot;gmssl算法集&quot;&gt;Gmssl算法集&lt;/h3&gt;
-&lt;p&gt;国密算法是国家商用密码算法的简称。自2012年以来，国家密码管理局以《中华人民共和国密码行业标准》的方式，陆续公布了SM2/SM3/SM4等密码算法标准及其应用规范。其中“SM”代表“商密”，即用于商用的、不涉及国家秘密的密码技术。其中SM2为基于椭圆曲线密码的公钥密码算法标准，包含数字签名、密钥交换和公钥加密，用于替换RSA/Diffie-Hellman/ECDSA/ECDH等国际算法；SM3为密码哈希算法，用于替代MD5/SHA-1/SHA-256等国际算法；SM4为分组密码，用于替代DES/AES等国际算法；SM9为基于身份的密码算法，可以替代基于数字证书的PKI/CA体系。通过部署国密算法，可以降低由弱密码和错误实现带来的安全风险和部署PKI/CA带来的开销。&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;no&quot;&gt;NAME&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;geth&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;go&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ethereum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;command&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;interface&lt;/span&gt;
 
-&lt;p&gt;椭圆曲线公钥加密国际标准ECIES
-国密SM2椭圆曲线公钥密码标准，包含数字签名算法、公钥加密算法、密钥交换协议及推荐椭圆曲线参数
-国密SM3密码杂凑算法、HMAC-SM3消息认证码算法、PBKDF2口令加密算法
-国密SM4/SMS4分组密码、ECB/CBC/CFB/OFB/CTR/GCM/FFX加密模式和CBC-MAC/CMAC消息认证码算法
-组合公钥(CPK)身份密码，可同时支持椭圆曲线国际标准算法和国密标准算法
-国密动态口令密码规范
-祖冲之(ZUC)序列密码&lt;/p&gt;
+   &lt;span class=&quot;no&quot;&gt;Copyright&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2013&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2017&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;The&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;go&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ethereum&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Authors&lt;/span&gt;
 
-&lt;p&gt;GmSSL还可以以安全中间件的方式访问PCI-E密码加速卡、USB Key等硬件密码设备，为上层应用提供密钥安全存储、密码计算硬件加速以及国密SM1分组密码、国密SSF33分组密码等硬件实现的保密算法。&lt;/p&gt;
+&lt;span class=&quot;no&quot;&gt;USAGE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;geth&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;command&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;command&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arguments&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+   
+&lt;span class=&quot;no&quot;&gt;VERSION&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+   &lt;span class=&quot;mf&quot;&gt;1.8&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;unstable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fa375955&lt;/span&gt;
+   
+&lt;span class=&quot;no&quot;&gt;COMMANDS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;account&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;Manage&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;accounts&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;attach&lt;/span&gt;      &lt;span class=&quot;no&quot;&gt;Start&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;an&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;interactive&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;JavaScript&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;environment&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;connect&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;bug&lt;/span&gt;         &lt;span class=&quot;n&quot;&gt;opens&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;window&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;report&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bug&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;on&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;geth&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;repo&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;console&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;Start&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;an&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;interactive&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;JavaScript&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;environment&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;copydb&lt;/span&gt;      &lt;span class=&quot;no&quot;&gt;Create&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;chain&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;target&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;chaindata&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;folder&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;dump&lt;/span&gt;        &lt;span class=&quot;no&quot;&gt;Dump&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;specific&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;block&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;storage&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;dumpconfig&lt;/span&gt;  &lt;span class=&quot;no&quot;&gt;Show&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;configuration&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;export&lt;/span&gt;      &lt;span class=&quot;no&quot;&gt;Export&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;blockchain&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;into&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;file&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;import&lt;/span&gt;      &lt;span class=&quot;no&quot;&gt;Import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;blockchain&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;file&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;init&lt;/span&gt;        &lt;span class=&quot;no&quot;&gt;Bootstrap&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;initialize&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;genesis&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;block&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;js&lt;/span&gt;          &lt;span class=&quot;no&quot;&gt;Execute&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;specified&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;JavaScript&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;files&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;license&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;Display&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;license&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;information&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;makecache&lt;/span&gt;   &lt;span class=&quot;no&quot;&gt;Generate&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ethash&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;verification&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cache&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;testing&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;makedag&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;Generate&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ethash&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mining&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;DAG&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;testing&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;monitor&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;Monitor&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;visualize&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;metrics&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;removedb&lt;/span&gt;    &lt;span class=&quot;no&quot;&gt;Remove&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;blockchain&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;state&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;databases&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;version&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;Print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;version&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;wallet&lt;/span&gt;      &lt;span class=&quot;no&quot;&gt;Manage&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Ethereum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;presale&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wallets&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;help&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;Shows&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;list&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;commands&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;help&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;one&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;command&lt;/span&gt;
+   
+&lt;span class=&quot;no&quot;&gt;ETHEREUM&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;OPTIONS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;                                   &lt;span class=&quot;no&quot;&gt;TOML&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;configuration&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;file&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;datadir&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;/Users/Library/Ethereum&quot;&lt;/span&gt;              &lt;span class=&quot;no&quot;&gt;Data&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;directory&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;databases&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;keystore&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;keystore&lt;/span&gt;                                       &lt;span class=&quot;no&quot;&gt;Directory&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;keystore&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inside&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;datadir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nousb&lt;/span&gt;                                          &lt;span class=&quot;no&quot;&gt;Disables&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;monitoring&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;managing&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;USB&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hardware&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wallets&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;networkid&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;                                &lt;span class=&quot;no&quot;&gt;Network&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;identifier&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;integer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Frontier&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Morden&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;disused&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Ropsten&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Rinkeby&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;default: &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;testnet&lt;/span&gt;                                        &lt;span class=&quot;no&quot;&gt;Ropsten&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;network: &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pre&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;configured&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;proof&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;work&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;network&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rinkeby&lt;/span&gt;                                        &lt;span class=&quot;no&quot;&gt;Rinkeby&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;network: &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pre&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;configured&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;proof&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;authority&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;network&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;syncmode&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;fast&quot;&lt;/span&gt;                                &lt;span class=&quot;no&quot;&gt;Blockchain&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sync&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;fast&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;full&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;light&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gcmode&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;                                   &lt;span class=&quot;no&quot;&gt;Blockchain&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;garbage&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;collection&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;full&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;archive&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;default: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;full&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ethstats&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;                                 &lt;span class=&quot;no&quot;&gt;Reporting&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;URL&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ethstats&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;service&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nodename&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:secret&lt;/span&gt;&lt;span class=&quot;vi&quot;&gt;@host&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:port&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;identity&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;                                 &lt;span class=&quot;no&quot;&gt;Custom&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lightserv&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;                                &lt;span class=&quot;no&quot;&gt;Maximum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;percentage&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;allowed&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;serving&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;LES&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;90&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;default: &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lightpeers&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;                               &lt;span class=&quot;no&quot;&gt;Maximum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;LES&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;client&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;peers&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;default: &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lightkdf&lt;/span&gt;                                       &lt;span class=&quot;no&quot;&gt;Reduce&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;derivation&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;RAM&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;CPU&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;usage&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;at&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;some&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expense&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;KDF&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;strength&lt;/span&gt;
+  &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;GmSSL通过ENGINE机制支持符合不同接口规范的密码设备：
-提供国密算法和国密SKF接口规范实现的硬件密码设备
-提供Windows Crypto API Provider的密码硬件设备
-提供PKCS #11 (Cryptoki)接口实现的密码硬件设备&lt;/p&gt;
+&lt;h4 id=&quot;命令分析&quot;&gt;命令分析&lt;/h4&gt;
+&lt;p&gt;account: 账户管理
+attach: 连接到JavaScript交互环境
+bug: 打开一个新窗口报告geth库的bug
+console: 开启一个JavaScript交互环境
+copydb: 从一个目标莲数据文件夹拷贝到本地的链上
+dump: 从存储中删除掉一个指定的区块
+dumpconfig: 显示配置值
+export: 导出区块链到文件
+import: 从文件导入区块链
+init: 通过一个向导初始化一个新的创世区块(genesis block!)
+js: 执行一个指定的JavaScript文件
+license: 展示许可信息
+makecache: 生成ethash校验缓存（用于测试），ethash是以太坊的计划性的PoW（工作量证明）算法。
+makedag: 生成ethash挖矿DAG(用于测试)，DAG是一个比特币的扩容方案
+monitor: 监控使节点权值可视化
+removedb: 除去区块链和状态数据库
+version: 打印版本号
+wallet: 管理以太坊预售钱包、
+help: 帮助命令&lt;/p&gt;
 
-&lt;h3 id=&quot;gmssl算法产品&quot;&gt;Gmssl算法产品&lt;/h3&gt;
-
-&lt;h3 id=&quot;gmssl授权许可证&quot;&gt;Gmssl授权许可证&lt;/h3&gt;
-&lt;p&gt;BSD/Apache&lt;/p&gt;
 </description>
-        <pubDate>Thu, 01 Mar 2018 20:00:00 +0800</pubDate>
-        <link>https://minicool.github.io//%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/2018/03/01/gmssl/</link>
-        <guid isPermaLink="true">https://minicool.github.io//%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/2018/03/01/gmssl/</guid>
+        <pubDate>Fri, 02 Feb 2018 20:00:00 +0800</pubDate>
+        <link>http://localhost:4000/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2018/02/02/etherum-geth/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2018/02/02/etherum-geth/</guid>
         
-        <category>openssl</category>
+        <category>code</category>
+        
+        <category>etherum</category>
         
         
-        <category>开发工具</category>
+        <category>源码分析</category>
+        
+      </item>
+    
+      <item>
+        <title>trie &amp; code analysis</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;包trie 实现了MPT(Merkle Patricia Tries)数据结构，这种数据结构实际上是一种Trie树变种。MPT是以太坊中一种非常重要的数据结构，用来存储用户账户的状态及其变更、交易信息、交易的收据信息。MPT实际上是三种数据结构的组合，分别是Trie树， Patricia Trie， 和Merkle树。下面分别介绍这三种数据结构。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;trie树&quot;&gt;Trie树&lt;/h4&gt;
+&lt;p&gt;Trie树，又称字典树，单词查找树或者前缀树，是一种用于快速检索的多叉树结构，如英文字母的字典树是一个26叉树，数字的字典树是一个10叉树。&lt;/p&gt;
+
+&lt;p&gt;Trie树可以利用字符串的公共前缀来节约存储空间。如下图所示，该trie树用10个节点保存了6个字符串：tea，ten，to，in，inn，int：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/in-post/reproduce/2017-08-15-etherum-code-analy-trie-1.jpg&quot; alt=&quot;image01&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在该trie树中，字符串in，inn和int的公共前缀是“in”，因此可以只存储一份“in”以节省空间。当然，如果系统中存在大量字符串且这些字符串基本没有公共前缀，则相应的trie树将非常消耗内存，这也是trie树的一个缺点。&lt;/p&gt;
+
+&lt;p&gt;Trie树的基本性质可以归纳为：&lt;/p&gt;
+
+&lt;p&gt;根节点不包含字符，除根节点以外每个节点只包含一个字符。
+从根节点到某一个节点，路径上经过的字符连接起来，为该节点对应的字符串。
+每个节点的所有子节点包含的字符串不相同。&lt;/p&gt;
+
+&lt;h4 id=&quot;patricia-trie&quot;&gt;Patricia Trie&lt;/h4&gt;
+&lt;p&gt;前缀树跟Trie树的不同之处在于Trie树给每一个字符串分配一个节点，这样将使那些很长但又没有公共节点的字符串的Trie树退化成数组。在以太坊里面会由黑客构造很多这种节点造成拒绝服务攻击。前缀树的不同之处在于如果节点公共前缀，那么就使用公共前缀，否则就把剩下的所有节点插入同一个节点。Patricia相对Tire的优化正如下图：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/in-post/reproduce/2017-08-15-etherum-code-analy-trie-2.png&quot; alt=&quot;image02&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/in-post/reproduce/2017-08-15-etherum-code-analy-trie-2-1.png&quot; alt=&quot;image02-1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;上图存储的8个Key Value对，可以看到前缀树的特点。&lt;/p&gt;
+
+&lt;p&gt;Key	value
+6c0a5c71ec20bq3w	5
+6c0a5c71ec20CX7j	27
+6c0a5c71781a1FXq	18
+6c0a5c71781a9Dog	64
+6c0a8f743b95zUfe	30
+6c0a8f743b95jx5R	2
+6c0a8f740d16y03G	43
+6c0a8f740d16vcc1	48&lt;/p&gt;
+
+&lt;h4 id=&quot;merkle树&quot;&gt;Merkle树&lt;/h4&gt;
+&lt;p&gt;Merkle Tree，通常也被称作Hash Tree，顾名思义，就是存储hash值的一棵树。Merkle树的叶子是数据块(例如，文件或者文件的集合)的hash值。非叶节点是其对应子节点串联字符串的hash。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/in-post/reproduce/2017-08-15-etherum-code-analy-trie-3.png&quot; alt=&quot;image03&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Merkle Tree的主要作用是当我拿到Top Hash的时候，这个hash值代表了整颗树的信息摘要，当树里面任何一个数据发生了变动，都会导致Top Hash的值发生变化。 而Top Hash的值是会存储到区块链的区块头里面去的， 区块头是必须经过工作量证明。 这也就是说我只要拿到一个区块头，就可以对区块信息进行验证。 更加详细的信息请参考那个博客。有详细的介绍。&lt;/p&gt;
+</description>
+        <pubDate>Thu, 01 Feb 2018 20:00:00 +0800</pubDate>
+        <link>http://localhost:4000/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2018/02/01/etherum-code-analy-trie/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2018/02/01/etherum-code-analy-trie/</guid>
+        
+        <category>code</category>
+        
+        <category>etherum</category>
+        
+        
+        <category>源码分析</category>
+        
+      </item>
+    
+      <item>
+        <title>etherum &amp; code analysis</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;区块链作为新的技术，能否真正产生效率，一直是大家争论的话题。但随着数字货币，例如比特币，以太币兑换法币的价值越来越高的时候。争论似乎都已经停止，如何加入到这个资本盛宴才是大家最急迫的一件事。如何真正的了解以太坊等数字平台，不被眼前所蒙蔽，源码称为了解其本质的唯一途径。源码即是真理。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;何为以太坊&quot;&gt;何为以太坊？&lt;/h4&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;作为了解一个新事物的入口，必然需要知道它是什么，从哪来，能干什么。所以从缘由说起更能很好的了解。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;以太坊（英语：Ethereum）是一个开源的有智能合约功能的公共区块链平台。通过其专用加密货币以太币（Ether，又称“以太币”）提供去中心化的虚拟机（称为“以太虚拟机”Ethereum Virtual Machine）来处理点对点合约。&lt;/p&gt;
+
+&lt;p&gt;区块链(Blockchain)是指通过去中心化和去信任的方式集体维护一个可靠数据库的技术方案。该技术方案让参与系统中的任意多个节点，把一段时间系统内全部事务通过密码学算法计算并记录到一个数据块(block)，生成该数据块的hash用于链接下个数据块，系统所有参与节点来共同检验记录是否为真，并且每个区块的内容都由后续子链上的区块来保证其内容不可被篡改。各个参与节点可以在新区块产生确认及奖励分配上达成共识，从而逐渐形成的一个庞大、去中心化的公开账本。&lt;/p&gt;
+
+&lt;h4 id=&quot;源码分析准备&quot;&gt;源码分析准备&lt;/h4&gt;
+
+&lt;h5 id=&quot;资料准备&quot;&gt;资料准备&lt;/h5&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;http://ethdocs.org/en/latest/introduction/what-is-ethereum.html&quot;&gt;以太坊文档资料&lt;/a&gt;[英文]&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h5 id=&quot;源码准备&quot;&gt;源码准备&lt;/h5&gt;
+&lt;ol&gt;
+  &lt;li&gt;以太坊源码地址 &lt;a href=&quot;https://github.com/ethereum/go-ethereum&quot;&gt;Go Ethereum&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;以太合约语言地址 &lt;a href=&quot;https://github.com/ethereum/solidity&quot;&gt;Solidity&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;go语言开发套件 &lt;a href=&quot;https://www.jetbrains.com/go/&quot;&gt;goLand&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;cpp语言开发套件 &lt;a href=&quot;https://developer.apple.com/xcode/&quot;&gt;xcode&lt;/a&gt; [因本人是MAC系统所以选择自带Xcode，windows系统 建议选Visual Studio开发套件]&lt;/li&gt;
+  &lt;li&gt;编辑器套件 &lt;a href=&quot;https://code.visualstudio.com/Download&quot;&gt;visual stdio code&lt;/a&gt; [vscode不仅作为编辑器使用，也可以通过配置go,cpp等套件进行对应开发套件]&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h5 id=&quot;下载源码&quot;&gt;下载源码&lt;/h5&gt;
+&lt;p&gt;下载Go Ethereum并编译源码&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;clone&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;https&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:/&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;github&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;com&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ethereum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;go&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ethereum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;git&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;cd&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;go&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ethereum&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;checkout&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;8.0&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;make&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;geth&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;make&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;all&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;查看geth版本信息&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;geth&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;version&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;Geth&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;Version&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.8&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;unstable&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;Git&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Commit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fa375955ad52bc7936f33c8d8cec68fb9007baaa&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;Architecture&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amd64&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;Protocol&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Versions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;63&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;62&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;Network&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;Go&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Version&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;go1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;8.3&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;Operating&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;darwin&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;执行程序&quot;&gt;执行程序&lt;/h4&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;cd ./build/bin&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;获得12个执行程序
+abigen,bootnode,ethkey,evm,examples,faucet,geth,p2psim,puppeth,ripdump,swarm,wnode&lt;/p&gt;
+
+&lt;p&gt;关键执行程序：
+【geth】:以太坊CLI（command-line interface）命令行客户端。它是作为连接以太坊网络的入口节点，以太坊网络包括主网络（现交易真实公有链网络），测试网络（应用测试环境网络），专用网络（自行的搭建私有链网络）。Geth默认能作为一个完整节点运行，并且可以作为单独回溯节点（保留所有历史数据）及轻量节点（实时数据检索）。它可以被其他进程用作进入以太坊网络的网关，通过HTTP，WebSocket，IPC传输或者JSON RPC访问。&lt;/p&gt;
+
+&lt;p&gt;【abigen】：源代码生成器。它将以太坊智能合约定义(代码) 转换为易于使用的、编译时类型安全的Go软件包。 如果合约字节码可用的话，它可以在易用的以太坊智能合约ABI(Application Binary Interface)二进制应用接口上扩展功能。 同时也能编译Solidity源文件，使开发更加精简。&lt;/p&gt;
+
+&lt;p&gt;【bootnode】：网络节点发现应用（以太坊客户端节点发现功能）。只参与网络节点的发现，不能运行任何更高级别的应用程序协议。它作为轻量级引导节点来帮助找到专用网络中的对等设备。&lt;/p&gt;
+
+&lt;p&gt;【ethkey】: 密钥生成管理应用（以太坊客户端密钥管理）。具有生成密钥，检查密钥的管理功能。对发送消息进行签名及消息签名验证。&lt;/p&gt;
+
+&lt;p&gt;【evm】:EVM（Ethereum Virtual Machine）可以进行开发实用工具版本的以太坊虚拟机。能够在可配置的环境和执行模式下运行字节码片段。其目的是允许对EVM操作码进行封装，细粒度的调试。&lt;/p&gt;
+
+&lt;p&gt;【examples】:节点适配器例子。适配使用SIM,exec,docker.&lt;/p&gt;
+
+&lt;p&gt;【faucet】:-未知。从帮助中看应该是对以太坊网络进行配置。后面源码分析再重新整理。&lt;/p&gt;
+
+&lt;p&gt;【p2psim】:p2p仿真网络命令行工具。后面源码分析再重新整理。&lt;/p&gt;
+
+&lt;p&gt;【puppeth】:管理私有以太坊网络工具。安装和维护私有以太坊网络工具。后面源码分析再重新整理。&lt;/p&gt;
+
+&lt;p&gt;【ripdump】:RLP (Recursive Length Prefix) 前缀长度递归转换开发者通用工具，用来把二进制前缀长度递归 (以太坊协议中用于网络及一致性的数据编码) 转换成对用户友好的分层表示。&lt;/p&gt;
+
+&lt;p&gt;【swarm】: swarm守护进程和工具。作为swarm网络的入口点。&lt;/p&gt;
+
+&lt;p&gt;【wnode】:-未知&lt;/p&gt;
+
+&lt;p&gt;以上为生成的执行程序。&lt;/p&gt;
+
+</description>
+        <pubDate>Thu, 01 Feb 2018 20:00:00 +0800</pubDate>
+        <link>http://localhost:4000/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2018/02/01/etherum-code-analy/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2018/02/01/etherum-code-analy/</guid>
+        
+        <category>code</category>
+        
+        <category>etherum</category>
+        
+        
+        <category>源码分析</category>
+        
+      </item>
+    
+      <item>
+        <title>electron &amp; inno &amp; demo</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;electron作为跨平台，基于Chrome内核的开发平台，为B端转C段带了快速有效的应用。如何有效成为跨平台全栈平台,electron称为一个不错的桥梁工具。&lt;/p&gt;
+  &lt;h4 id=&quot;electron简介&quot;&gt;electron简介&lt;/h4&gt;
+  &lt;p&gt;1.https://electronjs.org/docs
+2.https://github.com/electron/electron-api-demos
+3.https://www.w3cschool.cn/electronmanual/&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;需要开发的模块&quot;&gt;需要开发的模块&lt;/h4&gt;
+&lt;p&gt;1.增加按键，https://electronjs.org/docs/api/screen 
+2.及最大最小化 https://electronjs.org/docs/api/accelerator
+2.缓存获取cookies https://electronjs.org/docs/api/cookies 
+实现记住密码http://blog.csdn.net/changhuzhao/article/details/78773279
+ session和cookie的使用方法、区别，和分别实现验证登录状态http://blog.csdn.net/kevin_cyj/article/details/51203769
+3.js交互 https://electronjs.org/docs/api/web-contents
+3.自动登陆
+4.消息系统托盘 https://electronjs.org/docs/api/tray&lt;/p&gt;
+
+&lt;p&gt;#开发工具准备
+1.webstorm
+2.node &amp;amp; npm&lt;/p&gt;
+
+&lt;p&gt;5.&lt;/p&gt;
+&lt;h4 id=&quot;npm库&quot;&gt;npm库&lt;/h4&gt;
+&lt;ol&gt;
+  &lt;li&gt;“electron”: “~1.6.2”,&lt;/li&gt;
+  &lt;li&gt;“electron-packager”: “^8.6.0”,&lt;/li&gt;
+  &lt;li&gt;“electron-winstaller”: “^2.2.0”,&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;1.eslint js编码标准
+2.yarn 快速安装
+3.gulp&lt;/p&gt;
+
+&lt;h4 id=&quot;使用的例子&quot;&gt;使用的例子&lt;/h4&gt;
+&lt;p&gt;1.https://www.jianshu.com/p/57d910008612&lt;/p&gt;
+
+&lt;h4 id=&quot;环境调试&quot;&gt;环境调试&lt;/h4&gt;
+&lt;p&gt;命令行调试:electron . –debug&lt;/p&gt;
+
+&lt;h5 id=&quot;webstorm-set&quot;&gt;webstorm set&lt;/h5&gt;
+&lt;p&gt;1.新增 node.js 作为调试模块
+2.设置 Node interpreter : 选择node_module/.bin/electron [windows：electron.cmd]
+3.设置 Node parameters : . –debug [. 执行当前目录 –debug 做调试]
+4.设置 Working directory : 当前目录
+5.设置 Javascript file : main.js&lt;/p&gt;
+
+&lt;h5 id=&quot;vscode-set&quot;&gt;vscode set&lt;/h5&gt;
+&lt;p&gt;1.&lt;/p&gt;
+
+&lt;h4 id=&quot;目标制定&quot;&gt;目标制定&lt;/h4&gt;
+&lt;p&gt;1.将现有网站进行包装，通过electron远程访问。
+（1）屏蔽快捷方式，右键菜单。依照项目需求增加屏蔽快捷方式，右键菜单。
+需要屏蔽调试模拟，右键源码。
+（2）处理xp的消息弹出。
+（3）处理远程调用网页。
+（4）flash插件&lt;/p&gt;
+
+&lt;h5 id=&quot;flash调用main-process&quot;&gt;flash调用（main-process）&lt;/h5&gt;
+&lt;p&gt;1.&lt;a href=&quot;http://get.adobe.com/cn/flashplayer/about/&quot;&gt;获取各版本插件对应信息&lt;/a&gt;
+2.&lt;a href=&quot;https://get2.adobe.com/cn/flashplayer/&quot;&gt;下载各系统安装pdf版本&lt;/a&gt;
+3.
+(1)windows
+Flash Player 插件安装好后，Windows系统可以在以下路径找到相应的dll文件 
+C:\Windows\System32\Macromed\Flash\pepflashplayer64_23_0_0_207.dl 
+C:\Windows\SysWOW64\Macromed\Flash\pepflashplayer32_23_0_0_207.dll 
+(2)mac
+Flash Player 插件安装好后，mac系统可以在一下路径找到相应的plugin文件
+/Library/Internet Plug-Ins/PepperFlashPlayer/PepperFlashPlayer.plugin
+(3)linux&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;BrowserWindow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'electron'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;path&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'path'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  
+  &lt;span class=&quot;sr&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;指定&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flash&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;路径，假定它与&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;js&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;放在同一目录中。&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pluginName&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;switch&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;process&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;platform&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'win32'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;pluginName&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'pepflashplayer.dll'&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'darwin'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;pluginName&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'PepperFlashPlayer.plugin'&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'linux'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;pluginName&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'libpepflashplayer.so'&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;commandLine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;appendSwitch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'ppapi-flash-path'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__dirname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pluginName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+  
+  &lt;span class=&quot;sr&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;可选：指定&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flash&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;的版本，例如&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v17&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;169&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;commandLine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;appendSwitch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'ppapi-flash-version'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'17.0.0.169'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  
+  &lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'ready'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;win&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;BrowserWindow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;width: &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;800&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;height: &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;600&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;webPreferences: &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;ss&quot;&gt;plugins: &lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;win&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;loadURL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`file://${__dirname}/index.html`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;sr&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;一些别的什么&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+  &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;notificationrenderer-process&quot;&gt;Notification（renderer-process）&lt;/h4&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;path&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'path'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;options&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;ss&quot;&gt;title: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Basic Notification&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;ss&quot;&gt;body: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Short message part&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;ss&quot;&gt;url: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;http://www.baidu.com&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;ss&quot;&gt;title: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Content-Image Notification&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;ss&quot;&gt;body: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Short message plus a custom content image&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;ss&quot;&gt;icon: &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__dirname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'icon.png'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;doNotify&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;evt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;myNotification&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;null&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;evt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;srcElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;basic&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;myNotification&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Notification&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;myNotification&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;onclick&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'通知被点击basic'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;location&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;href&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;evt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;srcElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;image&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;myNotification&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Notification&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;myNotification&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;onclick&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'通知被点击image'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;addEventListener&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'DOMContentLoaded'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;getElementById&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;basic&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;addEventListener&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;click&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;doNotify&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;getElementById&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;image&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;addEventListener&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;click&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;doNotify&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+</description>
+        <pubDate>Tue, 21 Mar 2017 20:00:00 +0800</pubDate>
+        <link>http://localhost:4000/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2017/03/21/electron-demo/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2017/03/21/electron-demo/</guid>
+        
+        <category>code</category>
+        
+        <category>electron</category>
+        
+        <category>demo</category>
+        
+        
+        <category>源码分析</category>
         
       </item>
     
@@ -75,29 +447,21 @@
 &lt;h4 id=&quot;x509-数据格式&quot;&gt;x.509 数据格式&lt;/h4&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;n&quot;&gt;TBSCertificate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SEQUENCE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;version&lt;/span&gt;           &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;   &lt;span class=&quot;n&quot;&gt;EXPLICIT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Version&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DEFAULT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;        &lt;span class=&quot;err&quot;&gt;#版本号&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;serialNumber&lt;/span&gt;            &lt;span class=&quot;n&quot;&gt;CertificateSerialNumber&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;signature&lt;/span&gt;               &lt;span class=&quot;n&quot;&gt;AlgorithmIdentifier&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;issuer&lt;/span&gt;                  &lt;span class=&quot;n&quot;&gt;Name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;validity&lt;/span&gt;                &lt;span class=&quot;n&quot;&gt;Validity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;subject&lt;/span&gt;                 &lt;span class=&quot;n&quot;&gt;Name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;subjectPublicKeyInfo&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;SubjectPublicKeyInfo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;issuerUniqueID&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;   &lt;span class=&quot;n&quot;&gt;IMPLICIT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;UniqueIdentifier&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;OPTIONAL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;subjectUniqueID&lt;/span&gt;   &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;   &lt;span class=&quot;n&quot;&gt;IMPLICIT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;UniqueIdentifier&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;OPTIONAL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;extensions&lt;/span&gt;        &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;   &lt;span class=&quot;n&quot;&gt;EXPLICIT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Extensions&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;OPTIONAL&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;version&lt;/span&gt;           &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;   &lt;span class=&quot;n&quot;&gt;EXPLICIT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Version&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DEFAULT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;        &lt;span class=&quot;err&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;.509&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;具体版本号&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;serialNumber&lt;/span&gt;            &lt;span class=&quot;n&quot;&gt;CertificateSerialNumber&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;            &lt;span class=&quot;err&quot;&gt;#序列号加上唯一标示当前证书&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;signature&lt;/span&gt;               &lt;span class=&quot;n&quot;&gt;AlgorithmIdentifier&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;                &lt;span class=&quot;err&quot;&gt;#证书签名的算法&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;issuer&lt;/span&gt;                  &lt;span class=&quot;n&quot;&gt;Name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;                               &lt;span class=&quot;err&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CA&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;的&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;.509&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;名字&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;validity&lt;/span&gt;                &lt;span class=&quot;n&quot;&gt;Validity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;                           &lt;span class=&quot;err&quot;&gt;#有效期的起止时间&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;subject&lt;/span&gt;                 &lt;span class=&quot;n&quot;&gt;Name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;                               &lt;span class=&quot;err&quot;&gt;#该证书所证明的密钥所有者实体&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;subjectPublicKeyInfo&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;SubjectPublicKeyInfo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;               &lt;span class=&quot;err&quot;&gt;#主题的公钥即使用算法的&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ID&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;issuerUniqueID&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;   &lt;span class=&quot;n&quot;&gt;IMPLICIT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;UniqueIdentifier&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;OPTIONAL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;#可选的&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ID&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;，唯一标示证书的颁发者&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;subjectUniqueID&lt;/span&gt;   &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;   &lt;span class=&quot;n&quot;&gt;IMPLICIT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;UniqueIdentifier&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;OPTIONAL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;#可选的&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ID&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;，唯一标示证书的主题&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;extensions&lt;/span&gt;        &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;   &lt;span class=&quot;n&quot;&gt;EXPLICIT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Extensions&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;OPTIONAL&lt;/span&gt;        &lt;span class=&quot;err&quot;&gt;#目前定义的扩展域&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;show&lt;/span&gt;
-  &lt;span class=&quot;vi&quot;&gt;@widget&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Widget&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;respond_to&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;html&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# show.html.erb&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;json&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;render&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;json: &lt;/span&gt;&lt;span class=&quot;vi&quot;&gt;@widget&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 </description>
         <pubDate>Thu, 23 Apr 2015 20:00:00 +0800</pubDate>
-        <link>https://minicool.github.io//%E7%AC%94%E8%AE%B0/2015/04/23/x509/</link>
-        <guid isPermaLink="true">https://minicool.github.io//%E7%AC%94%E8%AE%B0/2015/04/23/x509/</guid>
+        <link>http://localhost:4000/%E7%AC%94%E8%AE%B0/2015/04/23/x509/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E7%AC%94%E8%AE%B0/2015/04/23/x509/</guid>
         
         <category>openssl</category>
         
@@ -109,28 +473,91 @@
       </item>
     
       <item>
-        <title>RSA encryption algorithm</title>
-        <description>&lt;h3 id=&quot;rsa-简史&quot;&gt;RSA 简史&lt;/h3&gt;
+        <title>Encryption algorithm summary</title>
+        <description>&lt;p&gt;在一般通过公开算法将原始信息进行编码称为：编码，摘要，加解密
+1.编码 公开编解码算法，对数据进行编码。例如bas64,zip,flac. 一般目的对数字文件进行压缩，并保证无损。（也有有损编码）&lt;/p&gt;
+
+&lt;h3 id=&quot;加密算法&quot;&gt;加密算法&lt;/h3&gt;
+&lt;p&gt;根据密钥类型不同可以将现代密码技术分为两类：对称加密算法（私钥密码体系）和非对称加密算法（公钥密码体系）。&lt;/p&gt;
+
+&lt;h4 id=&quot;对称加密与非对称加密算法比较&quot;&gt;对称加密与非对称加密算法比较&lt;/h4&gt;
+&lt;p&gt;1.对称加密相对资源消耗较少，加解密速度快。&lt;/p&gt;
+
+&lt;h3 id=&quot;不可逆算法&quot;&gt;不可逆算法&lt;/h3&gt;
+&lt;p&gt;主要特征：
+单向性
+抗冲突性&lt;/p&gt;
+
+&lt;p&gt;主要应用：
+数字指纹
+密码加密&lt;/p&gt;
+
+&lt;p&gt;不可逆算法通常是指通过散列计算的算法，因其英文名称HASH被英译名为“哈希”。通过散列计算的方法称为“哈希函数”。
+散列计算是指不论输入计算长度杜少，最后通过计算方法生成相同的输出长度。&lt;/p&gt;
 &lt;blockquote&gt;
-  &lt;p&gt;RSA是1977年由罗纳德·李维斯特（Ron Rivest）、阿迪·萨莫尔（Adi Shamir）和伦纳德·阿德曼（Leonard Adleman）一起提出的。当时他们三人都在麻省理工学院工作。RSA就是他们三人姓氏开头字母拼在一起组成的。&lt;/p&gt;
+  &lt;p&gt;散列算法包括：MD4,MD5,SHA1,SHA2,SHA256,PBKDF2,bcrypt,scrypt等。
+因散列函数特殊性，通常在抗碰撞性上弱，为弥补其缺失。一般通过增加算法迭代，延长算法计算时间，增加算力，等效来增加破解所需算法时间，以其来加大破解投入成本，增加破解安全性。
+而通过这种方式发展以，MD5,SHA256为代表的快算，PBKDF2，bcrypt为代表的慢散列。
+PBKDF（Password-Based Key Derivation Funcation 给予口令的密钥函数），输出结果为DK（deviced key）&lt;/p&gt;
 &lt;/blockquote&gt;
 
+&lt;p&gt;主要围绕：口令密码，算力成本&lt;/p&gt;
+
+&lt;h4 id=&quot;快函数优缺点&quot;&gt;快函数优缺点&lt;/h4&gt;
+
+&lt;h4 id=&quot;慢函数优缺点&quot;&gt;慢函数优缺点&lt;/h4&gt;
+&lt;p&gt;1.【放置服务器】消耗算力资源，如果放置服务器计算，大量用户连接会导致速度下降。
+2.【放置前端】应为计算时间，可以有效防止使用彩虹表爆库。
+应为用户端资源较为闲置，使用前端使用慢函数加密。
+（1）如果前端被破解，获取算法。但应为算力成本问题，进行暴力破解时间成本高。（类似POW）
+（2）目的通过输入口令获取秘钥。输出结果为DK.
+3.Zero-knowlege proof （零知识证明）
+证明者在不透露任何有用信息情况下，使验证者相信某个论断是正确的。
+通过前端运算，发送后端比较，可以证明用户输入的是正确信息。而不需要存储在后端数据库。&lt;/p&gt;
+
+&lt;h4 id=&quot;应用场景&quot;&gt;应用场景&lt;/h4&gt;
+&lt;p&gt;一般通过前后端算法结合。
+1.前端 使用慢散列， 增加算力成本，
+2.后段 使用快散列， 防止Dk泄漏。
+新函数：f(key) = server_hash(client_hash(key) + salt)
+key = 密码+用户名（用户名作为salt）&lt;/p&gt;
+
+&lt;p&gt;1.应为放入后台的是DK，可以有效防止脱库。（需要破解前段，加密，就算获取仍然可以阻止生成特定字典）&lt;/p&gt;
+
+&lt;p&gt;为弥补用户密码的弱属性，一般会使用添加salt，即英意译名“加盐”。
+salt的使用
+1.增加抗冲突性，通常通过随机字符串生成库，生成散列用户密码长度。（存储不方便，为避免脱裤，一般分开存储，增加脱裤难度）
+2.通过数据库固定字段，生成salt字段。降低抗冲突性。（无需存储，基于固定数据生成，减少撞库难度）
+3.通过验证传输salt值，形成所需生成新值。完全避免重放攻击。（对于数据传输要求较强，增加前段，后段算力资源）&lt;/p&gt;
+
+&lt;h4 id=&quot;对抗预算-彩虹表&quot;&gt;对抗预算 （彩虹表）&lt;/h4&gt;
+&lt;p&gt;彩虹表是一个用于加密散列函数 逆运算的预先表。主要用于破解密码的散列值准备。这个是典型的内存换时间处理方式。
+通常彩虹表会收集现在常用用户名和密码进行生成，用于穷聚暴力破解。为了减少查询，一般使用小部分哈希值，生成对应可逆向的密码长链（多个密码）&lt;/p&gt;
+&lt;h5 id=&quot;salt-加盐&quot;&gt;salt (加盐)&lt;/h5&gt;
+
+&lt;h4 id=&quot;防止dk泄漏&quot;&gt;防止DK泄漏&lt;/h4&gt;
+&lt;p&gt;DK生命周期&lt;/p&gt;
 &lt;blockquote&gt;
-  &lt;p&gt;RSA加密算法基于整数分解原理形成。 通过对极大整数做因数分解的难度决定了RSA算法的可靠性。换言之，对一极大整数做因数分解愈困难，RSA算法愈可靠。&lt;/p&gt;
+  &lt;p&gt;浏览器-》传输-》服务器-》数据库&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h3 id=&quot;rsa-原理&quot;&gt;RSA 原理&lt;/h3&gt;
+&lt;p&gt;DK泄漏一般：网络传输被窃听。
+Dk无意义长链，所以获取无法获取到口令。（可以保证不会通过口令，导致其他账户被盗窃）&lt;/p&gt;
 
-&lt;h3 id=&quot;rsa-缺点&quot;&gt;RSA 缺点&lt;/h3&gt;
+&lt;p&gt;一般浏览器应用，直接使用密码管理插件，用户口令不再向后端发送，而只发送DK。就算最悲观，（服务器中毒，传输窃听，后段存储） 也只是导致当前账号不可用，不会导致其他账号被破解。&lt;/p&gt;
 
-&lt;h3 id=&quot;rsa-应用&quot;&gt;RSA 应用&lt;/h3&gt;
-&lt;h4 id=&quot;加密解密&quot;&gt;加密，解密&lt;/h4&gt;
+&lt;p&gt;如果遗忘密码，直接让用户生成新密码。
+遗忘密码验证，增加手机绑定，用户信息验证等。&lt;/p&gt;
 
-&lt;h4 id=&quot;签名验证&quot;&gt;签名，验证&lt;/h4&gt;
+&lt;h4 id=&quot;web应用&quot;&gt;WEb应用&lt;/h4&gt;
+&lt;p&gt;旧有内置前段KDF计算网站不多，在IE时代，浏览器算力低下，导致前段计算意义不大，都由后段计算观念造成的。
+现有浏览器性能大幅提升，HTML5引入了WEBcrypto规范。JS直接调用浏览器内置密码学算法库，包含PBKDF2.应为原生性能非常高。
+作为口令哈希函数，只是套用了现有哈希函数，并未针对进行设计。新性argon2应为太新，为进行验证。尚未收录WEBcrypto中。&lt;/p&gt;
+
 </description>
-        <pubDate>Thu, 23 Apr 2015 20:00:00 +0800</pubDate>
-        <link>https://minicool.github.io//%E7%AC%94%E8%AE%B0/2015/04/23/RSA-encryption-algorithm/</link>
-        <guid isPermaLink="true">https://minicool.github.io//%E7%AC%94%E8%AE%B0/2015/04/23/RSA-encryption-algorithm/</guid>
+        <pubDate>Thu, 26 Mar 2015 20:00:00 +0800</pubDate>
+        <link>http://localhost:4000/%E7%AC%94%E8%AE%B0/2015/03/26/Encryption-algorithm-summary/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E7%AC%94%E8%AE%B0/2015/03/26/Encryption-algorithm-summary/</guid>
         
         <category>密码学</category>
         
@@ -142,21 +569,89 @@
       </item>
     
       <item>
-        <title>Encryption algorithm summary</title>
-        <description>&lt;h3 id=&quot;加密算法&quot;&gt;加密算法&lt;/h3&gt;
-&lt;p&gt;根据密钥类型不同可以将现代密码技术分为两类：对称加密算法（私钥密码体系）和非对称加密算法（公钥密码体系）。
-对称加密&lt;/p&gt;
+        <title>SSL/TLS &amp; MIN</title>
+        <description>&lt;h4 id=&quot;简述&quot;&gt;简述&lt;/h4&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;SSL/TLS MIN (SSL/TLS man in the middle) 中间人攻击&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;blockquote&gt;
+    &lt;p&gt;SSL(secure sockets layer) 是介于传输层和应用层之间，提供通信数据的安全性和完整性的网络协议。主要提供：
+1.使用证书确认用户和服务器。（身份认证）
+2.在通信数据尾部添加校验码，防止中途篡改。（数据完整性）
+3.加密通信数据和校验码，防止中途窃取。（数据保密性）&lt;/p&gt;
+  &lt;/blockquote&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;SSL握手协议主要由四个协议完成：
+*握手协议
+*密码规则协议
+*记录协议
+*警告协议&lt;/p&gt;
+
+&lt;h4 id=&quot;优点&quot;&gt;优点&lt;/h4&gt;
+
+&lt;h4 id=&quot;缺陷&quot;&gt;缺陷&lt;/h4&gt;
+
+&lt;h4 id=&quot;基础流程wireshark&quot;&gt;基础流程（wireshark）&lt;/h4&gt;
+&lt;blockquote&gt;
+  &lt;blockquote&gt;
+    &lt;p&gt;SSL通信流程
+*客户端向服务器发送 会话ID，可用SSL版本号，当前时间，支持加密算法清单，支持压缩方式清单，产生随机数 Client-Secret（明文）。
+*服务器端向客户端发送 会话ID，使用SSL版本号，当前时间，使用加密算法清单，使用压缩方式，产生随机数 Server-Secret（明文）。
+*服务端将自己的证书发送给客户端。（证书包含公钥）【如果证书中信息不足，RSA协议需要提供公钥密码参数，DK协议需要提供密钥交换参数及公开值】
+*客户端验证服务器的合法性（CA根证书及证书链是否可靠，发行者公钥是否验证证书签名，证书域名是否和实际域名匹配，证书是否过期），合法性验证失败，直接断开。成功继续下一步通信。【如果设置服务器需要验证客户端，需要提供客户端证书】
+*客户端产生新主随机数 Pre-Master-Secret（密文），并用服务端证书中的公钥加密，并发送给服务器端。
+*服务器端使用自己的私钥来解密随机数。
+*双方根据约定的加密方法，使用前面的三个随机数，生成对话密钥（Session key）,用来加密整个对话过程。
+备注：为何需要三个随机数，而不只是需要最后生成Pre-Master-Key.应为不管是客户端，服务端都需要随机数。为保证协商出得密钥的随机性，所以需要引入随机因素来保证。Pre-Master 存在应为SSL协议不信任每个主机完全能生成随机的随机数，如果属于伪随机，那么Pre-Master-Secret就有可能被猜出来。如果使用三个随机数（客户端和服务端）都是伪随机数也十分接近随机。&lt;/p&gt;
+  &lt;/blockquote&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;详细流程&quot;&gt;详细流程&lt;/h4&gt;
+
+&lt;h4 id=&quot;代码&quot;&gt;代码&lt;/h4&gt;
+&lt;p&gt;伪代码&lt;/p&gt;
+
+&lt;h4 id=&quot;防范&quot;&gt;防范&lt;/h4&gt;
+&lt;p&gt;SSL劫持攻击:&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;ARP欺骗&lt;/p&gt;
+  &lt;blockquote&gt;
+    &lt;p&gt;ARP(address resolution protocol) 地址解析协议。是一种IP地址转化为物理地址的协议（OSI第三层 网络层 转化为 OSI第二层 数据链路层）。
+备注：现有三层交换机，支持通过IP地址分发。MAC地址必要性大大降低，但是最初设备接入路由时候，需要MAC地址注册获取IP。MAC地址属于物理地址，IP地址属于逻辑地址。
+ARP欺骗，将IP地址到MAC地址的转换过程进行欺骗，使得IP地址转化为错误MAC地址，从而使数据流量引入错误物理地址。
+在中间人攻击时候，一般将自己伪装成路由器。&lt;/p&gt;
+  &lt;/blockquote&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;DNS欺骗&lt;/p&gt;
+  &lt;blockquote&gt;
+    &lt;p&gt;DNS(domain name system) 域名系统。 处于应用层，将域名解析成IP地址（OSI第7层 应用层 转化为 OSI第三层 网络层）
+DNS欺骗，将域名信息转化为IP地址时候进行欺骗，使得域名地址转化为错误IP地址，从而使的数据流量错误定位IP地址。
+在中间人攻击时候，一般伪装成目标服务器。
+简易防范方法：写入HOSTS，可以绕过DNS攻击。但是应为不能将所有网站都写入HOSTS，所以存在局限性。&lt;/p&gt;
+  &lt;/blockquote&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;伪随机数猜解&lt;/p&gt;
+  &lt;blockquote&gt;
+    &lt;p&gt;通过不断对服务器进行初步校验时，对伪随机进行猜解。&lt;/p&gt;
+  &lt;/blockquote&gt;
+&lt;/blockquote&gt;
+
 </description>
-        <pubDate>Thu, 26 Mar 2015 20:00:00 +0800</pubDate>
-        <link>https://minicool.github.io//%E7%AC%94%E8%AE%B0/2015/03/26/Encryption-algorithm-summary/</link>
-        <guid isPermaLink="true">https://minicool.github.io//%E7%AC%94%E8%AE%B0/2015/03/26/Encryption-algorithm-summary/</guid>
+        <pubDate>Thu, 19 Feb 2015 20:00:00 +0800</pubDate>
+        <link>http://localhost:4000/%E8%BD%AC%E8%BD%BD/2015/02/19/SSL-MIM/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E8%BD%AC%E8%BD%BD/2015/02/19/SSL-MIM/</guid>
         
-        <category>密码学</category>
-        
-        <category>算法</category>
+        <category>ssl/tls</category>
         
         
-        <category>笔记</category>
+        <category>转载</category>
         
       </item>
     
@@ -200,33 +695,10 @@
 持久性：事务处理结束后，对数据的修改就是永久的，即便系统故障也不会丢失。&lt;/p&gt;
 </description>
         <pubDate>Mon, 28 Jul 2014 20:00:00 +0800</pubDate>
-        <link>https://minicool.github.io//%E7%AC%94%E8%AE%B0/2014/07/28/SQL-concurrency-control/</link>
-        <guid isPermaLink="true">https://minicool.github.io//%E7%AC%94%E8%AE%B0/2014/07/28/SQL-concurrency-control/</guid>
+        <link>http://localhost:4000/%E7%AC%94%E8%AE%B0/2014/07/28/SQL-concurrency-control/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E7%AC%94%E8%AE%B0/2014/07/28/SQL-concurrency-control/</guid>
         
         <category>SQL</category>
-        
-        <category>基础知识</category>
-        
-        
-        <category>笔记</category>
-        
-      </item>
-    
-      <item>
-        <title>deadlock livelock starvation</title>
-        <description>&lt;h3 id=&quot;死锁简述&quot;&gt;死锁简述&lt;/h3&gt;
-
-&lt;h4 id=&quot;死锁发生的条件&quot;&gt;死锁发生的条件&lt;/h4&gt;
-
-&lt;h4 id=&quot;死锁例子&quot;&gt;死锁例子&lt;/h4&gt;
-
-&lt;h3 id=&quot;活锁简述&quot;&gt;活锁简述&lt;/h3&gt;
-
-&lt;h3 id=&quot;饿死简述&quot;&gt;饿死简述&lt;/h3&gt;
-</description>
-        <pubDate>Thu, 13 Jun 2013 20:00:00 +0800</pubDate>
-        <link>https://minicool.github.io//%E7%AC%94%E8%AE%B0/2013/06/13/deadlock-livelock-starvation/</link>
-        <guid isPermaLink="true">https://minicool.github.io//%E7%AC%94%E8%AE%B0/2013/06/13/deadlock-livelock-starvation/</guid>
         
         <category>基础知识</category>
         
@@ -290,8 +762,8 @@
 &lt;/ol&gt;
 </description>
         <pubDate>Mon, 27 May 2013 20:00:00 +0800</pubDate>
-        <link>https://minicool.github.io//%E7%AC%94%E8%AE%B0/2013/05/27/SQL-execution-order/</link>
-        <guid isPermaLink="true">https://minicool.github.io//%E7%AC%94%E8%AE%B0/2013/05/27/SQL-execution-order/</guid>
+        <link>http://localhost:4000/%E7%AC%94%E8%AE%B0/2013/05/27/SQL-execution-order/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E7%AC%94%E8%AE%B0/2013/05/27/SQL-execution-order/</guid>
         
         <category>SQL</category>
         
@@ -303,38 +775,285 @@
       </item>
     
       <item>
-        <title>translation</title>
-        <description>
+        <title>npm scripts 使用指南</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;该文章转载 &lt;a href=&quot;http://www.ruanyifeng.com/blog/2016/10/npm_scripts.html&quot;&gt;阮一峰的网络日志&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Node 开发离不开 npm，而脚本功能是 npm 最强大、最常用的功能之一。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;一什么是-npm-脚本&quot;&gt;一、什么是 npm 脚本？&lt;/h4&gt;
+&lt;p&gt;npm 允许在package.json文件里面，使用scripts字段定义脚本命令。&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;scripts&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;build&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;node build.js&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;上面代码是package.json文件的一个片段，里面的scripts字段是一个对象。它的每一个属性，对应一段脚本。比如，build命令对应的脚本是node build.js。&lt;/p&gt;
+
+&lt;p&gt;命令行下使用npm run命令，就可以执行这段脚本。&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm run build
+&lt;span class=&quot;c&quot;&gt;# 等同于执行&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;node build.js&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;这些定义在package.json里面的脚本，就称为 npm 脚本。它的优点很多。&lt;/p&gt;
+
+&lt;p&gt;项目的相关脚本，可以集中在一个地方。
+不同项目的脚本命令，只要功能相同，就可以有同样的对外接口。用户不需要知道怎么测试你的项目，只要运行npm run test即可。
+可以利用 npm 提供的很多辅助功能。
+查看当前项目的所有 npm 脚本命令，可以使用不带任何参数的npm run命令。&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm run&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;二原理&quot;&gt;二、原理&lt;/h4&gt;
+&lt;p&gt;npm 脚本的原理非常简单。每当执行npm run，就会自动新建一个 Shell，在这个 Shell 里面执行指定的脚本命令。因此，只要是 Shell（一般是 Bash）可以运行的命令，就可以写在 npm 脚本里面。&lt;/p&gt;
+
+&lt;p&gt;比较特别的是，npm run新建的这个 Shell，会将当前目录的node_modules/.bin子目录加入PATH变量，执行结束后，再将PATH变量恢复原样。&lt;/p&gt;
+
+&lt;p&gt;这意味着，当前目录的node_modules/.bin子目录里面的所有脚本，都可以直接用脚本名调用，而不必加上路径。比如，当前项目的依赖里面有 Mocha，只要直接写mocha test就可以了。&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;test&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;mocha test&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;而不用写成下面这样。&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;test&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./node_modules/.bin/mocha test&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;由于 npm 脚本的唯一要求就是可以在 Shell 执行，因此它不一定是 Node 脚本，任何可执行文件都可以写在里面。&lt;/p&gt;
+
+&lt;p&gt;npm 脚本的退出码，也遵守 Shell 脚本规则。如果退出码不是0，npm 就认为这个脚本执行失败。&lt;/p&gt;
+
+&lt;h4 id=&quot;三通配符&quot;&gt;三、通配符&lt;/h4&gt;
+&lt;p&gt;由于 npm 脚本就是 Shell 脚本，因为可以使用 Shell 通配符。&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;lint&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;jshint *.js&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;lint&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;jshint **/*.js&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;上面代码中，*表示任意文件名，**表示任意一层子目录。&lt;/p&gt;
+
+&lt;p&gt;如果要将通配符传入原始命令，防止被 Shell 转义，要将星号转义。&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;test&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;tap test/&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\*&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.js&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;四传参&quot;&gt;四、传参&lt;/h4&gt;
+&lt;p&gt;向 npm 脚本传入参数，要使用–标明。&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;lint&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;jshint **.js&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;向上面的npm run lint命令传入参数，必须写成下面这样。&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm run lint &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;  &lt;span class=&quot;nt&quot;&gt;--reporter&lt;/span&gt; checkstyle &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; checkstyle.xml&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;也可以在package.json里面再封装一个命令。&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;lint&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;jshint **.js&quot;&lt;/span&gt;,
+&lt;span class=&quot;s2&quot;&gt;&quot;lint:checkstyle&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;npm run lint -- --reporter checkstyle &amp;gt; checkstyle.xml&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;五执行顺序&quot;&gt;五、执行顺序&lt;/h4&gt;
+&lt;p&gt;如果 npm 脚本里面需要执行多个任务，那么需要明确它们的执行顺序。&lt;/p&gt;
+
+&lt;p&gt;如果是并行执行（即同时的平行执行），可以使用&amp;amp;符号。&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm run script1.js &amp;amp; npm run script2.js&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;如果是继发执行（即只有前一个任务成功，才执行下一个任务），可以使用&amp;amp;&amp;amp;符号。&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm run script1.js &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; npm run script2.js&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;这两个符号是 Bash 的功能。此外，还可以使用 node 的任务管理模块：script-runner、npm-run-all、redrun。&lt;/p&gt;
+
+&lt;h4 id=&quot;六默认值&quot;&gt;六、默认值&lt;/h4&gt;
+&lt;p&gt;一般来说，npm 脚本由用户提供。但是，npm 对两个脚本提供了默认值。也就是说，这两个脚本不用定义，就可以直接使用。&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;start&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;node server.js&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;，&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;install&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;node-gyp rebuild&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;上面代码中，npm run start的默认值是node server.js，前提是项目根目录下有server.js这个脚本；npm run install的默认值是node-gyp rebuild，前提是项目根目录下有binding.gyp文件。&lt;/p&gt;
+
+&lt;h4 id=&quot;七钩子&quot;&gt;七、钩子&lt;/h4&gt;
+&lt;p&gt;npm 脚本有pre和post两个钩子。举例来说，build脚本命令的钩子就是prebuild和postbuild。&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;prebuild&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;echo I run before the build script&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;build&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;cross-env NODE_ENV=production webpack&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;postbuild&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;echo I run after the build script&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;用户执行npm run build的时候，会自动按照下面的顺序执行。&lt;/p&gt;
+
+&lt;p&gt;npm run prebuild &amp;amp;&amp;amp; npm run build &amp;amp;&amp;amp; npm run postbuild
+因此，可以在这两个钩子里面，完成一些准备工作和清理工作。下面是一个例子。&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;clean&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;rimraf ./dist &amp;amp;&amp;amp; mkdir dist&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;prebuild&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;npm run clean&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;build&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;cross-env NODE_ENV=production webpack&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;npm 默认提供下面这些钩子。&lt;/p&gt;
+
+&lt;p&gt;prepublish，postpublish
+preinstall，postinstall
+preuninstall，postuninstall
+preversion，postversion
+pretest，posttest
+prestop，poststop
+prestart，poststart
+prerestart，postrestart
+自定义的脚本命令也可以加上pre和post钩子。比如，myscript这个脚本命令，也有premyscript和postmyscript钩子。不过，双重的pre和post无效，比如prepretest和postposttest是无效的。&lt;/p&gt;
+
+&lt;p&gt;npm 提供一个npm_lifecycle_event变量，返回当前正在运行的脚本名称，比如pretest、test、posttest等等。所以，可以利用这个变量，在同一个脚本文件里面，为不同的npm scripts命令编写代码。请看下面的例子。&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;TARGET&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;process&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;npm_lifecycle_event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;TARGET&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'test'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`Running the test task!`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;TARGET&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'pretest'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`Running the pretest task!`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;TARGET&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'posttest'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`Running the posttest task!`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;注意，prepublish这个钩子不仅会在npm publish命令之前运行，还会在npm install（不带任何参数）命令之前运行。这种行为很容易让用户感到困惑，所以 npm 4 引入了一个新的钩子prepare，行为等同于prepublish，而从 npm 5 开始，prepublish将只在npm publish命令之前运行。&lt;/p&gt;
+
+&lt;h4 id=&quot;八简写形式&quot;&gt;八、简写形式&lt;/h4&gt;
+&lt;p&gt;四个常用的 npm 脚本有简写形式。&lt;/p&gt;
+
+&lt;p&gt;npm start是npm run start&lt;/p&gt;
+
+&lt;p&gt;npm stop是npm run stop的简写&lt;/p&gt;
+
+&lt;p&gt;npm test是npm run test的简写&lt;/p&gt;
+
+&lt;p&gt;npm restart是npm run stop &amp;amp;&amp;amp; npm run restart &amp;amp;&amp;amp; npm run start的简写&lt;/p&gt;
+
+&lt;p&gt;npm start、npm stop和npm restart都比较好理解，而npm restart是一个复合命令，实际上会执行三个脚本命令：stop、restart、start。具体的执行顺序如下。&lt;/p&gt;
+
+&lt;p&gt;prerestart
+prestop
+stop
+poststop
+restart
+prestart
+start
+poststart
+postrestart&lt;/p&gt;
+
+&lt;h4 id=&quot;九变量&quot;&gt;九、变量&lt;/h4&gt;
+&lt;p&gt;npm 脚本有一个非常强大的功能，就是可以使用 npm 的内部变量。&lt;/p&gt;
+
+&lt;p&gt;首先，通过npm_package_前缀，npm 脚本可以拿到package.json里面的字段。比如，下面是一个package.json。&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;foo&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;version&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1.2.5&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;scripts&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;view&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;node view.js&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;那么，变量npm_package_name返回foo，变量npm_package_version返回1.2.5。&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;err&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;view.js&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;console.log(process.env.npm_package_name);&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;console.log(process.env.npm_package_version);&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.2&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;上面代码中，我们通过环境变量process.env对象，拿到package.json的字段值。如果是 Bash 脚本，可以用$npm_package_name和$npm_package_version取到这两个值。&lt;/p&gt;
+
+&lt;p&gt;npm_package_前缀也支持嵌套的package.json字段。&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;repository&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;git&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;url&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;xxx&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;scripts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;view&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;echo $npm_package_repository_type&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;上面代码中，repository字段的type属性，可以通过npm_package_repository_type取到。&lt;/p&gt;
+
+&lt;p&gt;下面是另外一个例子。&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;scripts&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;install&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;foo.js&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;上面代码中，npm_package_scripts_install变量的值等于foo.js。&lt;/p&gt;
+
+&lt;p&gt;然后，npm 脚本还可以通过npm_config_前缀，拿到 npm 的配置变量，即npm config get xxx命令返回的值。比如，当前模块的发行标签，可以通过npm_config_tag取到。&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;view&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;echo $npm_config_tag&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;注意，package.json里面的config对象，可以被环境变量覆盖。&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;foo&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;config&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;port&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;8080&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;scripts&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;start&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;node server.js&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;上面代码中，npm_package_config_port变量返回的是8080。这个值可以用下面的方法覆盖。&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm config &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;foo:port 80&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;最后，env命令可以列出所有环境变量。&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;env&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;env&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;十常用脚本示例&quot;&gt;十、常用脚本示例&lt;/h4&gt;
+
+&lt;p&gt;// 删除目录&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;clean&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;rimraf dist/*&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;// 本地搭建一个 HTTP 服务&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;serve&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;http-server -p 9090 dist/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;// 打开浏览器&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;open:dev&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;opener http://localhost:9090&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;// 实时刷新&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;livereload&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;live-reload --port 9091 dist/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+ &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;// 构建 HTML 文件&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;build:html&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;jade index.jade &amp;gt; dist/index.html&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;// 只要 CSS 文件有变动，就重新执行构建&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;watch:css&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;watch 'npm run build:css' assets/styles/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;// 只要 HTML 文件有变动，就重新执行构建&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;watch:html&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;watch 'npm run build:html' assets/html&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;// 部署到 Amazon S3&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;deploy:prod&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;s3-cli sync ./dist/ s3://example-com/prod-site/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;// 构建 favicon&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;build:favicon&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;node scripts/favicon.js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;十一参考链接&quot;&gt;十一、参考链接&lt;/h4&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.keithcirkel.co.uk/how-to-use-npm-as-a-build-tool/&quot;&gt;How to Use npm as a Build Tool&lt;/a&gt;, by Keith Cirkel&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/RyanZim/awesome-npm-scripts#articles&quot;&gt;Awesome npm scripts&lt;/a&gt;, by Ryan Zimmerman&lt;/p&gt;
 </description>
         <pubDate>Fri, 01 Jan 2010 20:00:00 +0800</pubDate>
-        <link>https://minicool.github.io//%E7%BF%BB%E8%AF%91/2010/01/01/translation/</link>
-        <guid isPermaLink="true">https://minicool.github.io//%E7%BF%BB%E8%AF%91/2010/01/01/translation/</guid>
+        <link>http://localhost:4000/%E8%BD%AC%E8%BD%BD/2010/01/01/npm-scripts/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E8%BD%AC%E8%BD%BD/2010/01/01/npm-scripts/</guid>
         
-        
-        <category>翻译</category>
-        
-      </item>
-    
-      <item>
-        <title>story</title>
-        <description>
-</description>
-        <pubDate>Fri, 01 Jan 2010 20:00:00 +0800</pubDate>
-        <link>https://minicool.github.io//%E5%B0%8F%E8%AF%B4/2010/01/01/story/</link>
-        <guid isPermaLink="true">https://minicool.github.io//%E5%B0%8F%E8%AF%B4/2010/01/01/story/</guid>
-        
-        
-        <category>小说</category>
-        
-      </item>
-    
-      <item>
-        <title>reproduce</title>
-        <description>
-</description>
-        <pubDate>Fri, 01 Jan 2010 20:00:00 +0800</pubDate>
-        <link>https://minicool.github.io//%E8%BD%AC%E8%BD%BD/2010/01/01/reproduce/</link>
-        <guid isPermaLink="true">https://minicool.github.io//%E8%BD%AC%E8%BD%BD/2010/01/01/reproduce/</guid>
+        <category>npm</category>
         
         
         <category>转载</category>

@@ -12,9 +12,9 @@
 
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>x.509 - 迷你世界 | minicool Blog</title>
+    <title>electron & inno & demo - 迷你世界 | minicool Blog</title>
 
-    <link rel="canonical" href="http://localhost:4000/%E7%AC%94%E8%AE%B0/2015/04/23/x509/">
+    <link rel="canonical" href="http://localhost:4000/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2017/03/21/electron-demo/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -141,17 +141,19 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#openssl" title="openssl">openssl</a>
+                        <a class="tag" href="/tags/#code" title="code">code</a>
                         
-                        <a class="tag" href="/tags/#CA" title="CA">CA</a>
+                        <a class="tag" href="/tags/#electron" title="electron">electron</a>
+                        
+                        <a class="tag" href="/tags/#demo" title="demo">demo</a>
                         
                     </div>
-                    <h1>x.509</h1>
+                    <h1>electron & inno & demo</h1>
                     
                     
-                    <h2 class="subheading">X.509 证书</h2>
+                    <h2 class="subheading">基于electron的小开发</h2>
                     
-                    <span class="meta">Posted by minicool on April 23, 2015</span>
+                    <span class="meta">Posted by minicool on March 21, 2017</span>
                 </div>
             </div>
         </div>
@@ -172,54 +174,166 @@
                 <!-- Multi-Lingual -->
                                 
 
-				<h3 id="x509">X.509</h3>
+				<blockquote>
+  <p>electron作为跨平台，基于Chrome内核的开发平台，为B端转C段带了快速有效的应用。如何有效成为跨平台全栈平台,electron称为一个不错的桥梁工具。</p>
+  <h4 id="electron简介">electron简介</h4>
+  <p>1.https://electronjs.org/docs
+2.https://github.com/electron/electron-api-demos
+3.https://www.w3cschool.cn/electronmanual/</p>
+</blockquote>
 
-<p>X.509是一种数字证书格式。数字证书是由权威机构——CA机构，又称为证书授权（Certificate Authority）中心发行的。用于对数字身份信息进行授权，用于验证的证书信息。</p>
+<h4 id="需要开发的模块">需要开发的模块</h4>
+<p>1.增加按键，https://electronjs.org/docs/api/screen 
+2.及最大最小化 https://electronjs.org/docs/api/accelerator
+2.缓存获取cookies https://electronjs.org/docs/api/cookies 
+实现记住密码http://blog.csdn.net/changhuzhao/article/details/78773279
+ session和cookie的使用方法、区别，和分别实现验证登录状态http://blog.csdn.net/kevin_cyj/article/details/51203769
+3.js交互 https://electronjs.org/docs/api/web-contents
+3.自动登陆
+4.消息系统托盘 https://electronjs.org/docs/api/tray</p>
 
-<h4 id="常见数据格式">常见数据格式</h4>
-<p>cer/crt是用于存放证书，它是2进制形式存放的，不含私钥。</p>
+<p>#开发工具准备
+1.webstorm
+2.node &amp; npm</p>
 
-<p>pem跟crt/cer的区别是它以Ascii来表示，可以用于存放证书或私钥。</p>
+<p>5.</p>
+<h4 id="npm库">npm库</h4>
+<ol>
+  <li>“electron”: “~1.6.2”,</li>
+  <li>“electron-packager”: “^8.6.0”,</li>
+  <li>“electron-winstaller”: “^2.2.0”,</li>
+</ol>
 
-<p>pfx/p12用于存放个人证书/私钥，他通常包含保护密码，2进制方式。</p>
+<p>1.eslint js编码标准
+2.yarn 快速安装
+3.gulp</p>
 
-<p>p10是证书请求。</p>
+<h4 id="使用的例子">使用的例子</h4>
+<p>1.https://www.jianshu.com/p/57d910008612</p>
 
-<p>p7r是CA对证书请求的回复，只用于导入</p>
+<h4 id="环境调试">环境调试</h4>
+<p>命令行调试:electron . –debug</p>
 
-<p>p7b以树状展示证书链(certificate chain)，同时也支持单个证书，不含私钥。</p>
+<h5 id="webstorm-set">webstorm set</h5>
+<p>1.新增 node.js 作为调试模块
+2.设置 Node interpreter : 选择node_module/.bin/electron [windows：electron.cmd]
+3.设置 Node parameters : . –debug [. 执行当前目录 –debug 做调试]
+4.设置 Working directory : 当前目录
+5.设置 Javascript file : main.js</p>
 
-<h4 id="x509-数据格式">x.509 数据格式</h4>
+<h5 id="vscode-set">vscode set</h5>
+<p>1.</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">TBSCertificate</span><span class="o">::=</span><span class="n">SEQUENCE</span><span class="p">{</span>
-    <span class="n">version</span>           <span class="p">[</span><span class="mi">0</span><span class="p">]</span>   <span class="n">EXPLICIT</span> <span class="n">Version</span> <span class="n">DEFAULT</span> <span class="n">v1</span><span class="p">,</span>        <span class="err">#</span><span class="n">x</span><span class="mf">.509</span><span class="err">具体版本号</span>
-    <span class="n">serialNumber</span>            <span class="n">CertificateSerialNumber</span><span class="p">,</span>            <span class="err">#序列号加上唯一标示当前证书</span>
-    <span class="n">signature</span>               <span class="n">AlgorithmIdentifier</span><span class="p">,</span>                <span class="err">#证书签名的算法</span>
-    <span class="n">issuer</span>                  <span class="n">Name</span><span class="p">,</span>                               <span class="err">#</span><span class="n">CA</span><span class="err">的</span><span class="n">X</span><span class="mf">.509</span><span class="err">名字</span>
-    <span class="n">validity</span>                <span class="n">Validity</span><span class="p">,</span>                           <span class="err">#有效期的起止时间</span>
-    <span class="n">subject</span>                 <span class="n">Name</span><span class="p">,</span>                               <span class="err">#该证书所证明的密钥所有者实体</span>
-    <span class="n">subjectPublicKeyInfo</span>    <span class="n">SubjectPublicKeyInfo</span><span class="p">,</span>               <span class="err">#主题的公钥即使用算法的</span><span class="n">ID</span>
-    <span class="n">issuerUniqueID</span>    <span class="p">[</span><span class="mi">1</span><span class="p">]</span>   <span class="n">IMPLICIT</span> <span class="n">UniqueIdentifier</span> <span class="n">OPTIONAL</span><span class="p">,</span> <span class="err">#可选的</span><span class="n">ID</span><span class="err">，唯一标示证书的颁发者</span>
-    <span class="n">subjectUniqueID</span>   <span class="p">[</span><span class="mi">2</span><span class="p">]</span>   <span class="n">IMPLICIT</span> <span class="n">UniqueIdentifier</span> <span class="n">OPTIONAL</span><span class="p">,</span> <span class="err">#可选的</span><span class="n">ID</span><span class="err">，唯一标示证书的主题</span>
-    <span class="n">extensions</span>        <span class="p">[</span><span class="mi">3</span><span class="p">]</span>   <span class="n">EXPLICIT</span> <span class="n">Extensions</span> <span class="n">OPTIONAL</span>        <span class="err">#目前定义的扩展域</span>
-<span class="p">}</span></code></pre></figure>
+<h4 id="目标制定">目标制定</h4>
+<p>1.将现有网站进行包装，通过electron远程访问。
+（1）屏蔽快捷方式，右键菜单。依照项目需求增加屏蔽快捷方式，右键菜单。
+需要屏蔽调试模拟，右键源码。
+（2）处理xp的消息弹出。
+（3）处理远程调用网页。
+（4）flash插件</p>
+
+<h5 id="flash调用main-process">flash调用（main-process）</h5>
+<p>1.<a href="http://get.adobe.com/cn/flashplayer/about/">获取各版本插件对应信息</a>
+2.<a href="https://get2.adobe.com/cn/flashplayer/">下载各系统安装pdf版本</a>
+3.
+(1)windows
+Flash Player 插件安装好后，Windows系统可以在以下路径找到相应的dll文件 
+C:\Windows\System32\Macromed\Flash\pepflashplayer64_23_0_0_207.dl 
+C:\Windows\SysWOW64\Macromed\Flash\pepflashplayer32_23_0_0_207.dll 
+(2)mac
+Flash Player 插件安装好后，mac系统可以在一下路径找到相应的plugin文件
+/Library/Internet Plug-Ins/PepperFlashPlayer/PepperFlashPlayer.plugin
+(3)linux</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">const</span> <span class="p">{</span><span class="n">app</span><span class="p">,</span> <span class="no">BrowserWindow</span><span class="p">}</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">'electron'</span><span class="p">)</span>
+  <span class="n">const</span> <span class="n">path</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">'path'</span><span class="p">)</span>
+  
+  <span class="sr">//</span> <span class="err">指定</span> <span class="n">flash</span> <span class="err">路径，假定它与</span> <span class="n">main</span><span class="p">.</span><span class="nf">js</span> <span class="err">放在同一目录中。</span>
+  <span class="n">let</span> <span class="n">pluginName</span>
+  <span class="n">switch</span> <span class="p">(</span><span class="n">process</span><span class="p">.</span><span class="nf">platform</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="s1">'win32'</span><span class="p">:</span>
+      <span class="n">pluginName</span> <span class="o">=</span> <span class="s1">'pepflashplayer.dll'</span>
+      <span class="k">break</span>
+    <span class="k">case</span> <span class="s1">'darwin'</span><span class="p">:</span>
+      <span class="n">pluginName</span> <span class="o">=</span> <span class="s1">'PepperFlashPlayer.plugin'</span>
+      <span class="k">break</span>
+    <span class="k">case</span> <span class="s1">'linux'</span><span class="p">:</span>
+      <span class="n">pluginName</span> <span class="o">=</span> <span class="s1">'libpepflashplayer.so'</span>
+      <span class="k">break</span>
+  <span class="p">}</span>
+  <span class="n">app</span><span class="p">.</span><span class="nf">commandLine</span><span class="p">.</span><span class="nf">appendSwitch</span><span class="p">(</span><span class="s1">'ppapi-flash-path'</span><span class="p">,</span> <span class="n">path</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">__dirname</span><span class="p">,</span> <span class="n">pluginName</span><span class="p">))</span>
+  
+  <span class="sr">//</span> <span class="err">可选：指定</span> <span class="n">flash</span> <span class="err">的版本，例如</span> <span class="n">v17</span><span class="o">.</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">169</span>
+  <span class="n">app</span><span class="p">.</span><span class="nf">commandLine</span><span class="p">.</span><span class="nf">appendSwitch</span><span class="p">(</span><span class="s1">'ppapi-flash-version'</span><span class="p">,</span> <span class="s1">'17.0.0.169'</span><span class="p">)</span>
+  
+  <span class="n">app</span><span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="s1">'ready'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="n">let</span> <span class="n">win</span> <span class="o">=</span> <span class="n">new</span> <span class="no">BrowserWindow</span><span class="p">({</span>
+      <span class="ss">width: </span><span class="mi">800</span><span class="p">,</span>
+      <span class="ss">height: </span><span class="mi">600</span><span class="p">,</span>
+      <span class="ss">webPreferences: </span><span class="p">{</span>
+        <span class="ss">plugins: </span><span class="kp">true</span>
+      <span class="p">}</span>
+    <span class="p">})</span>
+    <span class="n">win</span><span class="p">.</span><span class="nf">loadURL</span><span class="p">(</span><span class="sb">`file://${__dirname}/index.html`</span><span class="p">)</span>
+    <span class="sr">//</span> <span class="err">一些别的什么</span>
+  <span class="p">})</span>
+  </code></pre></figure>
+
+<h4 id="notificationrenderer-process">Notification（renderer-process）</h4>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">var</span> <span class="n">path</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">'path'</span><span class="p">);</span>
+<span class="n">var</span> <span class="n">options</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span>
+    <span class="ss">title: </span><span class="s2">"Basic Notification"</span><span class="p">,</span>
+    <span class="ss">body: </span><span class="s2">"Short message part"</span><span class="p">,</span>
+    <span class="ss">url: </span><span class="s2">"http://www.baidu.com"</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="ss">title: </span><span class="s2">"Content-Image Notification"</span><span class="p">,</span>
+    <span class="ss">body: </span><span class="s2">"Short message plus a custom content image"</span><span class="p">,</span>
+    <span class="ss">icon: </span><span class="n">path</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">__dirname</span><span class="p">,</span> <span class="s1">'icon.png'</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+
+<span class="n">function</span> <span class="n">doNotify</span><span class="p">(</span><span class="n">evt</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">let</span> <span class="n">myNotification</span> <span class="o">=</span> <span class="n">null</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">evt</span><span class="p">.</span><span class="nf">srcElement</span><span class="p">.</span><span class="nf">id</span> <span class="o">==</span> <span class="s2">"basic"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">myNotification</span> <span class="o">=</span> <span class="n">new</span> <span class="no">Notification</span><span class="p">(</span><span class="n">options</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nf">title</span><span class="p">,</span> <span class="n">options</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+    <span class="n">myNotification</span><span class="p">.</span><span class="nf">onclick</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="n">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="s1">'通知被点击basic'</span><span class="p">)</span>
+      <span class="n">window</span><span class="p">.</span><span class="nf">location</span><span class="p">.</span><span class="nf">href</span><span class="o">=</span><span class="n">options</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nf">url</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">evt</span><span class="p">.</span><span class="nf">srcElement</span><span class="p">.</span><span class="nf">id</span> <span class="o">==</span> <span class="s2">"image"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">myNotification</span> <span class="o">=</span> <span class="n">new</span> <span class="no">Notification</span><span class="p">(</span><span class="n">options</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nf">title</span><span class="p">,</span> <span class="n">options</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+    <span class="n">myNotification</span><span class="p">.</span><span class="nf">onclick</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="n">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="s1">'通知被点击image'</span><span class="p">)</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">document</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="s1">'DOMContentLoaded'</span><span class="p">,</span> <span class="n">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">document</span><span class="p">.</span><span class="nf">getElementById</span><span class="p">(</span><span class="s2">"basic"</span><span class="p">).</span><span class="nf">addEventListener</span><span class="p">(</span><span class="s2">"click"</span><span class="p">,</span> <span class="n">doNotify</span><span class="p">);</span>
+  <span class="n">document</span><span class="p">.</span><span class="nf">getElementById</span><span class="p">(</span><span class="s2">"image"</span><span class="p">).</span><span class="nf">addEventListener</span><span class="p">(</span><span class="s2">"click"</span><span class="p">,</span> <span class="n">doNotify</span><span class="p">);</span>
+<span class="p">})</span></code></pre></figure>
+
 
 
                 <hr style="visibility: hidden;">
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/%E7%AC%94%E8%AE%B0/2015/03/26/Encryption-algorithm-summary/" data-toggle="tooltip" data-placement="top" title="Encryption algorithm summary">
+                        <a href="/%E7%AC%94%E8%AE%B0/2015/04/23/x509/" data-toggle="tooltip" data-placement="top" title="x.509">
                         Previous<br>
-                        <span>Encryption algorithm summary</span>
+                        <span>x.509</span>
                         </a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2017/03/21/electron-demo/" data-toggle="tooltip" data-placement="top" title="electron & inno & demo">
+                        <a href="/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2018/02/01/etherum-code-analy/" data-toggle="tooltip" data-placement="top" title="etherum & code analysis">
                         Next<br>
-                        <span>electron & inno & demo</span>
+                        <span>etherum & code analysis</span>
                         </a>
                     </li>
                     

@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="年迈的工程师">
+    <meta name="keyword"  content="c++,go,transflow,etherment">
+    <meta name="theme-color" content="#000000">
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>npm scripts 使用指南 - 迷你世界 | minicool Blog</title>
+
+    <link rel="canonical" href="http://localhost:4000/%E8%BD%AC%E8%BD%BD/2010/01/01/npm-scripts/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog.min.css">
+
+    <!-- Highlight Github CSS -->
+    <!-- local Highlight --> 
+    <!-- <link rel="stylesheet" href="/css/highlight.rouge.css"> -->
+    <!-- CDN Highlight -->
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/default.min.css">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+
+    <!-- Custom Fonts -->
+    <!-- CDN font-awesome -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- local font-awesome -->   
+    <!-- <link rel="stylesheet" href="/css/fontawesome-all.min.css"> -->
+
+    <!-- Gitment -->  
+    
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">MiniCool World</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="blog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/">Category</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#blog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-2015.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/post-bg-2015.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#npm" title="npm">npm</a>
+                        
+                    </div>
+                    <h1>npm scripts 使用指南</h1>
+                    
+                    
+                    <h2 class="subheading">如何使用 npm 脚本简易指南</h2>
+                    
+                    <span class="meta">Posted by minicool on January 1, 2010</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <!-- Multi-Lingual -->
+                                
+
+				<blockquote>
+  <p>该文章转载 <a href="http://www.ruanyifeng.com/blog/2016/10/npm_scripts.html">阮一峰的网络日志</a></p>
+</blockquote>
+
+<blockquote>
+  <p>Node 开发离不开 npm，而脚本功能是 npm 最强大、最常用的功能之一。</p>
+</blockquote>
+
+<h4 id="一什么是-npm-脚本">一、什么是 npm 脚本？</h4>
+<p>npm 允许在package.json文件里面，使用scripts字段定义脚本命令。</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="w">
+  </span><span class="err">//</span><span class="w"> </span><span class="err">...</span><span class="w">
+  </span><span class="s2">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"build"</span><span class="p">:</span><span class="w"> </span><span class="s2">"node build.js"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
+
+<p>上面代码是package.json文件的一个片段，里面的scripts字段是一个对象。它的每一个属性，对应一段脚本。比如，build命令对应的脚本是node build.js。</p>
+
+<p>命令行下使用npm run命令，就可以执行这段脚本。</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">$ </span>npm run build
+<span class="c"># 等同于执行</span>
+<span class="nv">$ </span>node build.js</code></pre></figure>
+
+<p>这些定义在package.json里面的脚本，就称为 npm 脚本。它的优点很多。</p>
+
+<p>项目的相关脚本，可以集中在一个地方。
+不同项目的脚本命令，只要功能相同，就可以有同样的对外接口。用户不需要知道怎么测试你的项目，只要运行npm run test即可。
+可以利用 npm 提供的很多辅助功能。
+查看当前项目的所有 npm 脚本命令，可以使用不带任何参数的npm run命令。</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">$ </span>npm run</code></pre></figure>
+
+<h4 id="二原理">二、原理</h4>
+<p>npm 脚本的原理非常简单。每当执行npm run，就会自动新建一个 Shell，在这个 Shell 里面执行指定的脚本命令。因此，只要是 Shell（一般是 Bash）可以运行的命令，就可以写在 npm 脚本里面。</p>
+
+<p>比较特别的是，npm run新建的这个 Shell，会将当前目录的node_modules/.bin子目录加入PATH变量，执行结束后，再将PATH变量恢复原样。</p>
+
+<p>这意味着，当前目录的node_modules/.bin子目录里面的所有脚本，都可以直接用脚本名调用，而不必加上路径。比如，当前项目的依赖里面有 Mocha，只要直接写mocha test就可以了。</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">"test"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mocha test"</span></code></pre></figure>
+
+<p>而不用写成下面这样。</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">"test"</span><span class="p">:</span><span class="w"> </span><span class="s2">"./node_modules/.bin/mocha test"</span></code></pre></figure>
+
+<p>由于 npm 脚本的唯一要求就是可以在 Shell 执行，因此它不一定是 Node 脚本，任何可执行文件都可以写在里面。</p>
+
+<p>npm 脚本的退出码，也遵守 Shell 脚本规则。如果退出码不是0，npm 就认为这个脚本执行失败。</p>
+
+<h4 id="三通配符">三、通配符</h4>
+<p>由于 npm 脚本就是 Shell 脚本，因为可以使用 Shell 通配符。</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">"lint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jshint *.js"</span><span class="w">
+</span><span class="s2">"lint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jshint **/*.js"</span></code></pre></figure>
+
+<p>上面代码中，*表示任意文件名，**表示任意一层子目录。</p>
+
+<p>如果要将通配符传入原始命令，防止被 Shell 转义，要将星号转义。</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">"test"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tap test/</span><span class="se">\*</span><span class="s2">.js"</span></code></pre></figure>
+
+<h4 id="四传参">四、传参</h4>
+<p>向 npm 脚本传入参数，要使用–标明。</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">"lint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jshint **.js"</span></code></pre></figure>
+
+<p>向上面的npm run lint命令传入参数，必须写成下面这样。</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">$ </span>npm run lint <span class="nt">--</span>  <span class="nt">--reporter</span> checkstyle <span class="o">&gt;</span> checkstyle.xml</code></pre></figure>
+
+<p>也可以在package.json里面再封装一个命令。</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="s2">"lint"</span>: <span class="s2">"jshint **.js"</span>,
+<span class="s2">"lint:checkstyle"</span>: <span class="s2">"npm run lint -- --reporter checkstyle &gt; checkstyle.xml"</span></code></pre></figure>
+
+<h4 id="五执行顺序">五、执行顺序</h4>
+<p>如果 npm 脚本里面需要执行多个任务，那么需要明确它们的执行顺序。</p>
+
+<p>如果是并行执行（即同时的平行执行），可以使用&amp;符号。</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">$ </span>npm run script1.js &amp; npm run script2.js</code></pre></figure>
+
+<p>如果是继发执行（即只有前一个任务成功，才执行下一个任务），可以使用&amp;&amp;符号。</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">$ </span>npm run script1.js <span class="o">&amp;&amp;</span> npm run script2.js</code></pre></figure>
+
+<p>这两个符号是 Bash 的功能。此外，还可以使用 node 的任务管理模块：script-runner、npm-run-all、redrun。</p>
+
+<h4 id="六默认值">六、默认值</h4>
+<p>一般来说，npm 脚本由用户提供。但是，npm 对两个脚本提供了默认值。也就是说，这两个脚本不用定义，就可以直接使用。</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">"start"</span><span class="p">:</span><span class="w"> </span><span class="s2">"node server.js"</span><span class="err">，</span><span class="w">
+</span><span class="s2">"install"</span><span class="p">:</span><span class="w"> </span><span class="s2">"node-gyp rebuild"</span></code></pre></figure>
+
+<p>上面代码中，npm run start的默认值是node server.js，前提是项目根目录下有server.js这个脚本；npm run install的默认值是node-gyp rebuild，前提是项目根目录下有binding.gyp文件。</p>
+
+<h4 id="七钩子">七、钩子</h4>
+<p>npm 脚本有pre和post两个钩子。举例来说，build脚本命令的钩子就是prebuild和postbuild。</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">"prebuild"</span><span class="p">:</span><span class="w"> </span><span class="s2">"echo I run before the build script"</span><span class="p">,</span><span class="w">
+</span><span class="s2">"build"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cross-env NODE_ENV=production webpack"</span><span class="p">,</span><span class="w">
+</span><span class="s2">"postbuild"</span><span class="p">:</span><span class="w"> </span><span class="s2">"echo I run after the build script"</span></code></pre></figure>
+
+<p>用户执行npm run build的时候，会自动按照下面的顺序执行。</p>
+
+<p>npm run prebuild &amp;&amp; npm run build &amp;&amp; npm run postbuild
+因此，可以在这两个钩子里面，完成一些准备工作和清理工作。下面是一个例子。</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">"clean"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rimraf ./dist &amp;&amp; mkdir dist"</span><span class="p">,</span><span class="w">
+</span><span class="s2">"prebuild"</span><span class="p">:</span><span class="w"> </span><span class="s2">"npm run clean"</span><span class="p">,</span><span class="w">
+</span><span class="s2">"build"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cross-env NODE_ENV=production webpack"</span></code></pre></figure>
+
+<p>npm 默认提供下面这些钩子。</p>
+
+<p>prepublish，postpublish
+preinstall，postinstall
+preuninstall，postuninstall
+preversion，postversion
+pretest，posttest
+prestop，poststop
+prestart，poststart
+prerestart，postrestart
+自定义的脚本命令也可以加上pre和post钩子。比如，myscript这个脚本命令，也有premyscript和postmyscript钩子。不过，双重的pre和post无效，比如prepretest和postposttest是无效的。</p>
+
+<p>npm 提供一个npm_lifecycle_event变量，返回当前正在运行的脚本名称，比如pretest、test、posttest等等。所以，可以利用这个变量，在同一个脚本文件里面，为不同的npm scripts命令编写代码。请看下面的例子。</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">const</span> <span class="nx">TARGET</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">npm_lifecycle_event</span><span class="p">;</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">TARGET</span> <span class="o">===</span> <span class="s1">'test'</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`Running the test task!`</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">TARGET</span> <span class="o">===</span> <span class="s1">'pretest'</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`Running the pretest task!`</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">TARGET</span> <span class="o">===</span> <span class="s1">'posttest'</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`Running the posttest task!`</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>注意，prepublish这个钩子不仅会在npm publish命令之前运行，还会在npm install（不带任何参数）命令之前运行。这种行为很容易让用户感到困惑，所以 npm 4 引入了一个新的钩子prepare，行为等同于prepublish，而从 npm 5 开始，prepublish将只在npm publish命令之前运行。</p>
+
+<h4 id="八简写形式">八、简写形式</h4>
+<p>四个常用的 npm 脚本有简写形式。</p>
+
+<p>npm start是npm run start</p>
+
+<p>npm stop是npm run stop的简写</p>
+
+<p>npm test是npm run test的简写</p>
+
+<p>npm restart是npm run stop &amp;&amp; npm run restart &amp;&amp; npm run start的简写</p>
+
+<p>npm start、npm stop和npm restart都比较好理解，而npm restart是一个复合命令，实际上会执行三个脚本命令：stop、restart、start。具体的执行顺序如下。</p>
+
+<p>prerestart
+prestop
+stop
+poststop
+restart
+prestart
+start
+poststart
+postrestart</p>
+
+<h4 id="九变量">九、变量</h4>
+<p>npm 脚本有一个非常强大的功能，就是可以使用 npm 的内部变量。</p>
+
+<p>首先，通过npm_package_前缀，npm 脚本可以拿到package.json里面的字段。比如，下面是一个package.json。</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"foo"</span><span class="p">,</span><span class="w"> 
+  </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.2.5"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"view"</span><span class="p">:</span><span class="w"> </span><span class="s2">"node view.js"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
+
+<p>那么，变量npm_package_name返回foo，变量npm_package_version返回1.2.5。</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="err">//</span><span class="w"> </span><span class="err">view.js</span><span class="w">
+</span><span class="err">console.log(process.env.npm_package_name);</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">foo</span><span class="w">
+</span><span class="err">console.log(process.env.npm_package_version);</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="mf">1.2</span><span class="err">.</span><span class="mi">5</span></code></pre></figure>
+
+<p>上面代码中，我们通过环境变量process.env对象，拿到package.json的字段值。如果是 Bash 脚本，可以用$npm_package_name和$npm_package_version取到这两个值。</p>
+
+<p>npm_package_前缀也支持嵌套的package.json字段。</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="w">  </span><span class="s2">"repository"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"git"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxx"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="err">scripts</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"view"</span><span class="p">:</span><span class="w"> </span><span class="s2">"echo $npm_package_repository_type"</span><span class="w">
+  </span><span class="p">}</span></code></pre></figure>
+
+<p>上面代码中，repository字段的type属性，可以通过npm_package_repository_type取到。</p>
+
+<p>下面是另外一个例子。</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="s2">"install"</span><span class="p">:</span><span class="w"> </span><span class="s2">"foo.js"</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
+
+<p>上面代码中，npm_package_scripts_install变量的值等于foo.js。</p>
+
+<p>然后，npm 脚本还可以通过npm_config_前缀，拿到 npm 的配置变量，即npm config get xxx命令返回的值。比如，当前模块的发行标签，可以通过npm_config_tag取到。</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">"view"</span><span class="p">:</span><span class="w"> </span><span class="s2">"echo $npm_config_tag"</span><span class="p">,</span></code></pre></figure>
+
+<p>注意，package.json里面的config对象，可以被环境变量覆盖。</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="w"> 
+  </span><span class="s2">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"foo"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"config"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"port"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"8080"</span><span class="w"> </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"scripts"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"start"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"node server.js"</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
+
+<p>上面代码中，npm_package_config_port变量返回的是8080。这个值可以用下面的方法覆盖。</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">$ </span>npm config <span class="nb">set </span>foo:port 80</code></pre></figure>
+
+<p>最后，env命令可以列出所有环境变量。</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">"env"</span><span class="p">:</span><span class="w"> </span><span class="s2">"env"</span></code></pre></figure>
+
+<h4 id="十常用脚本示例">十、常用脚本示例</h4>
+
+<p>// 删除目录</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">"clean"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rimraf dist/*"</span><span class="p">,</span></code></pre></figure>
+
+<p>// 本地搭建一个 HTTP 服务</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">"serve"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http-server -p 9090 dist/"</span><span class="p">,</span></code></pre></figure>
+
+<p>// 打开浏览器</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">"open:dev"</span><span class="p">:</span><span class="w"> </span><span class="s2">"opener http://localhost:9090"</span><span class="p">,</span></code></pre></figure>
+
+<p>// 实时刷新</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="w"> </span><span class="s2">"livereload"</span><span class="p">:</span><span class="w"> </span><span class="s2">"live-reload --port 9091 dist/"</span><span class="p">,</span><span class="w">
+ </span></code></pre></figure>
+
+<p>// 构建 HTML 文件</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">"build:html"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jade index.jade &gt; dist/index.html"</span><span class="p">,</span></code></pre></figure>
+
+<p>// 只要 CSS 文件有变动，就重新执行构建</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">"watch:css"</span><span class="p">:</span><span class="w"> </span><span class="s2">"watch 'npm run build:css' assets/styles/"</span><span class="p">,</span></code></pre></figure>
+
+<p>// 只要 HTML 文件有变动，就重新执行构建</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">"watch:html"</span><span class="p">:</span><span class="w"> </span><span class="s2">"watch 'npm run build:html' assets/html"</span><span class="p">,</span></code></pre></figure>
+
+<p>// 部署到 Amazon S3</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">"deploy:prod"</span><span class="p">:</span><span class="w"> </span><span class="s2">"s3-cli sync ./dist/ s3://example-com/prod-site/"</span><span class="p">,</span></code></pre></figure>
+
+<p>// 构建 favicon</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">"build:favicon"</span><span class="p">:</span><span class="w"> </span><span class="s2">"node scripts/favicon.js"</span><span class="p">,</span></code></pre></figure>
+
+<h4 id="十一参考链接">十一、参考链接</h4>
+<p><a href="https://www.keithcirkel.co.uk/how-to-use-npm-as-a-build-tool/">How to Use npm as a Build Tool</a>, by Keith Cirkel</p>
+
+<p><a href="https://github.com/RyanZim/awesome-npm-scripts#articles">Awesome npm scripts</a>, by Ryan Zimmerman</p>
+
+
+                <hr style="visibility: hidden;">
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/%E8%BD%AC%E8%BD%BD/2010/01/01/reproduce/" data-toggle="tooltip" data-placement="top" title="reproduce">
+                        Previous<br>
+                        <span>reproduce</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/%E7%AC%94%E8%AE%B0/2013/05/27/SQL-execution-order/" data-toggle="tooltip" data-placement="top" title="SQL execution order">
+                        Next<br>
+                        <span>SQL execution order</span>
+                        </a>
+                    </li>
+                    
+                </ul> 
+            </div>
+    
+    <!-- Side Catalog Container -->
+                
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags start-->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#npm" title="npm" rel="1">
+                                    npm
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#SQL" title="SQL" rel="2">
+                                    SQL
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#基础知识" title="基础知识" rel="2">
+                                    基础知识
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#ssl/tls" title="ssl/tls" rel="1">
+                                    ssl/tls
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#密码学" title="密码学" rel="1">
+                                    密码学
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#算法" title="算法" rel="1">
+                                    算法
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#openssl" title="openssl" rel="1">
+                                    openssl
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#CA" title="CA" rel="1">
+                                    CA
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#code" title="code" rel="4">
+                                    code
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#electron" title="electron" rel="1">
+                                    electron
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#demo" title="demo" rel="1">
+                                    demo
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#etherum" title="etherum" rel="3">
+                                    etherum
+                                </a>
+                            
+        				
+        			</div>
+                </section>
+                
+                <!-- Featured Tags end-->                
+
+
+                <!-- Friends Blog start-->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="http://huangxuan.me">Hux Blog</a></li>
+                    
+                        <li><a href="#">void</a></li>
+                    
+                </ul>
+                
+                <!-- Friends Blog start-->
+
+                <!-- READ ANALY start-->
+                
+                <hr>
+                <h5>READ ANALY</h5>
+                <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span>
+                   
+                <!-- READ ANALY end-->                  
+                
+                <!-- gitment start -->                
+                
+                <div id="container"></div>
+                <script>
+                  var gitment = new Gitment({
+                    id: window.location.pathname, 
+                    owner: 'minicool',
+                    repo: 'minicool.github.io',
+                    oauth: {
+                    client_id: '5d7b7a70ed66f348595e',
+                    client_secret: '',
+                    },
+                  })
+                  gitment.render('container')
+                </script>
+                
+                <!-- gitment end -->                      
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+                    <li>
+                        <a href="mailto:minicool.software@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    <li>
+                        <a href="https://twitter.com/minicool">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/minicool">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; MiniCool World 2018
+                    <iframe
+                    style="margin-left: 2px; margin-bottom:-5px;"
+                    frameborder="0" scrolling="0" width="91px" height="20px"
+                    src="https://ghbtns.com/github-btn.html?user=minicool&repo=minicool.github.io&type=star&count=true" >
+                </iframe>
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> |
+                    Powered by <a href="http://jekyllrb.com" target="_blank">Jekyll</a> |
+                    Data by <a href="https://analytics.google.com" target="_blank">Google</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.min.js "></script>
+
+<!-- Gitment JavaScript-->  
+
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+
+
+<!-- Read Analy JavaScript-->  
+<!-- busuanzi http://busuanzi.ibruce.info/-->  
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-34165243-1';
+    var _gaDomain = 'minicool.github.io';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Side Catalog -->
+
+
+<!-- Multi-Lingual -->
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

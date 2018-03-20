@@ -14,7 +14,7 @@
 
     <title>Encryption algorithm summary - 迷你世界 | minicool Blog</title>
 
-    <link rel="canonical" href="https://minicool.github.io//%E7%AC%94%E8%AE%B0/2015/03/26/Encryption-algorithm-summary/">
+    <link rel="canonical" href="http://localhost:4000/%E7%AC%94%E8%AE%B0/2015/03/26/Encryption-algorithm-summary/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -22,47 +22,26 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/blog.min.css">
 
-    <!-- Pygments Github CSS -->
-    <!-- <link rel="stylesheet" href="/css/syntax.css"> -->
-
-    <link rel="stylesheet" href="/css/rouge.css">
-
-    <!-- <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/default.min.css">
+    <!-- Highlight Github CSS -->
+    <!-- local Highlight --> 
+    <!-- <link rel="stylesheet" href="/css/highlight.rouge.css"> -->
+    <!-- CDN Highlight -->
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/default.min.css">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
     <script type="text/javascript">
         hljs.initHighlightingOnLoad();
-    </script> -->
+    </script>
 
     <!-- Custom Fonts -->
-    <!-- overseas CDN font-awesome -->
-    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
-    <!-- china CDN font-awesome -->
+    <!-- CDN font-awesome -->
     <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <!-- local font-awesome -->   
     <!-- <link rel="stylesheet" href="/css/fontawesome-all.min.css"> -->
-    
-
-    <!-- Hux Delete, sad but pending in China
-    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
-    css'>
-    -->
 
     <!-- Gitment -->  
     
     <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
     
-
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- ga & ba script hoook -->
-    <script></script>
 </head>
 
 
@@ -193,26 +172,103 @@
                 <!-- Multi-Lingual -->
                                 
 
-				<h3 id="加密算法">加密算法</h3>
-<p>根据密钥类型不同可以将现代密码技术分为两类：对称加密算法（私钥密码体系）和非对称加密算法（公钥密码体系）。
-对称加密</p>
+				<p>在一般通过公开算法将原始信息进行编码称为：编码，摘要，加解密
+1.编码 公开编解码算法，对数据进行编码。例如bas64,zip,flac. 一般目的对数字文件进行压缩，并保证无损。（也有有损编码）</p>
+
+<h3 id="加密算法">加密算法</h3>
+<p>根据密钥类型不同可以将现代密码技术分为两类：对称加密算法（私钥密码体系）和非对称加密算法（公钥密码体系）。</p>
+
+<h4 id="对称加密与非对称加密算法比较">对称加密与非对称加密算法比较</h4>
+<p>1.对称加密相对资源消耗较少，加解密速度快。</p>
+
+<h3 id="不可逆算法">不可逆算法</h3>
+<p>主要特征：
+单向性
+抗冲突性</p>
+
+<p>主要应用：
+数字指纹
+密码加密</p>
+
+<p>不可逆算法通常是指通过散列计算的算法，因其英文名称HASH被英译名为“哈希”。通过散列计算的方法称为“哈希函数”。
+散列计算是指不论输入计算长度杜少，最后通过计算方法生成相同的输出长度。</p>
+<blockquote>
+  <p>散列算法包括：MD4,MD5,SHA1,SHA2,SHA256,PBKDF2,bcrypt,scrypt等。
+因散列函数特殊性，通常在抗碰撞性上弱，为弥补其缺失。一般通过增加算法迭代，延长算法计算时间，增加算力，等效来增加破解所需算法时间，以其来加大破解投入成本，增加破解安全性。
+而通过这种方式发展以，MD5,SHA256为代表的快算，PBKDF2，bcrypt为代表的慢散列。
+PBKDF（Password-Based Key Derivation Funcation 给予口令的密钥函数），输出结果为DK（deviced key）</p>
+</blockquote>
+
+<p>主要围绕：口令密码，算力成本</p>
+
+<h4 id="快函数优缺点">快函数优缺点</h4>
+
+<h4 id="慢函数优缺点">慢函数优缺点</h4>
+<p>1.【放置服务器】消耗算力资源，如果放置服务器计算，大量用户连接会导致速度下降。
+2.【放置前端】应为计算时间，可以有效防止使用彩虹表爆库。
+应为用户端资源较为闲置，使用前端使用慢函数加密。
+（1）如果前端被破解，获取算法。但应为算力成本问题，进行暴力破解时间成本高。（类似POW）
+（2）目的通过输入口令获取秘钥。输出结果为DK.
+3.Zero-knowlege proof （零知识证明）
+证明者在不透露任何有用信息情况下，使验证者相信某个论断是正确的。
+通过前端运算，发送后端比较，可以证明用户输入的是正确信息。而不需要存储在后端数据库。</p>
+
+<h4 id="应用场景">应用场景</h4>
+<p>一般通过前后端算法结合。
+1.前端 使用慢散列， 增加算力成本，
+2.后段 使用快散列， 防止Dk泄漏。
+新函数：f(key) = server_hash(client_hash(key) + salt)
+key = 密码+用户名（用户名作为salt）</p>
+
+<p>1.应为放入后台的是DK，可以有效防止脱库。（需要破解前段，加密，就算获取仍然可以阻止生成特定字典）</p>
+
+<p>为弥补用户密码的弱属性，一般会使用添加salt，即英意译名“加盐”。
+salt的使用
+1.增加抗冲突性，通常通过随机字符串生成库，生成散列用户密码长度。（存储不方便，为避免脱裤，一般分开存储，增加脱裤难度）
+2.通过数据库固定字段，生成salt字段。降低抗冲突性。（无需存储，基于固定数据生成，减少撞库难度）
+3.通过验证传输salt值，形成所需生成新值。完全避免重放攻击。（对于数据传输要求较强，增加前段，后段算力资源）</p>
+
+<h4 id="对抗预算-彩虹表">对抗预算 （彩虹表）</h4>
+<p>彩虹表是一个用于加密散列函数 逆运算的预先表。主要用于破解密码的散列值准备。这个是典型的内存换时间处理方式。
+通常彩虹表会收集现在常用用户名和密码进行生成，用于穷聚暴力破解。为了减少查询，一般使用小部分哈希值，生成对应可逆向的密码长链（多个密码）</p>
+<h5 id="salt-加盐">salt (加盐)</h5>
+
+<h4 id="防止dk泄漏">防止DK泄漏</h4>
+<p>DK生命周期</p>
+<blockquote>
+  <p>浏览器-》传输-》服务器-》数据库</p>
+</blockquote>
+
+<p>DK泄漏一般：网络传输被窃听。
+Dk无意义长链，所以获取无法获取到口令。（可以保证不会通过口令，导致其他账户被盗窃）</p>
+
+<p>一般浏览器应用，直接使用密码管理插件，用户口令不再向后端发送，而只发送DK。就算最悲观，（服务器中毒，传输窃听，后段存储） 也只是导致当前账号不可用，不会导致其他账号被破解。</p>
+
+<p>如果遗忘密码，直接让用户生成新密码。
+遗忘密码验证，增加手机绑定，用户信息验证等。</p>
+
+<h4 id="web应用">WEb应用</h4>
+<p>旧有内置前段KDF计算网站不多，在IE时代，浏览器算力低下，导致前段计算意义不大，都由后段计算观念造成的。
+现有浏览器性能大幅提升，HTML5引入了WEBcrypto规范。JS直接调用浏览器内置密码学算法库，包含PBKDF2.应为原生性能非常高。
+作为口令哈希函数，只是套用了现有哈希函数，并未针对进行设计。新性argon2应为太新，为进行验证。尚未收录WEBcrypto中。</p>
+
 
 
                 <hr style="visibility: hidden;">
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/%E7%AC%94%E8%AE%B0/2014/07/28/SQL-concurrency-control/" data-toggle="tooltip" data-placement="top" title="SQL concurrency controlr">
+                        <a href="/%E8%BD%AC%E8%BD%BD/2015/02/19/SSL-MIM/" data-toggle="tooltip" data-placement="top" title="SSL/TLS & MIN">
                         Previous<br>
-                        <span>SQL concurrency controlr</span>
+                        <span>SSL/TLS & MIN</span>
                         </a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/%E7%AC%94%E8%AE%B0/2015/04/23/RSA-encryption-algorithm/" data-toggle="tooltip" data-placement="top" title="RSA encryption algorithm">
+                        <a href="/%E7%AC%94%E8%AE%B0/2015/04/23/x509/" data-toggle="tooltip" data-placement="top" title="x.509">
                         Next<br>
-                        <span>RSA encryption algorithm</span>
+                        <span>x.509</span>
                         </a>
                     </li>
                     
@@ -250,14 +306,8 @@
                     <div class="tags">
         				
                             
-                				<a href="/tags/#code" title="code" rel="2">
-                                    code
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#JetBrains" title="JetBrains" rel="1">
-                                    JetBrains
+                				<a href="/tags/#npm" title="npm" rel="1">
+                                    npm
                                 </a>
                             
         				
@@ -268,25 +318,31 @@
                             
         				
                             
-                				<a href="/tags/#基础知识" title="基础知识" rel="3">
+                				<a href="/tags/#基础知识" title="基础知识" rel="2">
                                     基础知识
                                 </a>
                             
         				
                             
-                				<a href="/tags/#密码学" title="密码学" rel="2">
+                				<a href="/tags/#ssl/tls" title="ssl/tls" rel="1">
+                                    ssl/tls
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#密码学" title="密码学" rel="1">
                                     密码学
                                 </a>
                             
         				
                             
-                				<a href="/tags/#算法" title="算法" rel="2">
+                				<a href="/tags/#算法" title="算法" rel="1">
                                     算法
                                 </a>
                             
         				
                             
-                				<a href="/tags/#openssl" title="openssl" rel="2">
+                				<a href="/tags/#openssl" title="openssl" rel="1">
                                     openssl
                                 </a>
                             
@@ -294,6 +350,30 @@
                             
                 				<a href="/tags/#CA" title="CA" rel="1">
                                     CA
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#code" title="code" rel="4">
+                                    code
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#electron" title="electron" rel="1">
+                                    electron
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#demo" title="demo" rel="1">
+                                    demo
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#etherum" title="etherum" rel="3">
+                                    etherum
                                 </a>
                             
         				

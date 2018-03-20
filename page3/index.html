@@ -14,7 +14,7 @@
 
     <title>迷你世界 | minicool Blog</title>
 
-    <link rel="canonical" href="https://minicool.github.io//page3/">
+    <link rel="canonical" href="http://localhost:4000/page3/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -22,47 +22,26 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/blog.min.css">
 
-    <!-- Pygments Github CSS -->
-    <!-- <link rel="stylesheet" href="/css/syntax.css"> -->
-
-    <link rel="stylesheet" href="/css/rouge.css">
-
-    <!-- <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/default.min.css">
+    <!-- Highlight Github CSS -->
+    <!-- local Highlight --> 
+    <!-- <link rel="stylesheet" href="/css/highlight.rouge.css"> -->
+    <!-- CDN Highlight -->
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/default.min.css">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
     <script type="text/javascript">
         hljs.initHighlightingOnLoad();
-    </script> -->
+    </script>
 
     <!-- Custom Fonts -->
-    <!-- overseas CDN font-awesome -->
-    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
-    <!-- china CDN font-awesome -->
+    <!-- CDN font-awesome -->
     <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <!-- local font-awesome -->   
     <!-- <link rel="stylesheet" href="/css/fontawesome-all.min.css"> -->
-    
-
-    <!-- Hux Delete, sad but pending in China
-    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
-    css'>
-    -->
 
     <!-- Gitment -->  
     
     <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
     
-
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- ga & ba script hoook -->
-    <script></script>
 </head>
 
 
@@ -176,18 +155,73 @@
             ">
     			
 <div class="post-preview">
-    <a href="/%E5%B0%8F%E8%AF%B4/2010/01/01/story/">
+    <a href="/%E7%AC%94%E8%AE%B0/2013/05/27/SQL-execution-order/">
         <h2 class="post-title">
-            story
+            SQL execution order
         </h2>
         
         <h3 class="post-subtitle">
-            小说
+            解析sql执行序列
+        </h3>
+        
+        <div class="post-content-preview">
+            1.逻辑查询处理阶段简介
+
+
+  (8)SELECT (9)DISTINCT  (11)&lt;Top Num&gt; &lt;select list&gt;
+
+  (1)FROM [left_table]
+
+  (3) JOIN 
+
+  (2)ON 
+
+  (4)WHERE 
+
+  (5)GROUP BY 
+
+  
+    
+      
+        (6)WITH &lt;CUBE ...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by minicool on May 27, 2013
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/%E8%BD%AC%E8%BD%BD/2010/01/01/npm-scripts/">
+        <h2 class="post-title">
+            npm scripts 使用指南
+        </h2>
+        
+        <h3 class="post-subtitle">
+            如何使用 npm 脚本简易指南
         </h3>
         
         <div class="post-content-preview">
             
+  该文章转载 阮一峰的网络日志
 
+
+
+  Node 开发离不开 npm，而脚本功能是 npm 最强大、最常用的功能之一。
+
+
+一、什么是 npm 脚本？
+npm 允许在package.json文件里面，使用scripts字段定义脚本命令。
+
+{
+  // ...
+  "scripts": {
+    "build": "node build.js"
+  }
+}
+
+上面代码是package...
         </div>
     </a>
     <p class="post-meta">
@@ -217,48 +251,6 @@
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/%E5%8E%9F%E5%88%9B/2010/01/01/original/">
-        <h2 class="post-title">
-            original
-        </h2>
-        
-        <h3 class="post-subtitle">
-            原创
-        </h3>
-        
-        <div class="post-content-preview">
-            
-
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by minicool on January 1, 2010
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/2010/01/01/develop-tool/">
-        <h2 class="post-title">
-            Upsource
-        </h2>
-        
-        <h3 class="post-subtitle">
-            开发工具
-        </h3>
-        
-        <div class="post-content-preview">
-            
-
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by minicool on January 1, 2010
-    </p>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -268,10 +260,6 @@
         <a href="/page2">&larr; Newer Posts</a>
     </li>
     
-    
-    <li class="next">
-        <a href="/page4">Older Posts &rarr;</a>
-    </li>
     
 </ul>
 
@@ -293,14 +281,8 @@
                     <div class="tags">
                         
                             
-                                <a href="/tags/#code" title="code" rel="2">
-                                    code
-                                </a>
-                            
-                        
-                            
-                                <a href="/tags/#JetBrains" title="JetBrains" rel="1">
-                                    JetBrains
+                                <a href="/tags/#npm" title="npm" rel="1">
+                                    npm
                                 </a>
                             
                         
@@ -311,25 +293,31 @@
                             
                         
                             
-                                <a href="/tags/#基础知识" title="基础知识" rel="3">
+                                <a href="/tags/#基础知识" title="基础知识" rel="2">
                                     基础知识
                                 </a>
                             
                         
                             
-                                <a href="/tags/#密码学" title="密码学" rel="2">
+                                <a href="/tags/#ssl/tls" title="ssl/tls" rel="1">
+                                    ssl/tls
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#密码学" title="密码学" rel="1">
                                     密码学
                                 </a>
                             
                         
                             
-                                <a href="/tags/#算法" title="算法" rel="2">
+                                <a href="/tags/#算法" title="算法" rel="1">
                                     算法
                                 </a>
                             
                         
                             
-                                <a href="/tags/#openssl" title="openssl" rel="2">
+                                <a href="/tags/#openssl" title="openssl" rel="1">
                                     openssl
                                 </a>
                             
@@ -337,6 +325,30 @@
                             
                                 <a href="/tags/#CA" title="CA" rel="1">
                                     CA
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#code" title="code" rel="4">
+                                    code
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#electron" title="electron" rel="1">
+                                    electron
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#demo" title="demo" rel="1">
+                                    demo
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#etherum" title="etherum" rel="3">
+                                    etherum
                                 </a>
                             
                         
@@ -351,32 +363,16 @@
                     <h5><a href="/categories/">CATEGORY</a></h5>
                     <div class="tags">
                         
-                            <a href="/categories/#源码分析-ref" title="源码分析" rel="1">
-                                源码分析
-                            </a>
-                        
-                            <a href="/categories/#开发工具-ref" title="开发工具" rel="3">
-                                开发工具
-                            </a>
-                        
-                            <a href="/categories/#原创-ref" title="原创" rel="1">
-                                原创
-                            </a>
-                        
-                            <a href="/categories/#转载-ref" title="转载" rel="1">
+                            <a href="/categories/#转载-ref" title="转载" rel="3">
                                 转载
                             </a>
                         
-                            <a href="/categories/#小说-ref" title="小说" rel="1">
-                                小说
-                            </a>
-                        
-                            <a href="/categories/#翻译-ref" title="翻译" rel="1">
-                                翻译
-                            </a>
-                        
-                            <a href="/categories/#笔记-ref" title="笔记" rel="6">
+                            <a href="/categories/#笔记-ref" title="笔记" rel="4">
                                 笔记
+                            </a>
+                        
+                            <a href="/categories/#源码分析-ref" title="源码分析" rel="4">
+                                源码分析
                             </a>
                         
                     </div>
