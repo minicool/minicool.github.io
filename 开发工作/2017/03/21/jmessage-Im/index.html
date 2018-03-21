@@ -12,9 +12,9 @@
 
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>reproduce - 迷你世界 | minicool Blog</title>
+    <title>jmessage-IM - 迷你世界 | minicool Blog</title>
 
-    <link rel="canonical" href="http://localhost:4000/%E8%BD%AC%E8%BD%BD/2010/01/01/reproduce/">
+    <link rel="canonical" href="https://minicool.github.io//%E5%BC%80%E5%8F%91%E5%B7%A5%E4%BD%9C/2017/03/21/jmessage-Im/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -142,13 +142,17 @@
                 <div class="post-heading">
                     <div class="tags">
                         
+                        <a class="tag" href="/tags/#code" title="code">code</a>
+                        
+                        <a class="tag" href="/tags/#electron" title="electron">electron</a>
+                        
                     </div>
-                    <h1>reproduce</h1>
+                    <h1>jmessage-IM</h1>
                     
                     
-                    <h2 class="subheading">转载</h2>
+                    <h2 class="subheading">IM 开发</h2>
                     
-                    <span class="meta">Posted by minicool on January 1, 2010</span>
+                    <span class="meta">Posted by minicool on March 21, 2017</span>
                 </div>
             </div>
         </div>
@@ -169,17 +173,24 @@
                 <!-- Multi-Lingual -->
                                 
 
-				
+				<p>1.</p>
 
 
                 <hr style="visibility: hidden;">
                 <ul class="pager">
                     
+                    <li class="previous">
+                        <a href="/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2017/03/21/electron-demo/" data-toggle="tooltip" data-placement="top" title="electron & inno & demo">
+                        Previous<br>
+                        <span>electron & inno & demo</span>
+                        </a>
+                    </li>
+                    
                     
                     <li class="next">
-                        <a href="/%E8%BD%AC%E8%BD%BD/2010/01/01/npm-scripts/" data-toggle="tooltip" data-placement="top" title="npm scripts 使用指南">
+                        <a href="/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2018/02/01/etherum-code-analy/" data-toggle="tooltip" data-placement="top" title="etherum & code analysis">
                         Next<br>
-                        <span>npm scripts 使用指南</span>
+                        <span>etherum & code analysis</span>
                         </a>
                     </li>
                     
@@ -187,6 +198,20 @@
             </div>
     
     <!-- Side Catalog Container -->
+    
+    <div class="
+        col-lg-2 col-lg-offset-0
+        visible-lg-block
+        sidebar-container
+        catalog-container">
+        <div class="side-catalog">
+            <hr class="hidden-sm hidden-xs">
+            <h5>
+                <a class="catalog-toggle" href="#">CATALOG</a>
+            </h5>
+            <ul class="catalog-body"></ul>
+        </div>
+    </div>
                 
 
     <!-- Sidebar Container -->
@@ -251,13 +276,13 @@
                             
         				
                             
-                				<a href="/tags/#code" title="code" rel="4">
+                				<a href="/tags/#code" title="code" rel="5">
                                     code
                                 </a>
                             
         				
                             
-                				<a href="/tags/#electron" title="electron" rel="1">
+                				<a href="/tags/#electron" title="electron" rel="2">
                                     electron
                                 </a>
                             
@@ -524,14 +549,69 @@
 
 <!-- Side Catalog -->
 
+<script type="text/javascript">
+    function generateCatalog (selector) {
+
+        // interop with multilangual 
+         
+        _containerSelector = 'div.post-container'
+         
+
+        // init
+        var P = $(_containerSelector),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        // clean
+        $(selector).html('')
+
+        // appending
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
 
 <!-- Multi-Lingual -->
 
 
 
-
 <!-- Image to hack wechat -->
-<img src="/img/icon_wechat.png" width="0" height="0" />
+<img src="/img/icon_wechat.jpeg" width="0" height="0" />
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
 </body>

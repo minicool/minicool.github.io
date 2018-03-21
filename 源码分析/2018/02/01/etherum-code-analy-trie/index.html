@@ -14,7 +14,7 @@
 
     <title>trie & code analysis - 迷你世界 | minicool Blog</title>
 
-    <link rel="canonical" href="http://localhost:4000/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2018/02/01/etherum-code-analy-trie/">
+    <link rel="canonical" href="https://minicool.github.io//%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2018/02/01/etherum-code-analy-trie/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -177,7 +177,7 @@
   <p>包trie 实现了MPT(Merkle Patricia Tries)数据结构，这种数据结构实际上是一种Trie树变种。MPT是以太坊中一种非常重要的数据结构，用来存储用户账户的状态及其变更、交易信息、交易的收据信息。MPT实际上是三种数据结构的组合，分别是Trie树， Patricia Trie， 和Merkle树。下面分别介绍这三种数据结构。</p>
 </blockquote>
 
-<h4 id="trie树">Trie树</h4>
+<h4 id="trie-tree">Trie Tree</h4>
 <p>Trie树，又称字典树，单词查找树或者前缀树，是一种用于快速检索的多叉树结构，如英文字母的字典树是一个26叉树，数字的字典树是一个10叉树。</p>
 
 <p>Trie树可以利用字符串的公共前缀来节约存储空间。如下图所示，该trie树用10个节点保存了6个字符串：tea，ten，to，in，inn，int：</p>
@@ -211,12 +211,15 @@
 6c0a8f740d16y03G	43
 6c0a8f740d16vcc1	48</p>
 
-<h4 id="merkle树">Merkle树</h4>
+<h4 id="merkle-tree">Merkle Tree</h4>
 <p>Merkle Tree，通常也被称作Hash Tree，顾名思义，就是存储hash值的一棵树。Merkle树的叶子是数据块(例如，文件或者文件的集合)的hash值。非叶节点是其对应子节点串联字符串的hash。</p>
 
 <p><img src="/img/in-post/reproduce/2017-08-15-etherum-code-analy-trie-3.png" alt="image03" /></p>
 
-<p>Merkle Tree的主要作用是当我拿到Top Hash的时候，这个hash值代表了整颗树的信息摘要，当树里面任何一个数据发生了变动，都会导致Top Hash的值发生变化。 而Top Hash的值是会存储到区块链的区块头里面去的， 区块头是必须经过工作量证明。 这也就是说我只要拿到一个区块头，就可以对区块信息进行验证。 更加详细的信息请参考那个博客。有详细的介绍。</p>
+<p>Merkle Tree的主要作用是当我拿到Top Hash的时候，这个hash值代表了整颗树的信息摘要，当树里面任何一个数据发生了变动，都会导致Top Hash的值发生变化。 而Top Hash的值是会存储到区块链的区块头里面去的， 区块头是必须经过工作量证明。 这也就是只要拿到一个区块头，就可以对整个区块链信息进行验证。</p>
+
+<h4 id="etherum-mpt">etherum MPT</h4>
+<p>每个区块链头都包含三个MPT树。包含交易树，收据树，状态树。</p>
 
 
                 <hr style="visibility: hidden;">
@@ -319,13 +322,13 @@
                             
         				
                             
-                				<a href="/tags/#code" title="code" rel="4">
+                				<a href="/tags/#code" title="code" rel="5">
                                     code
                                 </a>
                             
         				
                             
-                				<a href="/tags/#electron" title="electron" rel="1">
+                				<a href="/tags/#electron" title="electron" rel="2">
                                     electron
                                 </a>
                             
@@ -653,9 +656,8 @@
 
 
 
-
 <!-- Image to hack wechat -->
-<img src="/img/icon_wechat.png" width="0" height="0" />
+<img src="/img/icon_wechat.jpeg" width="0" height="0" />
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
 </body>
