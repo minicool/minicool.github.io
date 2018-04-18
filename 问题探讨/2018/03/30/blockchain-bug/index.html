@@ -12,9 +12,9 @@
 
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>SSL/TLS & MIN - 迷你世界 | minicool Blog</title>
+    <title>block chain trust issues - 迷你世界 | minicool Blog</title>
 
-    <link rel="canonical" href="https://minicool.github.io//%E8%BD%AC%E8%BD%BD/2015/02/19/SSL-MIM/">
+    <link rel="canonical" href="https://minicool.github.io//%E9%97%AE%E9%A2%98%E6%8E%A2%E8%AE%A8/2018/03/30/blockchain-bug/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -142,15 +142,15 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#ssl/tls" title="ssl/tls">ssl/tls</a>
+                        <a class="tag" href="/tags/#block-chain" title="block-chain">block-chain</a>
                         
                     </div>
-                    <h1>SSL/TLS & MIN</h1>
+                    <h1>block chain trust issues</h1>
                     
                     
-                    <h2 class="subheading">如何避免 SSL/TLS 中间人攻击</h2>
+                    <h2 class="subheading">区块链信任问题</h2>
                     
-                    <span class="meta">Posted by minicool on February 19, 2015</span>
+                    <span class="meta">Posted by minicool on March 30, 2018</span>
                 </div>
             </div>
         </div>
@@ -171,78 +171,74 @@
                 <!-- Multi-Lingual -->
                                 
 
-				<h4 id="简述">简述</h4>
-<blockquote>
-  <p>SSL/TLS MIN (SSL/TLS man in the middle) 中间人攻击</p>
+				<blockquote>
+  <p>提到区块链，除了数字货币这个话题外，另一个话题常被人提到的是解决了陌生人信任问题。在对区块链这段时间的研究及理解中，个人觉得区块链能解决陌生人信任问题的能力明显的夸大了。退一步将，至少可以确定它能解决额问题是有限的。</p>
 </blockquote>
 
-<blockquote>
-  <blockquote>
-    <p>SSL(secure sockets layer) 是介于传输层和应用层之间，提供通信数据的安全性和完整性的网络协议。主要提供：
-1.使用证书确认用户和服务器。（身份认证）
-2.在通信数据尾部添加校验码，防止中途篡改。（数据完整性）
-3.加密通信数据和校验码，防止中途窃取。（数据保密性）</p>
-  </blockquote>
-</blockquote>
+<h4 id="区块链">区块链</h4>
+<p>在本质上来说，区块链主要由共识协议，加密算法，数据结构等组成。</p>
+<ul>
+  <li>共识协议：POW,POS,DPOS,PBFT等。（很多人甚至白皮书把共识协议叫做共识算法，我认为是不妥的。算法是解决特定问题数学计算的流程方式，协议是多方认可实行的操作方式。而共识更偏向协议这种解释。当然这只是我本人的理解，并不对这个学术名称进行过多解析）</li>
+  <li>加密算法：摘要：RIPEMD、SHA256 不对称加密向：ECC(椭圆曲线)算法等</li>
+  <li>数据结构：Merkle树，数据链表，块链结构等
+本次主要讨论区块链的共识协议。</li>
+</ul>
 
-<p>SSL握手协议主要由四个协议完成：
-*握手协议
-*密码规则协议
-*记录协议
-*警告协议</p>
+<h4 id="共识协议">共识协议</h4>
+<p>共识协议中主要的几种协议：（本身优缺点不做讨论）</p>
+<ul>
+  <li>
+    <p>POW (Proof of Work &amp; 工作量证明): 即干的越多，收的越多。
+依赖机器进行数学运算来获取记账权，资源消耗相比其他共识机制高、可监管性弱，同时每次达成共识需要全网共同参与运算，性能效率比较低，容错性方面允许全网50%节点出错。</p>
+  </li>
+  <li>
+    <p>POS（Proof of Stake &amp; 权益证明）：即持有越多，获得越多。
+主要是节点记账权的获得难度与节点持有的权益成反比，相对于PoW，一定程度减少了数学运算带来的资源消耗，性能也得到了相应的提升，但依然是基于哈希运算竞争获取记账权的方式，可监管性弱。该共识机制容错性和PoW相同。它是Pow的一种升级共识机制，根据每个节点所占代币的比例和时间，等比例的降低挖矿难度，从而加快找随机数的速度。总体来说获得了权重属性的POW协议。</p>
+  </li>
+  <li>
+    <p>DPOS（Delegated Proof of Stake，委任权益证明）：谁给我带来利益最大化，我就选谁
+与PoS的主要区别在于节点选举若干代理人，由代理人验证和记账。其合规监管、性能、资源消耗和容错性与PoS相似。类似于董事会投票，持币者投出一定数量的节点，代理他们进行验证和记账。原理类似议会制度或人民代表大会制度。弱中心化。</p>
+  </li>
+  <li>
+    <p>PBFT （Practical Byzantine Fault Tolerance，实用拜占庭容错）：我选你当老大，但是你每次干啥都要我审核
+一种状态机副本复制算法，即服务作为状态机进行建模，状态机在分布式系统的不同节点进行副本复制。每个状态机的副本都保存了服务的状态，同时也实现了服务的操作。前提需要提供了(n-1)/3的容错性。</p>
+  </li>
+</ul>
 
-<h4 id="优点">优点</h4>
+<h4 id="信任和认可">信任和认可</h4>
+<p>大家常常把这两种理解混在一起。本人所理解的更能准确描述。
+认可：是常对某件事件，某个物件的认定。即对该事物表示认同不反对。狭义范围属于认定。
+信任：是指在某人或某组织，可进行一步来说就是具有法定人的信任，授予其在范围内行驶权力的行为。狭义范围属于授权。</p>
 
-<h4 id="缺陷">缺陷</h4>
+<p>以POW共识为例子：所有工作量的证明都是由算力对套用计算来获得随机数，以实现大家对该行为的认可。它自身并未有信任元素。
+POS作为拥有权重属性的加强版POW协议，也和POW类似。
+DPOS在认可上进行突破，形成了通过利益最大化来选择代理人。建立了弱信任元素。通过利益最大化来衡量。
+PBFT表面上形成信任元素，但其本质还是认可行为，主要对选举出的领导的每次认可询问进行评定。</p>
 
-<h4 id="基础流程wireshark">基础流程（wireshark）</h4>
-<blockquote>
-  <blockquote>
-    <p>SSL通信流程
-*客户端向服务器发送 会话ID，可用SSL版本号，当前时间，支持加密算法清单，支持压缩方式清单，产生随机数 Client-Secret（明文）。
-*服务器端向客户端发送 会话ID，使用SSL版本号，当前时间，使用加密算法清单，使用压缩方式，产生随机数 Server-Secret（明文）。
-*服务端将自己的证书发送给客户端。（证书包含公钥）【如果证书中信息不足，RSA协议需要提供公钥密码参数，DK协议需要提供密钥交换参数及公开值】
-*客户端验证服务器的合法性（CA根证书及证书链是否可靠，发行者公钥是否验证证书签名，证书域名是否和实际域名匹配，证书是否过期），合法性验证失败，直接断开。成功继续下一步通信。【如果设置服务器需要验证客户端，需要提供客户端证书】
-*客户端产生新主随机数 Pre-Master-Secret（密文），并用服务端证书中的公钥加密，并发送给服务器端。
-*服务器端使用自己的私钥来解密随机数。
-*双方根据约定的加密方法，使用前面的三个随机数，生成对话密钥（Session key）,用来加密整个对话过程。
-备注：为何需要三个随机数，而不只是需要最后生成Pre-Master-Key.应为不管是客户端，服务端都需要随机数。为保证协商出得密钥的随机性，所以需要引入随机因素来保证。Pre-Master 存在应为SSL协议不信任每个主机完全能生成随机的随机数，如果属于伪随机，那么Pre-Master-Secret就有可能被猜出来。如果使用三个随机数（客户端和服务端）都是伪随机数也十分接近随机。</p>
-  </blockquote>
-</blockquote>
+<h4 id="数据上链风险及悖论">数据上链风险及悖论</h4>
+<p>区块链不单单是数字货币这一个方向，如其他传统信息应用方向。涉及到链外数据进入链内方式。即数据上链方法。
+而如何确定数据上链的安全性，即如何保证抄写员在本子上写的东西是真的，不存在私心进行修改的问题。
+其实上述归纳来说，本质问题就是信任机制及风险。这种风险一般通过强信任模式和惩罚机制来制约。</p>
+<ul>
+  <li>强信任模式，例如以太坊上的Oracle合约仲裁方。类似于现实生活中的银行，政府等。自身具有强信用背书。但这种存在方式又违背了陌生人信任模式。形成了弱中心化的行为。涉及外部合约等。</li>
+  <li>惩罚机制，如信任链中的全信任链崩塌，类似CA认证链。或者DPOS中无法获取委托高权益，将被委托人直接除名。</li>
+</ul>
 
-<h4 id="详细流程">详细流程</h4>
+<p>而上述制约模式都与区块链存在或多或少的悖论。
+强信任模式，带了中心化的仲裁模式。惩罚机制，只是形成约束，并未能有效阻止发生。</p>
 
-<h4 id="代码">代码</h4>
-<p>伪代码</p>
+<h4 id="信任机制风险">信任机制风险</h4>
+<ul>
+  <li>
+    <p>认可替代信任。即POW模式，获得随机数即被认可。无需其余节点信任。优点：去信任，随时进行认可确定。缺点：POW存在的所有问题。</p>
+  </li>
+  <li>
+    <p>强信用模式，类似CA证书链。根节点为强信用节点，为子节点进行链式分发，并为子节点实现链式隐形信任担保。作为强信用模式，必然形成中心化。优点：自身权威性。缺点：违背了区块链去中心化，需要强力信用进行背书。例如：以太坊上的ORACLE提供商，如何确定其仲裁的合法性。</p>
+  </li>
+</ul>
 
-<h4 id="防范">防范</h4>
-<p>SSL劫持攻击:</p>
-<blockquote>
-  <p>ARP欺骗</p>
-  <blockquote>
-    <p>ARP(address resolution protocol) 地址解析协议。是一种IP地址转化为物理地址的协议（OSI第三层 网络层 转化为 OSI第二层 数据链路层）。
-备注：现有三层交换机，支持通过IP地址分发。MAC地址必要性大大降低，但是最初设备接入路由时候，需要MAC地址注册获取IP。MAC地址属于物理地址，IP地址属于逻辑地址。
-ARP欺骗，将IP地址到MAC地址的转换过程进行欺骗，使得IP地址转化为错误MAC地址，从而使数据流量引入错误物理地址。
-在中间人攻击时候，一般将自己伪装成路由器。</p>
-  </blockquote>
-</blockquote>
-
-<blockquote>
-  <p>DNS欺骗</p>
-  <blockquote>
-    <p>DNS(domain name system) 域名系统。 处于应用层，将域名解析成IP地址（OSI第7层 应用层 转化为 OSI第三层 网络层）
-DNS欺骗，将域名信息转化为IP地址时候进行欺骗，使得域名地址转化为错误IP地址，从而使的数据流量错误定位IP地址。
-在中间人攻击时候，一般伪装成目标服务器。
-简易防范方法：写入HOSTS，可以绕过DNS攻击。但是应为不能将所有网站都写入HOSTS，所以存在局限性。</p>
-  </blockquote>
-</blockquote>
-
-<blockquote>
-  <p>伪随机数猜解</p>
-  <blockquote>
-    <p>通过不断对服务器进行初步校验时，对伪随机进行猜解。</p>
-  </blockquote>
-</blockquote>
+<h4 id="信任的发展机制">信任的发展机制</h4>
+<p>在人类历史角度中看信任的发展，都从陌生到认定，再从认定到信任，信任到权威的发展方式。而这一系列的信任转化，就形成了现有信用链。强信用模式下，往往</p>
 
 
 
@@ -250,24 +246,31 @@ DNS欺骗，将域名信息转化为IP地址时候进行欺骗，使得域名地
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/%E7%AC%94%E8%AE%B0/2014/07/28/SQL-concurrency-control/" data-toggle="tooltip" data-placement="top" title="SQL concurrency controlr">
+                        <a href="/%E5%BC%80%E5%8F%91%E5%B7%A5%E4%BD%9C/2018/03/15/jmessage-Im/" data-toggle="tooltip" data-placement="top" title="jmessage-IM">
                         Previous<br>
-                        <span>SQL concurrency controlr</span>
+                        <span>jmessage-IM</span>
                         </a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/%E7%AC%94%E8%AE%B0/2015/03/26/Encryption-algorithm-summary/" data-toggle="tooltip" data-placement="top" title="Encryption algorithm summary">
-                        Next<br>
-                        <span>Encryption algorithm summary</span>
-                        </a>
-                    </li>
                     
                 </ul> 
             </div>
     
     <!-- Side Catalog Container -->
+    
+    <div class="
+        col-lg-2 col-lg-offset-0
+        visible-lg-block
+        sidebar-container
+        catalog-container">
+        <div class="side-catalog">
+            <hr class="hidden-sm hidden-xs">
+            <h5>
+                <a class="catalog-toggle" href="#">CATALOG</a>
+            </h5>
+            <ul class="catalog-body"></ul>
+        </div>
+    </div>
                 
 
     <!-- Sidebar Container -->
@@ -640,6 +643,62 @@ DNS欺骗，将域名信息转化为IP地址时候进行欺骗，使得域名地
 
 
 <!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+
+        // interop with multilangual 
+         
+        _containerSelector = 'div.post-container'
+         
+
+        // init
+        var P = $(_containerSelector),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        // clean
+        $(selector).html('')
+
+        // appending
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
 
 
 <!-- Multi-Lingual -->

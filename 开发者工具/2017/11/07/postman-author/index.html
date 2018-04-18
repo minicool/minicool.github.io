@@ -12,9 +12,9 @@
 
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>SSL/TLS & MIN - 迷你世界 | minicool Blog</title>
+    <title>postman & author - 迷你世界 | minicool Blog</title>
 
-    <link rel="canonical" href="https://minicool.github.io//%E8%BD%AC%E8%BD%BD/2015/02/19/SSL-MIM/">
+    <link rel="canonical" href="https://minicool.github.io//%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7/2017/11/07/postman-author/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -142,15 +142,17 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#ssl/tls" title="ssl/tls">ssl/tls</a>
+                        <a class="tag" href="/tags/#postman" title="postman">postman</a>
+                        
+                        <a class="tag" href="/tags/#Authorization" title="Authorization">Authorization</a>
                         
                     </div>
-                    <h1>SSL/TLS & MIN</h1>
+                    <h1>postman & author</h1>
                     
                     
-                    <h2 class="subheading">如何避免 SSL/TLS 中间人攻击</h2>
+                    <h2 class="subheading">postman 认证使用</h2>
                     
-                    <span class="meta">Posted by minicool on February 19, 2015</span>
+                    <span class="meta">Posted by minicool on November 7, 2017</span>
                 </div>
             </div>
         </div>
@@ -171,96 +173,24 @@
                 <!-- Multi-Lingual -->
                                 
 
-				<h4 id="简述">简述</h4>
-<blockquote>
-  <p>SSL/TLS MIN (SSL/TLS man in the middle) 中间人攻击</p>
-</blockquote>
-
-<blockquote>
-  <blockquote>
-    <p>SSL(secure sockets layer) 是介于传输层和应用层之间，提供通信数据的安全性和完整性的网络协议。主要提供：
-1.使用证书确认用户和服务器。（身份认证）
-2.在通信数据尾部添加校验码，防止中途篡改。（数据完整性）
-3.加密通信数据和校验码，防止中途窃取。（数据保密性）</p>
-  </blockquote>
-</blockquote>
-
-<p>SSL握手协议主要由四个协议完成：
-*握手协议
-*密码规则协议
-*记录协议
-*警告协议</p>
-
-<h4 id="优点">优点</h4>
-
-<h4 id="缺陷">缺陷</h4>
-
-<h4 id="基础流程wireshark">基础流程（wireshark）</h4>
-<blockquote>
-  <blockquote>
-    <p>SSL通信流程
-*客户端向服务器发送 会话ID，可用SSL版本号，当前时间，支持加密算法清单，支持压缩方式清单，产生随机数 Client-Secret（明文）。
-*服务器端向客户端发送 会话ID，使用SSL版本号，当前时间，使用加密算法清单，使用压缩方式，产生随机数 Server-Secret（明文）。
-*服务端将自己的证书发送给客户端。（证书包含公钥）【如果证书中信息不足，RSA协议需要提供公钥密码参数，DK协议需要提供密钥交换参数及公开值】
-*客户端验证服务器的合法性（CA根证书及证书链是否可靠，发行者公钥是否验证证书签名，证书域名是否和实际域名匹配，证书是否过期），合法性验证失败，直接断开。成功继续下一步通信。【如果设置服务器需要验证客户端，需要提供客户端证书】
-*客户端产生新主随机数 Pre-Master-Secret（密文），并用服务端证书中的公钥加密，并发送给服务器端。
-*服务器端使用自己的私钥来解密随机数。
-*双方根据约定的加密方法，使用前面的三个随机数，生成对话密钥（Session key）,用来加密整个对话过程。
-备注：为何需要三个随机数，而不只是需要最后生成Pre-Master-Key.应为不管是客户端，服务端都需要随机数。为保证协商出得密钥的随机性，所以需要引入随机因素来保证。Pre-Master 存在应为SSL协议不信任每个主机完全能生成随机的随机数，如果属于伪随机，那么Pre-Master-Secret就有可能被猜出来。如果使用三个随机数（客户端和服务端）都是伪随机数也十分接近随机。</p>
-  </blockquote>
-</blockquote>
-
-<h4 id="详细流程">详细流程</h4>
-
-<h4 id="代码">代码</h4>
-<p>伪代码</p>
-
-<h4 id="防范">防范</h4>
-<p>SSL劫持攻击:</p>
-<blockquote>
-  <p>ARP欺骗</p>
-  <blockquote>
-    <p>ARP(address resolution protocol) 地址解析协议。是一种IP地址转化为物理地址的协议（OSI第三层 网络层 转化为 OSI第二层 数据链路层）。
-备注：现有三层交换机，支持通过IP地址分发。MAC地址必要性大大降低，但是最初设备接入路由时候，需要MAC地址注册获取IP。MAC地址属于物理地址，IP地址属于逻辑地址。
-ARP欺骗，将IP地址到MAC地址的转换过程进行欺骗，使得IP地址转化为错误MAC地址，从而使数据流量引入错误物理地址。
-在中间人攻击时候，一般将自己伪装成路由器。</p>
-  </blockquote>
-</blockquote>
-
-<blockquote>
-  <p>DNS欺骗</p>
-  <blockquote>
-    <p>DNS(domain name system) 域名系统。 处于应用层，将域名解析成IP地址（OSI第7层 应用层 转化为 OSI第三层 网络层）
-DNS欺骗，将域名信息转化为IP地址时候进行欺骗，使得域名地址转化为错误IP地址，从而使的数据流量错误定位IP地址。
-在中间人攻击时候，一般伪装成目标服务器。
-简易防范方法：写入HOSTS，可以绕过DNS攻击。但是应为不能将所有网站都写入HOSTS，所以存在局限性。</p>
-  </blockquote>
-</blockquote>
-
-<blockquote>
-  <p>伪随机数猜解</p>
-  <blockquote>
-    <p>通过不断对服务器进行初步校验时，对伪随机进行猜解。</p>
-  </blockquote>
-</blockquote>
-
+				
 
 
                 <hr style="visibility: hidden;">
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/%E7%AC%94%E8%AE%B0/2014/07/28/SQL-concurrency-control/" data-toggle="tooltip" data-placement="top" title="SQL concurrency controlr">
+                        <a href="/%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7/2017/11/07/postman-base/" data-toggle="tooltip" data-placement="top" title="postman & base">
                         Previous<br>
-                        <span>SQL concurrency controlr</span>
+                        <span>postman & base</span>
                         </a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/%E7%AC%94%E8%AE%B0/2015/03/26/Encryption-algorithm-summary/" data-toggle="tooltip" data-placement="top" title="Encryption algorithm summary">
+                        <a href="/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2018/02/01/etherum-code-analy/" data-toggle="tooltip" data-placement="top" title="etherum & code analysis">
                         Next<br>
-                        <span>Encryption algorithm summary</span>
+                        <span>etherum & code analysis</span>
                         </a>
                     </li>
                     
@@ -268,6 +198,20 @@ DNS欺骗，将域名信息转化为IP地址时候进行欺骗，使得域名地
             </div>
     
     <!-- Side Catalog Container -->
+    
+    <div class="
+        col-lg-2 col-lg-offset-0
+        visible-lg-block
+        sidebar-container
+        catalog-container">
+        <div class="side-catalog">
+            <hr class="hidden-sm hidden-xs">
+            <h5>
+                <a class="catalog-toggle" href="#">CATALOG</a>
+            </h5>
+            <ul class="catalog-body"></ul>
+        </div>
+    </div>
                 
 
     <!-- Sidebar Container -->
@@ -640,6 +584,62 @@ DNS欺骗，将域名信息转化为IP地址时候进行欺骗，使得域名地
 
 
 <!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+
+        // interop with multilangual 
+         
+        _containerSelector = 'div.post-container'
+         
+
+        // init
+        var P = $(_containerSelector),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        // clean
+        $(selector).html('')
+
+        // appending
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
 
 
 <!-- Multi-Lingual -->

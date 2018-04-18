@@ -12,9 +12,9 @@
 
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>SSL/TLS & MIN - 迷你世界 | minicool Blog</title>
+    <title>迷你世界 | minicool Blog</title>
 
-    <link rel="canonical" href="https://minicool.github.io//%E8%BD%AC%E8%BD%BD/2015/02/19/SSL-MIM/">
+    <link rel="canonical" href="https://minicool.github.io//page4/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -125,279 +125,338 @@
 </script>
 
 
-    <!-- Image to hack wechat -->
-<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="/img/post-bg-2015.jpg" width="0" height="0"> -->
-
-<!-- Post Header -->
-<style type="text/css">
-    header.intro-header{
-        background-image: url('/img/post-bg-2015.jpg')
-    }
-</style>
-<header class="intro-header" >
+    <!-- Page Header -->
+<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-heading">
-                    <div class="tags">
-                        
-                        <a class="tag" href="/tags/#ssl/tls" title="ssl/tls">ssl/tls</a>
-                        
-                    </div>
-                    <h1>SSL/TLS & MIN</h1>
-                    
-                    
-                    <h2 class="subheading">如何避免 SSL/TLS 中间人攻击</h2>
-                    
-                    <span class="meta">Posted by minicool on February 19, 2015</span>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
+                <div class="site-heading">
+                    <h1>MiniCool World</h1>
+                    <!--<hr class="small">-->
+                    <span class="subheading">- 发现这个有趣的迷你世界 -</span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Post Content -->
-<article>
-    <div class="container">
-        <div class="row">
+<!-- Main Content -->
+<div class="container">
+	<div class="row">
+        
 
+<!-- USE SIDEBAR -->
     <!-- Post Container -->
-            <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                post-container">
-
-                <!-- Multi-Lingual -->
-                                
-
-				<h4 id="简述">简述</h4>
-<blockquote>
-  <p>SSL/TLS MIN (SSL/TLS man in the middle) 中间人攻击</p>
-</blockquote>
-
-<blockquote>
-  <blockquote>
-    <p>SSL(secure sockets layer) 是介于传输层和应用层之间，提供通信数据的安全性和完整性的网络协议。主要提供：
-1.使用证书确认用户和服务器。（身份认证）
-2.在通信数据尾部添加校验码，防止中途篡改。（数据完整性）
-3.加密通信数据和校验码，防止中途窃取。（数据保密性）</p>
-  </blockquote>
-</blockquote>
-
-<p>SSL握手协议主要由四个协议完成：
-*握手协议
-*密码规则协议
-*记录协议
-*警告协议</p>
-
-<h4 id="优点">优点</h4>
-
-<h4 id="缺陷">缺陷</h4>
-
-<h4 id="基础流程wireshark">基础流程（wireshark）</h4>
-<blockquote>
-  <blockquote>
-    <p>SSL通信流程
-*客户端向服务器发送 会话ID，可用SSL版本号，当前时间，支持加密算法清单，支持压缩方式清单，产生随机数 Client-Secret（明文）。
-*服务器端向客户端发送 会话ID，使用SSL版本号，当前时间，使用加密算法清单，使用压缩方式，产生随机数 Server-Secret（明文）。
-*服务端将自己的证书发送给客户端。（证书包含公钥）【如果证书中信息不足，RSA协议需要提供公钥密码参数，DK协议需要提供密钥交换参数及公开值】
-*客户端验证服务器的合法性（CA根证书及证书链是否可靠，发行者公钥是否验证证书签名，证书域名是否和实际域名匹配，证书是否过期），合法性验证失败，直接断开。成功继续下一步通信。【如果设置服务器需要验证客户端，需要提供客户端证书】
-*客户端产生新主随机数 Pre-Master-Secret（密文），并用服务端证书中的公钥加密，并发送给服务器端。
-*服务器端使用自己的私钥来解密随机数。
-*双方根据约定的加密方法，使用前面的三个随机数，生成对话密钥（Session key）,用来加密整个对话过程。
-备注：为何需要三个随机数，而不只是需要最后生成Pre-Master-Key.应为不管是客户端，服务端都需要随机数。为保证协商出得密钥的随机性，所以需要引入随机因素来保证。Pre-Master 存在应为SSL协议不信任每个主机完全能生成随机的随机数，如果属于伪随机，那么Pre-Master-Secret就有可能被猜出来。如果使用三个随机数（客户端和服务端）都是伪随机数也十分接近随机。</p>
-  </blockquote>
-</blockquote>
-
-<h4 id="详细流程">详细流程</h4>
-
-<h4 id="代码">代码</h4>
-<p>伪代码</p>
-
-<h4 id="防范">防范</h4>
-<p>SSL劫持攻击:</p>
-<blockquote>
-  <p>ARP欺骗</p>
-  <blockquote>
-    <p>ARP(address resolution protocol) 地址解析协议。是一种IP地址转化为物理地址的协议（OSI第三层 网络层 转化为 OSI第二层 数据链路层）。
-备注：现有三层交换机，支持通过IP地址分发。MAC地址必要性大大降低，但是最初设备接入路由时候，需要MAC地址注册获取IP。MAC地址属于物理地址，IP地址属于逻辑地址。
-ARP欺骗，将IP地址到MAC地址的转换过程进行欺骗，使得IP地址转化为错误MAC地址，从而使数据流量引入错误物理地址。
-在中间人攻击时候，一般将自己伪装成路由器。</p>
-  </blockquote>
-</blockquote>
-
-<blockquote>
-  <p>DNS欺骗</p>
-  <blockquote>
-    <p>DNS(domain name system) 域名系统。 处于应用层，将域名解析成IP地址（OSI第7层 应用层 转化为 OSI第三层 网络层）
-DNS欺骗，将域名信息转化为IP地址时候进行欺骗，使得域名地址转化为错误IP地址，从而使的数据流量错误定位IP地址。
-在中间人攻击时候，一般伪装成目标服务器。
-简易防范方法：写入HOSTS，可以绕过DNS攻击。但是应为不能将所有网站都写入HOSTS，所以存在局限性。</p>
-  </blockquote>
-</blockquote>
-
-<blockquote>
-  <p>伪随机数猜解</p>
-  <blockquote>
-    <p>通过不断对服务器进行初步校验时，对伪随机进行猜解。</p>
-  </blockquote>
-</blockquote>
+    		<div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                post-container
+            ">
+    			
+<div class="post-preview">
+    <a href="/%E7%AC%94%E8%AE%B0/2013/05/27/SQL-execution-order/">
+        <h2 class="post-title">
+            SQL execution order
+        </h2>
+        
+        <h3 class="post-subtitle">
+            解析sql执行序列
+        </h3>
+        
+        <div class="post-content-preview">
+            1.逻辑查询处理阶段简介
 
 
+  (8)SELECT (9)DISTINCT  (11)&lt;Top Num&gt; &lt;select list&gt;
 
-                <hr style="visibility: hidden;">
-                <ul class="pager">
-                    
-                    <li class="previous">
-                        <a href="/%E7%AC%94%E8%AE%B0/2014/07/28/SQL-concurrency-control/" data-toggle="tooltip" data-placement="top" title="SQL concurrency controlr">
-                        Previous<br>
-                        <span>SQL concurrency controlr</span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="next">
-                        <a href="/%E7%AC%94%E8%AE%B0/2015/03/26/Encryption-algorithm-summary/" data-toggle="tooltip" data-placement="top" title="Encryption algorithm summary">
-                        Next<br>
-                        <span>Encryption algorithm summary</span>
-                        </a>
-                    </li>
-                    
-                </ul> 
-            </div>
+  (1)FROM [left_table]
+
+  (3) JOIN 
+
+  (2)ON 
+
+  (4)WHERE 
+
+  (5)GROUP BY 
+
+  
     
-    <!-- Side Catalog Container -->
-                
+      
+        (6)WITH &lt;CUBE ...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by minicool on May 27, 2013
+    </p>
+</div>
+<hr>
 
+<div class="post-preview">
+    <a href="/%E8%BD%AC%E8%BD%BD/2010/01/01/npm-scripts/">
+        <h2 class="post-title">
+            npm scripts 使用指南
+        </h2>
+        
+        <h3 class="post-subtitle">
+            如何使用 npm 脚本简易指南
+        </h3>
+        
+        <div class="post-content-preview">
+            
+  该文章转载 阮一峰的网络日志
+
+
+
+  Node 开发离不开 npm，而脚本功能是 npm 最强大、最常用的功能之一。
+
+
+一、什么是 npm 脚本？
+npm 允许在package.json文件里面，使用scripts字段定义脚本命令。
+
+{
+  // ...
+  "scripts": {
+    "build": "node build.js"
+  }
+}
+
+上面代码是package...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by minicool on January 1, 2010
+    </p>
+</div>
+<hr>
+
+
+<!-- Pager -->
+
+<ul class="pager">
+    
+    <li class="previous">
+        <a href="/page3">&larr; Newer Posts</a>
+    </li>
+    
+    
+</ul>
+
+
+    		</div>
     <!-- Sidebar Container -->
             <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                sidebar-container">
-
-                <!-- Featured Tags start-->
+                col-lg-3 col-lg-offset-0
+                col-md-3 col-md-offset-0
+                col-sm-12
+                col-xs-12
+                sidebar-container
+            ">
+                <!-- Featured Tags -->
                 
                 <section>
                     <hr class="hidden-sm hidden-xs">
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
-        				
+                        
                             
-                				<a href="/tags/#npm" title="npm" rel="1">
+                                <a href="/tags/#npm" title="npm" rel="1">
                                     npm
                                 </a>
                             
-        				
+                        
                             
-                				<a href="/tags/#SQL" title="SQL" rel="2">
+                                <a href="/tags/#SQL" title="SQL" rel="2">
                                     SQL
                                 </a>
                             
-        				
+                        
                             
-                				<a href="/tags/#基础知识" title="基础知识" rel="2">
+                                <a href="/tags/#基础知识" title="基础知识" rel="2">
                                     基础知识
                                 </a>
                             
-        				
+                        
                             
-                				<a href="/tags/#ssl/tls" title="ssl/tls" rel="1">
+                                <a href="/tags/#ssl/tls" title="ssl/tls" rel="1">
                                     ssl/tls
                                 </a>
                             
-        				
+                        
                             
-                				<a href="/tags/#密码学" title="密码学" rel="1">
+                                <a href="/tags/#密码学" title="密码学" rel="1">
                                     密码学
                                 </a>
                             
-        				
+                        
                             
-                				<a href="/tags/#算法" title="算法" rel="1">
+                                <a href="/tags/#算法" title="算法" rel="1">
                                     算法
                                 </a>
                             
-        				
+                        
                             
-                				<a href="/tags/#openssl" title="openssl" rel="1">
+                                <a href="/tags/#openssl" title="openssl" rel="1">
                                     openssl
                                 </a>
                             
-        				
+                        
                             
-                				<a href="/tags/#CA" title="CA" rel="1">
+                                <a href="/tags/#CA" title="CA" rel="1">
                                     CA
                                 </a>
                             
-        				
+                        
                             
-                				<a href="/tags/#code" title="code" rel="4">
+                                <a href="/tags/#code" title="code" rel="4">
                                     code
                                 </a>
                             
-        				
+                        
                             
-                				<a href="/tags/#electron" title="electron" rel="1">
+                                <a href="/tags/#electron" title="electron" rel="1">
                                     electron
                                 </a>
                             
-        				
+                        
                             
-                				<a href="/tags/#demo" title="demo" rel="1">
+                                <a href="/tags/#demo" title="demo" rel="1">
                                     demo
                                 </a>
                             
-        				
+                        
                             
-                				<a href="/tags/#postman" title="postman" rel="2">
+                                <a href="/tags/#postman" title="postman" rel="2">
                                     postman
                                 </a>
                             
-        				
+                        
                             
-                				<a href="/tags/#network" title="network" rel="1">
+                                <a href="/tags/#network" title="network" rel="1">
                                     network
                                 </a>
                             
-        				
+                        
                             
-                				<a href="/tags/#Authorization" title="Authorization" rel="1">
+                                <a href="/tags/#Authorization" title="Authorization" rel="1">
                                     Authorization
                                 </a>
                             
-        				
+                        
                             
-                				<a href="/tags/#etherum" title="etherum" rel="3">
+                                <a href="/tags/#etherum" title="etherum" rel="3">
                                     etherum
                                 </a>
                             
-        				
+                        
                             
-                				<a href="/tags/#jpush" title="jpush" rel="1">
+                                <a href="/tags/#jpush" title="jpush" rel="1">
                                     jpush
                                 </a>
                             
-        				
+                        
                             
-                				<a href="/tags/#IM" title="IM" rel="1">
+                                <a href="/tags/#IM" title="IM" rel="1">
                                     IM
                                 </a>
                             
-        				
+                        
                             
-                				<a href="/tags/#block-chain" title="block-chain" rel="1">
+                                <a href="/tags/#block-chain" title="block-chain" rel="1">
                                     block-chain
                                 </a>
                             
-        				
-        			</div>
+                        
+                    </div>
                 </section>
                 
-                <!-- Featured Tags end-->                
 
+                <!-- Category -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/categories/">CATEGORY</a></h5>
+                    <div class="tags">
+                        
+                            <a href="/categories/#转载-ref" title="转载" rel="2">
+                                转载
+                            </a>
+                        
+                            <a href="/categories/#笔记-ref" title="笔记" rel="4">
+                                笔记
+                            </a>
+                        
+                            <a href="/categories/#源码分析-ref" title="源码分析" rel="4">
+                                源码分析
+                            </a>
+                        
+                            <a href="/categories/#开发者工具-ref" title="开发者工具" rel="2">
+                                开发者工具
+                            </a>
+                        
+                            <a href="/categories/#开发工作-ref" title="开发工作" rel="1">
+                                开发工作
+                            </a>
+                        
+                            <a href="/categories/#问题探讨-ref" title="问题探讨" rel="1">
+                                问题探讨
+                            </a>
+                        
+                    </div>
+                </section>
+                              
 
-                <!-- Friends Blog start-->
+                <!-- Short About -->
+                <section class="visible-md visible-lg">
+                    <hr><h5><a href="/about/">ABOUT ME</a></h5>
+                    <div class="short-about">
+                        
+                            <img src="/img/me/avatar.jpeg" />
+                        
+                        
+                            <p>假如生活欺骗了你，不要悲伤，不要哭泣。 -做个有趣的灵魂</p>
+                        
+                        <!-- SNS Link -->
+                        <ul class="list-inline">
+                            
+                            
+                            <li>
+                                <a href="mailto:minicool.software@gmail.com">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                            <li>
+                                <a href="https://twitter.com/minicool">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                            
+                            
+                            
+                            <li>
+                                <a target="_blank" href="https://github.com/minicool">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </section>
+                <!-- Friends Blog -->
                 
                 <hr>
                 <h5>FRIENDS</h5>
@@ -409,73 +468,22 @@ DNS欺骗，将域名信息转化为IP地址时候进行欺骗，使得域名地
                     
                 </ul>
                 
-                <!-- Friends Blog start-->
 
-                <!-- READ ANALY start-->
+                <!-- READ ANALY -->
                 
                 <hr>
                 <h5>READ ANALY</h5>
-                <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span>
-                   
-                <!-- READ ANALY end-->                  
-                
-                <!-- gitment start -->                
-                
-                <div id="container"></div>
-                <script>
-                  var gitment = new Gitment({
-                    id: window.location.pathname, 
-                    owner: 'minicool',
-                    repo: 'minicool.github.io',
-                    oauth: {
-                    client_id: '5d7b7a70ed66f348595e',
-                    client_secret: '',
-                    },
-                  })
-                  gitment.render('container')
-                </script>
-                
-                <!-- gitment end -->                      
-            </div>
-        </div>
-    </div>
-</article>
-
-
-<!-- async load function -->
-<script>
-    function async(u, c) {
-      var d = document, t = 'script',
-          o = d.createElement(t),
-          s = d.getElementsByTagName(t)[0];
-      o.src = u;
-      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-      s.parentNode.insertBefore(o, s);
-    }
-</script>
-<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
-<script>
-    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
-        anchors.options = {
-          visible: 'always',
-          placement: 'right',
-          icon: '#'
-        };
-        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
-    })
-</script>
-<style>
-    /* place left on bigger screen */
-    @media all and (min-width: 800px) {
-        .anchorjs-link{
-            position: absolute;
-            left: -0.75em;
-            font-size: 1.1em;
-            margin-top : -0.1em;
-        }
-    }
-</style>
-
+                <span id="busuanzi_container_site_pv">
+                        本站 总访问量 <span id="busuanzi_value_site_pv"></span> 次
+                    </span><br>
+                <span id="busuanzi_container_site_uv">
+                        本站 访客数 <span id="busuanzi_value_site_uv"></span> 人次
+                    </span>    
+                                  
+    		</div>
+        
+	</div>
+</div>
 
 
     <!-- Footer -->

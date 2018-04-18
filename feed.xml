@@ -5,9 +5,149 @@
     <description>年迈的工程师</description>
     <link>https://minicool.github.io//</link>
     <atom:link href="https://minicool.github.io//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 21 Mar 2018 20:43:16 +0800</pubDate>
-    <lastBuildDate>Wed, 21 Mar 2018 20:43:16 +0800</lastBuildDate>
+    <pubDate>Wed, 18 Apr 2018 19:27:12 +0800</pubDate>
+    <lastBuildDate>Wed, 18 Apr 2018 19:27:12 +0800</lastBuildDate>
     <generator>Jekyll v3.7.3</generator>
+    
+      <item>
+        <title>block chain trust issues</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;提到区块链，除了数字货币这个话题外，另一个话题常被人提到的是解决了陌生人信任问题。在对区块链这段时间的研究及理解中，个人觉得区块链能解决陌生人信任问题的能力明显的夸大了。退一步将，至少可以确定它能解决额问题是有限的。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;区块链&quot;&gt;区块链&lt;/h4&gt;
+&lt;p&gt;在本质上来说，区块链主要由共识协议，加密算法，数据结构等组成。&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;共识协议：POW,POS,DPOS,PBFT等。（很多人甚至白皮书把共识协议叫做共识算法，我认为是不妥的。算法是解决特定问题数学计算的流程方式，协议是多方认可实行的操作方式。而共识更偏向协议这种解释。当然这只是我本人的理解，并不对这个学术名称进行过多解析）&lt;/li&gt;
+  &lt;li&gt;加密算法：摘要：RIPEMD、SHA256 不对称加密向：ECC(椭圆曲线)算法等&lt;/li&gt;
+  &lt;li&gt;数据结构：Merkle树，数据链表，块链结构等
+本次主要讨论区块链的共识协议。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;共识协议&quot;&gt;共识协议&lt;/h4&gt;
+&lt;p&gt;共识协议中主要的几种协议：（本身优缺点不做讨论）&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;POW (Proof of Work &amp;amp; 工作量证明): 即干的越多，收的越多。
+依赖机器进行数学运算来获取记账权，资源消耗相比其他共识机制高、可监管性弱，同时每次达成共识需要全网共同参与运算，性能效率比较低，容错性方面允许全网50%节点出错。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;POS（Proof of Stake &amp;amp; 权益证明）：即持有越多，获得越多。
+主要是节点记账权的获得难度与节点持有的权益成反比，相对于PoW，一定程度减少了数学运算带来的资源消耗，性能也得到了相应的提升，但依然是基于哈希运算竞争获取记账权的方式，可监管性弱。该共识机制容错性和PoW相同。它是Pow的一种升级共识机制，根据每个节点所占代币的比例和时间，等比例的降低挖矿难度，从而加快找随机数的速度。总体来说获得了权重属性的POW协议。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;DPOS（Delegated Proof of Stake，委任权益证明）：谁给我带来利益最大化，我就选谁
+与PoS的主要区别在于节点选举若干代理人，由代理人验证和记账。其合规监管、性能、资源消耗和容错性与PoS相似。类似于董事会投票，持币者投出一定数量的节点，代理他们进行验证和记账。原理类似议会制度或人民代表大会制度。弱中心化。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;PBFT （Practical Byzantine Fault Tolerance，实用拜占庭容错）：我选你当老大，但是你每次干啥都要我审核
+一种状态机副本复制算法，即服务作为状态机进行建模，状态机在分布式系统的不同节点进行副本复制。每个状态机的副本都保存了服务的状态，同时也实现了服务的操作。前提需要提供了(n-1)/3的容错性。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;信任和认可&quot;&gt;信任和认可&lt;/h4&gt;
+&lt;p&gt;大家常常把这两种理解混在一起。本人所理解的更能准确描述。
+认可：是常对某件事件，某个物件的认定。即对该事物表示认同不反对。狭义范围属于认定。
+信任：是指在某人或某组织，可进行一步来说就是具有法定人的信任，授予其在范围内行驶权力的行为。狭义范围属于授权。&lt;/p&gt;
+
+&lt;p&gt;以POW共识为例子：所有工作量的证明都是由算力对套用计算来获得随机数，以实现大家对该行为的认可。它自身并未有信任元素。
+POS作为拥有权重属性的加强版POW协议，也和POW类似。
+DPOS在认可上进行突破，形成了通过利益最大化来选择代理人。建立了弱信任元素。通过利益最大化来衡量。
+PBFT表面上形成信任元素，但其本质还是认可行为，主要对选举出的领导的每次认可询问进行评定。&lt;/p&gt;
+
+&lt;h4 id=&quot;数据上链风险及悖论&quot;&gt;数据上链风险及悖论&lt;/h4&gt;
+&lt;p&gt;区块链不单单是数字货币这一个方向，如其他传统信息应用方向。涉及到链外数据进入链内方式。即数据上链方法。
+而如何确定数据上链的安全性，即如何保证抄写员在本子上写的东西是真的，不存在私心进行修改的问题。
+其实上述归纳来说，本质问题就是信任机制及风险。这种风险一般通过强信任模式和惩罚机制来制约。&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;强信任模式，例如以太坊上的Oracle合约仲裁方。类似于现实生活中的银行，政府等。自身具有强信用背书。但这种存在方式又违背了陌生人信任模式。形成了弱中心化的行为。涉及外部合约等。&lt;/li&gt;
+  &lt;li&gt;惩罚机制，如信任链中的全信任链崩塌，类似CA认证链。或者DPOS中无法获取委托高权益，将被委托人直接除名。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;而上述制约模式都与区块链存在或多或少的悖论。
+强信任模式，带了中心化的仲裁模式。惩罚机制，只是形成约束，并未能有效阻止发生。&lt;/p&gt;
+
+&lt;h4 id=&quot;信任机制风险&quot;&gt;信任机制风险&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;认可替代信任。即POW模式，获得随机数即被认可。无需其余节点信任。优点：去信任，随时进行认可确定。缺点：POW存在的所有问题。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;强信用模式，类似CA证书链。根节点为强信用节点，为子节点进行链式分发，并为子节点实现链式隐形信任担保。作为强信用模式，必然形成中心化。优点：自身权威性。缺点：违背了区块链去中心化，需要强力信用进行背书。例如：以太坊上的ORACLE提供商，如何确定其仲裁的合法性。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;信任的发展机制&quot;&gt;信任的发展机制&lt;/h4&gt;
+&lt;p&gt;在人类历史角度中看信任的发展，都从陌生到认定，再从认定到信任，信任到权威的发展方式。而这一系列的信任转化，就形成了现有信用链。强信用模式下，往往&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 30 Mar 2018 20:00:00 +0800</pubDate>
+        <link>https://minicool.github.io//%E9%97%AE%E9%A2%98%E6%8E%A2%E8%AE%A8/2018/03/30/blockchain-bug/</link>
+        <guid isPermaLink="true">https://minicool.github.io//%E9%97%AE%E9%A2%98%E6%8E%A2%E8%AE%A8/2018/03/30/blockchain-bug/</guid>
+        
+        <category>block-chain</category>
+        
+        
+        <category>问题探讨</category>
+        
+      </item>
+    
+      <item>
+        <title>jmessage-IM</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;因公司原技术选型使用极光，现需开发IM工具，和原有推送打通。为保持业务流通对接，避免再造轮子。还是以极光IMSDK作为开发载体。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;前期准备&quot;&gt;前期准备&lt;/h4&gt;
+&lt;p&gt;再确定选用极光技术进行开发后，依照现有人才储备和对接平台,快速开发原则。选定前端QT/C++，后端C#。&lt;/p&gt;
+&lt;h5 id=&quot;技术选型&quot;&gt;技术选型：&lt;/h5&gt;
+&lt;p&gt;1.&lt;a href=&quot;https://www.jiguang.cn/&quot;&gt;极光平台&lt;/a&gt;
+2.&lt;a href=&quot;https://github.com/jpush/jchat-windows&quot;&gt;前端QT/C++&lt;/a&gt;
+3.&lt;a href=&quot;https://github.com/jpush/jmessage-api-csharp-client&quot;&gt;后端C#&lt;/a&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;开发工具&quot;&gt;开发工具：&lt;/h5&gt;
+&lt;p&gt;1.&lt;a href=&quot;https://www.visualstudio.com/zh-hans/downloads/&quot;&gt;vs2017 社区版本&lt;/a&gt;
+因前端使用c++17标准，为开发方便，选择VS2017开发。开发工作量较小，选择社区版本免费.&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;https://download.qt.io/archive/qt/&quot;&gt;QT&lt;/a&gt;
+因QT不提供vs2017-X86版本，如果需自己自行编译。建议&lt;a href=&quot;https://pan.baidu.com/s/1cgy7hG#list/path=%2F&quot;&gt;下载编译完全版本&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;https://download.qt.io/development_releases/vsaddin/&quot;&gt;QT 插件&lt;/a&gt;
+方便项目QT转化。&lt;/p&gt;
+
+&lt;h5 id=&quot;版本安装&quot;&gt;版本安装：&lt;/h5&gt;
+&lt;p&gt;1.vs2017 选择前三种开发环境，桌面开发，C++，C#。
+2.QT选择VS2017 msvc32及64。
+2.QT插件安装。&lt;/p&gt;
+
+&lt;h5 id=&quot;极光项目申请key&quot;&gt;极光项目申请KEY&lt;/h5&gt;
+&lt;p&gt;1.注册极光项目
+2.获取 AppKey 及 Master Secret&lt;/p&gt;
+
+&lt;h5 id=&quot;第三方程序--electron-通信&quot;&gt;第三方程序 &amp;amp; electron 通信&lt;/h5&gt;
+&lt;p&gt;1.使用命令行调用&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;process.argv[1]
+mainWindow.loadURL&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;process.argv[2]&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;2.electron 增加 nodejs server. 通过url传参数&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;?url&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;http://www.xx.com
+http.server
+url.parse&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;req.url,true&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+</description>
+        <pubDate>Thu, 15 Mar 2018 20:00:00 +0800</pubDate>
+        <link>https://minicool.github.io//%E5%BC%80%E5%8F%91%E5%B7%A5%E4%BD%9C/2018/03/15/jmessage-Im/</link>
+        <guid isPermaLink="true">https://minicool.github.io//%E5%BC%80%E5%8F%91%E5%B7%A5%E4%BD%9C/2018/03/15/jmessage-Im/</guid>
+        
+        <category>jpush</category>
+        
+        <category>IM</category>
+        
+        
+        <category>开发工作</category>
+        
+      </item>
     
       <item>
         <title>etherum &amp; geth CLI</title>
@@ -91,8 +231,8 @@ help: 帮助命令&lt;/p&gt;
 
 </description>
         <pubDate>Fri, 02 Feb 2018 20:00:00 +0800</pubDate>
-        <link>https://minicool.github.io//%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2018/02/02/etherum-geth/</link>
-        <guid isPermaLink="true">https://minicool.github.io//%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2018/02/02/etherum-geth/</guid>
+        <link>https://minicool.github.io//%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2018/02/02/etherum-code-analy-geth/</link>
+        <guid isPermaLink="true">https://minicool.github.io//%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2018/02/02/etherum-code-analy-geth/</guid>
         
         <category>code</category>
         
@@ -104,7 +244,7 @@ help: 帮助命令&lt;/p&gt;
       </item>
     
       <item>
-        <title>trie &amp; code analysis</title>
+        <title>etherum &amp; trie</title>
         <description>&lt;blockquote&gt;
   &lt;p&gt;包trie 实现了MPT(Merkle Patricia Tries)数据结构，这种数据结构实际上是一种Trie树变种。MPT是以太坊中一种非常重要的数据结构，用来存储用户账户的状态及其变更、交易信息、交易的收据信息。MPT实际上是三种数据结构的组合，分别是Trie树， Patricia Trie， 和Merkle树。下面分别介绍这三种数据结构。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -264,6 +404,91 @@ abigen,bootnode,ethkey,evm,examples,faucet,geth,p2psim,puppeth,ripdump,swarm,wno
         
         
         <category>源码分析</category>
+        
+      </item>
+    
+      <item>
+        <title>postman &amp; author</title>
+        <description>
+</description>
+        <pubDate>Tue, 07 Nov 2017 20:00:00 +0800</pubDate>
+        <link>https://minicool.github.io//%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7/2017/11/07/postman-author/</link>
+        <guid isPermaLink="true">https://minicool.github.io//%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7/2017/11/07/postman-author/</guid>
+        
+        <category>postman</category>
+        
+        <category>Authorization</category>
+        
+        
+        <category>开发者工具</category>
+        
+      </item>
+    
+      <item>
+        <title>postman &amp; base</title>
+        <description>&lt;h4 id=&quot;简介&quot;&gt;简介&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;Postman&lt;/strong&gt; 是一款功能强大的用于模拟发送 HTTP请求应用。其主要特点特点：  &lt;br /&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;创建 + 测试：创建和发送任何的HTTP请求，请求可以保存到历史中再次执行  &lt;br /&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Organize:&lt;/strong&gt; 使用Postman Collections为更有效的测试及集成工作流管理和组织APIs   &lt;br /&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;document:&lt;/strong&gt; 依据你创建的Clollections自动生成API文档,并将其发布成规范的格式  &lt;br /&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;collarorate:&lt;/strong&gt; 通过同步连接你的team和你的api，以及权限控制，API库  &lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;下载和安装&quot;&gt;下载和安装&lt;/h4&gt;
+&lt;p&gt;chrome app：  &lt;br /&gt;&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;chrome的扩展程序中搜索（postman）安装 【需自备翻墙梯子 推荐&lt;a href=&quot;https://github.com/getlantern/forum&quot;&gt;蓝灯&lt;/a&gt;】  &lt;br /&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.cnplugins.com/devtool/postman/download.html&quot;&gt;离线下载&lt;/a&gt;postman扩展程序  &lt;br /&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;native app:  &lt;br /&gt;&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.getpostman.com/apps&quot;&gt;官网下载&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;环境变量&quot;&gt;环境变量&lt;/h4&gt;
+&lt;p&gt;环境变量主要通过设置不同环境中对应参数信息，以便在不同环境中进行便捷测试。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/in-post/develop-tool/2017-11-03-postman-base-1.png&quot; alt=&quot;环境变量&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;选择设置不同的环境变量&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/in-post/develop-tool/2017-11-03-postman-base-2.png&quot; alt=&quot;环境变量&quot; /&gt;
+例如 生产环境测试域名为：www.baidu.com   测试环境地址为：192.168.1.123&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;base_url&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;  作为参数模版替代&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;通用设置
+&lt;img src=&quot;/img/in-post/develop-tool/2017-11-03-postman-base-3.png&quot; alt=&quot;通用设置&quot; /&gt;&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Trim keys and values in request body(去除请求体中的键和值的空格)：如果使用form-data或者url-encoded 应该关闭开功能&lt;/li&gt;
+  &lt;li&gt;Language detection(语言判断)：设置成JSON将强制以JSON进行渲染，和响应头的Content-Type无关&lt;/li&gt;
+  &lt;li&gt;Request Timeout in ms(0 for infinity)：设置请求超时的时间&lt;/li&gt;
+  &lt;li&gt;Send no-cache header：发送一个no-cache请求头，获取服务器最新的资源&lt;/li&gt;
+  &lt;li&gt;Automatically follow redirects：防止服务返回300系列的状态，自动重定向&lt;/li&gt;
+  &lt;li&gt;Send anonymous usage data to Postman：是否循序匿名向postman发送数据&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;http-requests&quot;&gt;Http Requests&lt;/h4&gt;
+
+&lt;h4 id=&quot;http-responses&quot;&gt;Http Responses&lt;/h4&gt;
+
+&lt;h4 id=&quot;writting-test&quot;&gt;Writting Test&lt;/h4&gt;
+
+&lt;h4 id=&quot;use-collections&quot;&gt;Use Collections&lt;/h4&gt;
+
+</description>
+        <pubDate>Tue, 07 Nov 2017 20:00:00 +0800</pubDate>
+        <link>https://minicool.github.io//%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7/2017/11/07/postman-base/</link>
+        <guid isPermaLink="true">https://minicool.github.io//%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7/2017/11/07/postman-base/</guid>
+        
+        <category>postman</category>
+        
+        <category>network</category>
+        
+        
+        <category>开发者工具</category>
         
       </item>
     
@@ -568,498 +793,6 @@ Dk无意义长链，所以获取无法获取到口令。（可以保证不会通
         
         
         <category>笔记</category>
-        
-      </item>
-    
-      <item>
-        <title>SSL/TLS &amp; MIN</title>
-        <description>&lt;h4 id=&quot;简述&quot;&gt;简述&lt;/h4&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;SSL/TLS MIN (SSL/TLS man in the middle) 中间人攻击&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;blockquote&gt;
-    &lt;p&gt;SSL(secure sockets layer) 是介于传输层和应用层之间，提供通信数据的安全性和完整性的网络协议。主要提供：
-1.使用证书确认用户和服务器。（身份认证）
-2.在通信数据尾部添加校验码，防止中途篡改。（数据完整性）
-3.加密通信数据和校验码，防止中途窃取。（数据保密性）&lt;/p&gt;
-  &lt;/blockquote&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;SSL握手协议主要由四个协议完成：
-*握手协议
-*密码规则协议
-*记录协议
-*警告协议&lt;/p&gt;
-
-&lt;h4 id=&quot;优点&quot;&gt;优点&lt;/h4&gt;
-
-&lt;h4 id=&quot;缺陷&quot;&gt;缺陷&lt;/h4&gt;
-
-&lt;h4 id=&quot;基础流程wireshark&quot;&gt;基础流程（wireshark）&lt;/h4&gt;
-&lt;blockquote&gt;
-  &lt;blockquote&gt;
-    &lt;p&gt;SSL通信流程
-*客户端向服务器发送 会话ID，可用SSL版本号，当前时间，支持加密算法清单，支持压缩方式清单，产生随机数 Client-Secret（明文）。
-*服务器端向客户端发送 会话ID，使用SSL版本号，当前时间，使用加密算法清单，使用压缩方式，产生随机数 Server-Secret（明文）。
-*服务端将自己的证书发送给客户端。（证书包含公钥）【如果证书中信息不足，RSA协议需要提供公钥密码参数，DK协议需要提供密钥交换参数及公开值】
-*客户端验证服务器的合法性（CA根证书及证书链是否可靠，发行者公钥是否验证证书签名，证书域名是否和实际域名匹配，证书是否过期），合法性验证失败，直接断开。成功继续下一步通信。【如果设置服务器需要验证客户端，需要提供客户端证书】
-*客户端产生新主随机数 Pre-Master-Secret（密文），并用服务端证书中的公钥加密，并发送给服务器端。
-*服务器端使用自己的私钥来解密随机数。
-*双方根据约定的加密方法，使用前面的三个随机数，生成对话密钥（Session key）,用来加密整个对话过程。
-备注：为何需要三个随机数，而不只是需要最后生成Pre-Master-Key.应为不管是客户端，服务端都需要随机数。为保证协商出得密钥的随机性，所以需要引入随机因素来保证。Pre-Master 存在应为SSL协议不信任每个主机完全能生成随机的随机数，如果属于伪随机，那么Pre-Master-Secret就有可能被猜出来。如果使用三个随机数（客户端和服务端）都是伪随机数也十分接近随机。&lt;/p&gt;
-  &lt;/blockquote&gt;
-&lt;/blockquote&gt;
-
-&lt;h4 id=&quot;详细流程&quot;&gt;详细流程&lt;/h4&gt;
-
-&lt;h4 id=&quot;代码&quot;&gt;代码&lt;/h4&gt;
-&lt;p&gt;伪代码&lt;/p&gt;
-
-&lt;h4 id=&quot;防范&quot;&gt;防范&lt;/h4&gt;
-&lt;p&gt;SSL劫持攻击:&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;ARP欺骗&lt;/p&gt;
-  &lt;blockquote&gt;
-    &lt;p&gt;ARP(address resolution protocol) 地址解析协议。是一种IP地址转化为物理地址的协议（OSI第三层 网络层 转化为 OSI第二层 数据链路层）。
-备注：现有三层交换机，支持通过IP地址分发。MAC地址必要性大大降低，但是最初设备接入路由时候，需要MAC地址注册获取IP。MAC地址属于物理地址，IP地址属于逻辑地址。
-ARP欺骗，将IP地址到MAC地址的转换过程进行欺骗，使得IP地址转化为错误MAC地址，从而使数据流量引入错误物理地址。
-在中间人攻击时候，一般将自己伪装成路由器。&lt;/p&gt;
-  &lt;/blockquote&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;DNS欺骗&lt;/p&gt;
-  &lt;blockquote&gt;
-    &lt;p&gt;DNS(domain name system) 域名系统。 处于应用层，将域名解析成IP地址（OSI第7层 应用层 转化为 OSI第三层 网络层）
-DNS欺骗，将域名信息转化为IP地址时候进行欺骗，使得域名地址转化为错误IP地址，从而使的数据流量错误定位IP地址。
-在中间人攻击时候，一般伪装成目标服务器。
-简易防范方法：写入HOSTS，可以绕过DNS攻击。但是应为不能将所有网站都写入HOSTS，所以存在局限性。&lt;/p&gt;
-  &lt;/blockquote&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;伪随机数猜解&lt;/p&gt;
-  &lt;blockquote&gt;
-    &lt;p&gt;通过不断对服务器进行初步校验时，对伪随机进行猜解。&lt;/p&gt;
-  &lt;/blockquote&gt;
-&lt;/blockquote&gt;
-
-</description>
-        <pubDate>Thu, 19 Feb 2015 20:00:00 +0800</pubDate>
-        <link>https://minicool.github.io//%E8%BD%AC%E8%BD%BD/2015/02/19/SSL-MIM/</link>
-        <guid isPermaLink="true">https://minicool.github.io//%E8%BD%AC%E8%BD%BD/2015/02/19/SSL-MIM/</guid>
-        
-        <category>ssl/tls</category>
-        
-        
-        <category>转载</category>
-        
-      </item>
-    
-      <item>
-        <title>SQL concurrency controlr</title>
-        <description>&lt;h3 id=&quot;乐观锁&quot;&gt;乐观锁&lt;/h3&gt;
-
-&lt;p&gt;乐观锁做为关系性数据库中的一种并发控制方法。它假设数据库运行提交事务处理时候，并不会相互影响。各事务能够在不产生锁的情况下进行处理各自数据。在提交数据更新之前，每个事务会先检查在该事务读取数据后，有没有其他事务又修改了该数据。如果其他事务有更新的话，正在提交的事务会进行回滚。&lt;/p&gt;
-
-&lt;h4 id=&quot;应用&quot;&gt;应用&lt;/h4&gt;
-&lt;p&gt;乐观并发控制多数用于数据争用不大、冲突较少的环境中，这种环境中，偶尔回滚事务的成本会低于读取数据时锁定数据的成本，因此可以获得比其他并发控制方法更高的吞吐量。&lt;/p&gt;
-
-&lt;h4 id=&quot;控制阶段&quot;&gt;控制阶段&lt;/h4&gt;
-&lt;p&gt;乐观并发控制的事务包括以下阶段：
-读取：事务将数据读入缓存，这时系统会给事务分派一个时间戳。
-校验：事务执行完毕后，进行提交。这时同步校验所有事务，如果事务所读取的数据在读取之后又被其他事务修改，则产生冲突，事务被中断回滚。
-写入：通过校验阶段后，将更新的数据写入数据库。&lt;/p&gt;
-
-&lt;h4 id=&quot;优缺点&quot;&gt;优缺点&lt;/h4&gt;
-&lt;p&gt;乐观并发控制相信事务之间的数据竞争(data race)的概率是比较小的，因此尽可能直接做下去，直到提交的时候才去锁定，所以不会产生任何锁和死锁。但如果直接简单这么做，还是有可能会遇到不可预期的结果，例如两个事务都读取了数据库的某一行，经过修改以后写回数据库，这时就遇到了问题。&lt;/p&gt;
-
-&lt;h3 id=&quot;悲观锁&quot;&gt;悲观锁&lt;/h3&gt;
-&lt;p&gt;它可以阻止一个事务以影响其他用户的方式来修改数据。如果一个事务执行的操作读某行数据应用了锁，那只有当这个事务把锁释放，其他事务才能够执行与该锁冲突的操作。&lt;/p&gt;
-
-&lt;h4 id=&quot;应用-1&quot;&gt;应用&lt;/h4&gt;
-&lt;p&gt;悲观并发控制主要用于数据争用激烈的环境，以及发生并发冲突时使用锁保护数据的成本要低于回滚事务的成本的环境中。&lt;/p&gt;
-
-&lt;h4 id=&quot;控制阶段-1&quot;&gt;控制阶段&lt;/h4&gt;
-
-&lt;h4 id=&quot;优缺点-1&quot;&gt;优缺点&lt;/h4&gt;
-&lt;p&gt;悲观并发控制实际上是“先取锁再访问”的保守策略[1]，为数据处理的安全提供了保证。但是在效率方面，处理加锁的机制会让数据库产生额外的开销，还有增加产生死锁的机会；另外，在只读型事务处理中由于不会产生冲突，也没必要使用锁，这样做只能增加系统负载；还有会降低了并行性，一个事务如果锁定了某行数据，其他事务就必须等待该事务处理完才可以处理那行数据。&lt;/p&gt;
-
-&lt;h4 id=&quot;acid&quot;&gt;ACID&lt;/h4&gt;
-&lt;p&gt;ACID，是指数据库管理系统（DBMS）在写入或更新资料的过程中，为保证事务（transaction）是正确可靠的，所必须具备的四个特性：原子性（atomicity，或称不可分割性）、一致性（consistency）、隔离性（isolation，又称独立性）、持久性（durability）。&lt;/p&gt;
-
-&lt;p&gt;在数据库系统中，一个事务是指：由一系列数据库操作组成的一个完整的逻辑过程。例如银行转帐，从原账户扣除金额，以及向目标账户添加金额，这两个数据库操作的总和，构成一个完整的逻辑过程，不可拆分。这个过程被称为一个事务，具有ACID特性。ACID的概念在ISO/IEC 10026-1:1992文件的第四段内有所说明。&lt;/p&gt;
-
-&lt;p&gt;原子性：一个事务（transaction）中的所有操作，要么全部完成，要么全部不完成，不会结束在中间某个环节。事务在执行过程中发生错误，会被回滚（Rollback）到事务开始前的状态，就像这个事务从来没有执行过一样。
-一致性：在事务开始之前和事务结束以后，数据库的完整性没有被破坏。这表示写入的资料必须完全符合所有的预设规则，这包含资料的精确度、串联性以及后续数据库可以自发性地完成预定的工作。
-隔离性：数据库允许多个并发事务同时对其数据进行读写和修改的能力，隔离性可以防止多个事务并发执行时由于交叉执行而导致数据的不一致。事务隔离分为不同级别，包括读未提交（Read uncommitted）、读提交（read committed）、可重复读（repeatable read）和串行化（Serializable）。
-持久性：事务处理结束后，对数据的修改就是永久的，即便系统故障也不会丢失。&lt;/p&gt;
-</description>
-        <pubDate>Mon, 28 Jul 2014 20:00:00 +0800</pubDate>
-        <link>https://minicool.github.io//%E7%AC%94%E8%AE%B0/2014/07/28/SQL-concurrency-control/</link>
-        <guid isPermaLink="true">https://minicool.github.io//%E7%AC%94%E8%AE%B0/2014/07/28/SQL-concurrency-control/</guid>
-        
-        <category>SQL</category>
-        
-        <category>基础知识</category>
-        
-        
-        <category>笔记</category>
-        
-      </item>
-    
-      <item>
-        <title>SQL execution order</title>
-        <description>&lt;h3 id=&quot;1逻辑查询处理阶段简介&quot;&gt;1.逻辑查询处理阶段简介&lt;/h3&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;(8)SELECT (9)DISTINCT  (11)&amp;lt;Top Num&amp;gt; &amp;lt;select list&amp;gt;&lt;/p&gt;
-
-  &lt;p&gt;(1)FROM [left_table]&lt;/p&gt;
-
-  &lt;p&gt;(3)&lt;join_type&gt; JOIN &lt;right_table&gt;&lt;/right_table&gt;&lt;/join_type&gt;&lt;/p&gt;
-
-  &lt;p&gt;(2)ON &lt;join_condition&gt;&lt;/join_condition&gt;&lt;/p&gt;
-
-  &lt;p&gt;(4)WHERE &lt;where_condition&gt;&lt;/where_condition&gt;&lt;/p&gt;
-
-  &lt;p&gt;(5)GROUP BY &lt;group_by_list&gt;&lt;/group_by_list&gt;&lt;/p&gt;
-
-  &lt;table&gt;
-    &lt;tbody&gt;
-      &lt;tr&gt;
-        &lt;td&gt;(6)WITH &amp;lt;CUBE &lt;/td&gt;
-        &lt;td&gt; RollUP&amp;gt;&lt;/td&gt;
-      &lt;/tr&gt;
-    &lt;/tbody&gt;
-  &lt;/table&gt;
-
-  &lt;p&gt;(7)HAVING &lt;having_condition&gt;&lt;/having_condition&gt;&lt;/p&gt;
-
-  &lt;p&gt;(10)ORDER BY &lt;order_by_list&gt;&lt;/order_by_list&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;FROM：对FROM子句中的前两个表执行笛卡尔积（Cartesian product)(交叉联接），生成虚拟表VT1&lt;/li&gt;
-  &lt;li&gt;ON：对VT1应用ON筛选器。只有那些使&lt;join_condition&gt;为真的行才被插入VT2。&lt;/join_condition&gt;&lt;/li&gt;
-  &lt;li&gt;OUTER(JOIN)：如 果指定了OUTER JOIN（相对于CROSS JOIN 或(INNER JOIN),保留表（preserved table：左外部联接把左表标记为保留表，右外部联接把右表标记为保留表，完全外部联接把两个表都标记为保留表）中未找到匹配的行将作为外部行添加到 VT2,生成VT3.如果FROM子句包含两个以上的表，则对上一个联接生成的结果表和下一个表重复执行步骤1到步骤3，直到处理完所有的表为止。&lt;/li&gt;
-  &lt;li&gt;WHERE：对VT3应用WHERE筛选器。只有使&lt;where_condition&gt;为true的行才被插入VT4.&lt;/where_condition&gt;&lt;/li&gt;
-  &lt;li&gt;GROUP BY：按GROUP BY子句中的列列表对VT4中的行分组，生成VT5.&lt;/li&gt;
-  &lt;li&gt;
-    &lt;table&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td&gt;CUBE&lt;/td&gt;
-          &lt;td&gt;ROLLUP：把超组(Suppergroups)插入VT5,生成VT6.&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
-  &lt;/li&gt;
-  &lt;li&gt;HAVING：对VT6应用HAVING筛选器。只有使&lt;having_condition&gt;为true的组才会被插入VT7.&lt;/having_condition&gt;&lt;/li&gt;
-  &lt;li&gt;SELECT：处理SELECT列表，产生VT8.&lt;/li&gt;
-  &lt;li&gt;DISTINCT：将重复的行从VT8中移除，产生VT9.&lt;/li&gt;
-  &lt;li&gt;ORDER BY：将VT9中的行按ORDER BY 子句中的列列表排序，生成游标（VC10).&lt;/li&gt;
-  &lt;li&gt;TOP：从VC10的开始处选择指定数量或比例的行，生成表VT11,并返回调用者。&lt;/li&gt;
-&lt;/ol&gt;
-</description>
-        <pubDate>Mon, 27 May 2013 20:00:00 +0800</pubDate>
-        <link>https://minicool.github.io//%E7%AC%94%E8%AE%B0/2013/05/27/SQL-execution-order/</link>
-        <guid isPermaLink="true">https://minicool.github.io//%E7%AC%94%E8%AE%B0/2013/05/27/SQL-execution-order/</guid>
-        
-        <category>SQL</category>
-        
-        <category>基础知识</category>
-        
-        
-        <category>笔记</category>
-        
-      </item>
-    
-      <item>
-        <title>npm scripts 使用指南</title>
-        <description>&lt;blockquote&gt;
-  &lt;p&gt;该文章转载 &lt;a href=&quot;http://www.ruanyifeng.com/blog/2016/10/npm_scripts.html&quot;&gt;阮一峰的网络日志&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Node 开发离不开 npm，而脚本功能是 npm 最强大、最常用的功能之一。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h4 id=&quot;一什么是-npm-脚本&quot;&gt;一、什么是 npm 脚本？&lt;/h4&gt;
-&lt;p&gt;npm 允许在package.json文件里面，使用scripts字段定义脚本命令。&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;scripts&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;build&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;node build.js&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;上面代码是package.json文件的一个片段，里面的scripts字段是一个对象。它的每一个属性，对应一段脚本。比如，build命令对应的脚本是node build.js。&lt;/p&gt;
-
-&lt;p&gt;命令行下使用npm run命令，就可以执行这段脚本。&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm run build
-&lt;span class=&quot;c&quot;&gt;# 等同于执行&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;node build.js&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;这些定义在package.json里面的脚本，就称为 npm 脚本。它的优点很多。&lt;/p&gt;
-
-&lt;p&gt;项目的相关脚本，可以集中在一个地方。
-不同项目的脚本命令，只要功能相同，就可以有同样的对外接口。用户不需要知道怎么测试你的项目，只要运行npm run test即可。
-可以利用 npm 提供的很多辅助功能。
-查看当前项目的所有 npm 脚本命令，可以使用不带任何参数的npm run命令。&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm run&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h4 id=&quot;二原理&quot;&gt;二、原理&lt;/h4&gt;
-&lt;p&gt;npm 脚本的原理非常简单。每当执行npm run，就会自动新建一个 Shell，在这个 Shell 里面执行指定的脚本命令。因此，只要是 Shell（一般是 Bash）可以运行的命令，就可以写在 npm 脚本里面。&lt;/p&gt;
-
-&lt;p&gt;比较特别的是，npm run新建的这个 Shell，会将当前目录的node_modules/.bin子目录加入PATH变量，执行结束后，再将PATH变量恢复原样。&lt;/p&gt;
-
-&lt;p&gt;这意味着，当前目录的node_modules/.bin子目录里面的所有脚本，都可以直接用脚本名调用，而不必加上路径。比如，当前项目的依赖里面有 Mocha，只要直接写mocha test就可以了。&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;test&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;mocha test&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;而不用写成下面这样。&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;test&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./node_modules/.bin/mocha test&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;由于 npm 脚本的唯一要求就是可以在 Shell 执行，因此它不一定是 Node 脚本，任何可执行文件都可以写在里面。&lt;/p&gt;
-
-&lt;p&gt;npm 脚本的退出码，也遵守 Shell 脚本规则。如果退出码不是0，npm 就认为这个脚本执行失败。&lt;/p&gt;
-
-&lt;h4 id=&quot;三通配符&quot;&gt;三、通配符&lt;/h4&gt;
-&lt;p&gt;由于 npm 脚本就是 Shell 脚本，因为可以使用 Shell 通配符。&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;lint&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;jshint *.js&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;lint&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;jshint **/*.js&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;上面代码中，*表示任意文件名，**表示任意一层子目录。&lt;/p&gt;
-
-&lt;p&gt;如果要将通配符传入原始命令，防止被 Shell 转义，要将星号转义。&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;test&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;tap test/&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\*&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.js&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h4 id=&quot;四传参&quot;&gt;四、传参&lt;/h4&gt;
-&lt;p&gt;向 npm 脚本传入参数，要使用–标明。&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;lint&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;jshint **.js&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;向上面的npm run lint命令传入参数，必须写成下面这样。&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm run lint &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;  &lt;span class=&quot;nt&quot;&gt;--reporter&lt;/span&gt; checkstyle &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; checkstyle.xml&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;也可以在package.json里面再封装一个命令。&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;lint&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;jshint **.js&quot;&lt;/span&gt;,
-&lt;span class=&quot;s2&quot;&gt;&quot;lint:checkstyle&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;npm run lint -- --reporter checkstyle &amp;gt; checkstyle.xml&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h4 id=&quot;五执行顺序&quot;&gt;五、执行顺序&lt;/h4&gt;
-&lt;p&gt;如果 npm 脚本里面需要执行多个任务，那么需要明确它们的执行顺序。&lt;/p&gt;
-
-&lt;p&gt;如果是并行执行（即同时的平行执行），可以使用&amp;amp;符号。&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm run script1.js &amp;amp; npm run script2.js&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;如果是继发执行（即只有前一个任务成功，才执行下一个任务），可以使用&amp;amp;&amp;amp;符号。&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm run script1.js &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; npm run script2.js&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;这两个符号是 Bash 的功能。此外，还可以使用 node 的任务管理模块：script-runner、npm-run-all、redrun。&lt;/p&gt;
-
-&lt;h4 id=&quot;六默认值&quot;&gt;六、默认值&lt;/h4&gt;
-&lt;p&gt;一般来说，npm 脚本由用户提供。但是，npm 对两个脚本提供了默认值。也就是说，这两个脚本不用定义，就可以直接使用。&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;start&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;node server.js&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;，&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;install&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;node-gyp rebuild&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;上面代码中，npm run start的默认值是node server.js，前提是项目根目录下有server.js这个脚本；npm run install的默认值是node-gyp rebuild，前提是项目根目录下有binding.gyp文件。&lt;/p&gt;
-
-&lt;h4 id=&quot;七钩子&quot;&gt;七、钩子&lt;/h4&gt;
-&lt;p&gt;npm 脚本有pre和post两个钩子。举例来说，build脚本命令的钩子就是prebuild和postbuild。&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;prebuild&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;echo I run before the build script&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;build&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;cross-env NODE_ENV=production webpack&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;postbuild&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;echo I run after the build script&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;用户执行npm run build的时候，会自动按照下面的顺序执行。&lt;/p&gt;
-
-&lt;p&gt;npm run prebuild &amp;amp;&amp;amp; npm run build &amp;amp;&amp;amp; npm run postbuild
-因此，可以在这两个钩子里面，完成一些准备工作和清理工作。下面是一个例子。&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;clean&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;rimraf ./dist &amp;amp;&amp;amp; mkdir dist&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;prebuild&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;npm run clean&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;build&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;cross-env NODE_ENV=production webpack&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;npm 默认提供下面这些钩子。&lt;/p&gt;
-
-&lt;p&gt;prepublish，postpublish
-preinstall，postinstall
-preuninstall，postuninstall
-preversion，postversion
-pretest，posttest
-prestop，poststop
-prestart，poststart
-prerestart，postrestart
-自定义的脚本命令也可以加上pre和post钩子。比如，myscript这个脚本命令，也有premyscript和postmyscript钩子。不过，双重的pre和post无效，比如prepretest和postposttest是无效的。&lt;/p&gt;
-
-&lt;p&gt;npm 提供一个npm_lifecycle_event变量，返回当前正在运行的脚本名称，比如pretest、test、posttest等等。所以，可以利用这个变量，在同一个脚本文件里面，为不同的npm scripts命令编写代码。请看下面的例子。&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;TARGET&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;process&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;npm_lifecycle_event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;TARGET&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'test'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`Running the test task!`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;TARGET&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'pretest'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`Running the pretest task!`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;TARGET&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'posttest'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`Running the posttest task!`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;注意，prepublish这个钩子不仅会在npm publish命令之前运行，还会在npm install（不带任何参数）命令之前运行。这种行为很容易让用户感到困惑，所以 npm 4 引入了一个新的钩子prepare，行为等同于prepublish，而从 npm 5 开始，prepublish将只在npm publish命令之前运行。&lt;/p&gt;
-
-&lt;h4 id=&quot;八简写形式&quot;&gt;八、简写形式&lt;/h4&gt;
-&lt;p&gt;四个常用的 npm 脚本有简写形式。&lt;/p&gt;
-
-&lt;p&gt;npm start是npm run start&lt;/p&gt;
-
-&lt;p&gt;npm stop是npm run stop的简写&lt;/p&gt;
-
-&lt;p&gt;npm test是npm run test的简写&lt;/p&gt;
-
-&lt;p&gt;npm restart是npm run stop &amp;amp;&amp;amp; npm run restart &amp;amp;&amp;amp; npm run start的简写&lt;/p&gt;
-
-&lt;p&gt;npm start、npm stop和npm restart都比较好理解，而npm restart是一个复合命令，实际上会执行三个脚本命令：stop、restart、start。具体的执行顺序如下。&lt;/p&gt;
-
-&lt;p&gt;prerestart
-prestop
-stop
-poststop
-restart
-prestart
-start
-poststart
-postrestart&lt;/p&gt;
-
-&lt;h4 id=&quot;九变量&quot;&gt;九、变量&lt;/h4&gt;
-&lt;p&gt;npm 脚本有一个非常强大的功能，就是可以使用 npm 的内部变量。&lt;/p&gt;
-
-&lt;p&gt;首先，通过npm_package_前缀，npm 脚本可以拿到package.json里面的字段。比如，下面是一个package.json。&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;foo&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;version&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1.2.5&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;scripts&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;view&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;node view.js&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;那么，变量npm_package_name返回foo，变量npm_package_version返回1.2.5。&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;err&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;view.js&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;console.log(process.env.npm_package_name);&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;console.log(process.env.npm_package_version);&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.2&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;上面代码中，我们通过环境变量process.env对象，拿到package.json的字段值。如果是 Bash 脚本，可以用$npm_package_name和$npm_package_version取到这两个值。&lt;/p&gt;
-
-&lt;p&gt;npm_package_前缀也支持嵌套的package.json字段。&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;repository&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;git&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;url&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;xxx&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;scripts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;view&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;echo $npm_package_repository_type&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;上面代码中，repository字段的type属性，可以通过npm_package_repository_type取到。&lt;/p&gt;
-
-&lt;p&gt;下面是另外一个例子。&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;scripts&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;install&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;foo.js&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;上面代码中，npm_package_scripts_install变量的值等于foo.js。&lt;/p&gt;
-
-&lt;p&gt;然后，npm 脚本还可以通过npm_config_前缀，拿到 npm 的配置变量，即npm config get xxx命令返回的值。比如，当前模块的发行标签，可以通过npm_config_tag取到。&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;view&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;echo $npm_config_tag&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;注意，package.json里面的config对象，可以被环境变量覆盖。&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;foo&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;config&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;port&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;8080&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;scripts&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;start&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;node server.js&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;上面代码中，npm_package_config_port变量返回的是8080。这个值可以用下面的方法覆盖。&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm config &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;foo:port 80&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;最后，env命令可以列出所有环境变量。&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;env&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;env&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h4 id=&quot;十常用脚本示例&quot;&gt;十、常用脚本示例&lt;/h4&gt;
-
-&lt;p&gt;// 删除目录&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;clean&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;rimraf dist/*&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;// 本地搭建一个 HTTP 服务&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;serve&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;http-server -p 9090 dist/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;// 打开浏览器&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;open:dev&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;opener http://localhost:9090&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;// 实时刷新&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;livereload&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;live-reload --port 9091 dist/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
- &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;// 构建 HTML 文件&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;build:html&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;jade index.jade &amp;gt; dist/index.html&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;// 只要 CSS 文件有变动，就重新执行构建&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;watch:css&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;watch 'npm run build:css' assets/styles/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;// 只要 HTML 文件有变动，就重新执行构建&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;watch:html&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;watch 'npm run build:html' assets/html&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;// 部署到 Amazon S3&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;deploy:prod&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;s3-cli sync ./dist/ s3://example-com/prod-site/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;// 构建 favicon&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;build:favicon&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;node scripts/favicon.js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h4 id=&quot;十一参考链接&quot;&gt;十一、参考链接&lt;/h4&gt;
-&lt;p&gt;&lt;a href=&quot;https://www.keithcirkel.co.uk/how-to-use-npm-as-a-build-tool/&quot;&gt;How to Use npm as a Build Tool&lt;/a&gt;, by Keith Cirkel&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://github.com/RyanZim/awesome-npm-scripts#articles&quot;&gt;Awesome npm scripts&lt;/a&gt;, by Ryan Zimmerman&lt;/p&gt;
-</description>
-        <pubDate>Fri, 01 Jan 2010 20:00:00 +0800</pubDate>
-        <link>https://minicool.github.io//%E8%BD%AC%E8%BD%BD/2010/01/01/npm-scripts/</link>
-        <guid isPermaLink="true">https://minicool.github.io//%E8%BD%AC%E8%BD%BD/2010/01/01/npm-scripts/</guid>
-        
-        <category>npm</category>
-        
-        
-        <category>转载</category>
         
       </item>
     

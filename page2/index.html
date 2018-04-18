@@ -156,112 +156,98 @@
             ">
     			
 <div class="post-preview">
-    <a href="/%E7%AC%94%E8%AE%B0/2015/04/23/x509/">
+    <a href="/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2018/02/01/etherum-code-analy/">
         <h2 class="post-title">
-            x.509
+            etherum & code analysis
         </h2>
         
         <h3 class="post-subtitle">
-            X.509 证书
+            以太坊源码分析（一）
         </h3>
         
         <div class="post-content-preview">
-            X.509
+            
+  区块链作为新的技术，能否真正产生效率，一直是大家争论的话题。但随着数字货币，例如比特币，以太币兑换法币的价值越来越高的时候。争论似乎都已经停止，如何加入到这个资本盛宴才是大家最急迫的一件事。如何真正的了解以太坊等数字平台，不被眼前所蒙蔽，源码称为了解其本质的唯一途径。源码即是真理。
 
-X.509是一种数字证书格式。数字证书是由权威机构——CA机构，又称为证书授权（Certificate Authority）中心发行的。用于对数字身份信息进行授权，用于验证的证书信息。
 
-常见数据格式
-cer/crt是用于存放证书，它是2进制形式存放的，不含私钥。
+何为以太坊？
 
-pem跟crt/cer的区别是它以Ascii来表示，可以用于存放证书或私钥。
-
-pfx/p12用于存放个人证书/...
+  作为了解一个新事物的入口，必然需要知道它是什么，从哪来，能干什么。所以从缘由说起...
         </div>
     </a>
     <p class="post-meta">
-        Posted by minicool on April 23, 2015
+        Posted by minicool on February 1, 2018
     </p>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/%E7%AC%94%E8%AE%B0/2015/03/26/Encryption-algorithm-summary/">
+    <a href="/%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7/2017/11/07/postman-author/">
         <h2 class="post-title">
-            Encryption algorithm summary
+            postman & author
         </h2>
         
         <h3 class="post-subtitle">
-            对称与不对称，可逆与不可逆
+            postman 认证使用
         </h3>
         
         <div class="post-content-preview">
-            在一般通过公开算法将原始信息进行编码称为：编码，摘要，加解密
-1.编码 公开编解码算法，对数据进行编码。例如bas64,zip,flac. 一般目的对数字文件进行压缩，并保证无损。（也有有损编码）
+            
 
-加密算法
-根据密钥类型不同可以将现代密码技术分为两类：对称加密算法（私钥密码体系）和非对称加密算法（公钥密码体系）。
-
-对称加密与非对称加密算法比较
-1.对称加密相对资源消耗较少，加解密速度快。...
         </div>
     </a>
     <p class="post-meta">
-        Posted by minicool on March 26, 2015
+        Posted by minicool on November 7, 2017
     </p>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/%E8%BD%AC%E8%BD%BD/2015/02/19/SSL-MIM/">
+    <a href="/%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7/2017/11/07/postman-base/">
         <h2 class="post-title">
-            SSL/TLS & MIN
+            postman & base
         </h2>
         
         <h3 class="post-subtitle">
-            如何避免 SSL/TLS 中间人攻击
+            postman 基础使用
         </h3>
         
         <div class="post-content-preview">
-            简述
+            简介
+Postman 是一款功能强大的用于模拟发送 HTTP请求应用。其主要特点特点：  
 
-  SSL/TLS MIN (SSL/TLS man in the middle) 中间人攻击
-
-
-
-  
-    SSL(secure sockets layer) 是介于传输层和应用层之间，提供通信数据的安全性和完整性的网络协议。主要提供：
-1.使用证书确认用户和服务器。（身份认证）
-2.在通信数据尾部添加校验码，防止中途篡改。（数据完整性）
-3.加密通信数据和校验码，防止中途窃...
+  创建 + 测试：创建和发送任何的HTTP请求，请求可以保存到历史中再次执行  
+  Organize: 使用Postman Collections为更有效的测试及集成工作流管理和组织APIs   
+  document: 依据你创建的Clollections自动生成API文档,并将其发布成规范的...
         </div>
     </a>
     <p class="post-meta">
-        Posted by minicool on February 19, 2015
+        Posted by minicool on November 7, 2017
     </p>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/%E7%AC%94%E8%AE%B0/2014/07/28/SQL-concurrency-control/">
+    <a href="/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2017/03/21/electron-demo/">
         <h2 class="post-title">
-            SQL concurrency controlr
+            electron & inno & demo
         </h2>
         
         <h3 class="post-subtitle">
-            乐观锁，悲观锁
+            基于electron的小开发
         </h3>
         
         <div class="post-content-preview">
-            乐观锁
-
-乐观锁做为关系性数据库中的一种并发控制方法。它假设数据库运行提交事务处理时候，并不会相互影响。各事务能够在不产生锁的情况下进行处理各自数据。在提交数据更新之前，每个事务会先检查在该事务读取数据后，有没有其他事务又修改了该数据。如果其他事务有更新的话，正在提交的事务会进行回滚。
-
-应用
-乐观并发控制多数用于数据争用不大、冲突较少的环境中，这种环境中，偶尔回滚事务的成本会低于读取数据时...
+            
+  electron作为跨平台，基于Chrome内核的开发平台，为B端转C段带了快速有效的应用。如何有效成为跨平台全栈平台,electron称为一个不错的桥梁工具。
+  electron简介
+  1.https://electronjs.org/docs
+2.https://github.com/electron/electron-api-demos
+3.https://www.w3csc...
         </div>
     </a>
     <p class="post-meta">
-        Posted by minicool on July 28, 2014
+        Posted by minicool on March 21, 2017
     </p>
 </div>
 <hr>
@@ -366,8 +352,44 @@ pfx/p12用于存放个人证书/...
                             
                         
                             
+                                <a href="/tags/#postman" title="postman" rel="2">
+                                    postman
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#network" title="network" rel="1">
+                                    network
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Authorization" title="Authorization" rel="1">
+                                    Authorization
+                                </a>
+                            
+                        
+                            
                                 <a href="/tags/#etherum" title="etherum" rel="3">
                                     etherum
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#jpush" title="jpush" rel="1">
+                                    jpush
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#IM" title="IM" rel="1">
+                                    IM
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#block-chain" title="block-chain" rel="1">
+                                    block-chain
                                 </a>
                             
                         
@@ -392,6 +414,18 @@ pfx/p12用于存放个人证书/...
                         
                             <a href="/categories/#源码分析-ref" title="源码分析" rel="4">
                                 源码分析
+                            </a>
+                        
+                            <a href="/categories/#开发者工具-ref" title="开发者工具" rel="2">
+                                开发者工具
+                            </a>
+                        
+                            <a href="/categories/#开发工作-ref" title="开发工作" rel="1">
+                                开发工作
+                            </a>
+                        
+                            <a href="/categories/#问题探讨-ref" title="问题探讨" rel="1">
+                                问题探讨
                             </a>
                         
                     </div>
