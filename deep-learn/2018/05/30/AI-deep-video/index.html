@@ -12,7 +12,7 @@
 
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>AI deep learn & video analyse - 迷你世界 | minicool Blog</title>
+    <title>AI deep learn & tensorflow opencv - 迷你世界 | minicool Blog</title>
 
     <link rel="canonical" href="http://localhost:4000/deep-learn/2018/05/30/AI-deep-video/">
 
@@ -127,12 +127,12 @@
 
     <!-- Image to hack wechat -->
 <!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="/img/bg/develop-tool/anaconda.png" width="0" height="0"> -->
+<!-- <img src="/img/bg/develop-tool/tensorflow.png" width="0" height="0"> -->
 
 <!-- Post Header -->
 <style type="text/css">
     header.intro-header{
-        background-image: url('/img/bg/develop-tool/anaconda.png')
+        background-image: url('/img/bg/develop-tool/tensorflow.png')
     }
 </style>
 <header class="intro-header" >
@@ -149,7 +149,7 @@
                         <a class="tag" href="/tags/#opencv" title="opencv">opencv</a>
                         
                     </div>
-                    <h1>AI deep learn & video analyse</h1>
+                    <h1>AI deep learn & tensorflow opencv</h1>
                     
                     
                     <h2 class="subheading">视频数据深度学习(一)</h2>
@@ -176,7 +176,7 @@
                                 
 
 				<blockquote>
-  <p>因在数博会上对GOOGLE推出的Tensorflow颇感到兴趣，又从朋友听到深度学习及应用前景非常广。打算深度学习进行了解并对过程进行笔记。</p>
+  <p>因在数博会上对GOOGLE推出的Tensorflow颇感到兴趣，又从朋友听到深度学习及应用前景非常广。打算深度学习进行了解并对过程进行笔记。 主要使用tensorflow结合opencv对视频图像进行深度学习，对物品进行分析学习。例如识别车辆品牌及型号，物体快速识别。</p>
 </blockquote>
 
 <h4 id="深度学习">深度学习</h4>
@@ -224,6 +224,20 @@ Microsoft Visual Studio（简称VS）是美国微软公司的开发工具包系�
 <h4 id="开发调试">开发调试</h4>
 
 <h4 id="测试程序">测试程序</h4>
+<ol>
+  <li>hello word</li>
+</ol>
+
+<p>主要通过tensorflow 打印 hello word 以及输出opencv 输出版本。</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="n">tf</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+
+<span class="n">hello</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="s">'hello word!'</span><span class="p">)</span>
+<span class="n">sess</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">hello</span><span class="p">))</span></code></pre></figure>
 
 
                 <hr style="visibility: hidden;">
@@ -690,7 +704,7 @@ Microsoft Visual Studio（简称VS）是美国微软公司的开发工具包系�
 
 
 <!-- Image to hack wechat -->
-<img src="/img/wechat/anaconda.jpg" width="0" height="0" />
+<img src="/img/wechat/tensorflow.png" width="0" height="0" />
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
 </body>
