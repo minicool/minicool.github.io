@@ -5,8 +5,8 @@
     <description>年迈的工程师</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 30 May 2018 23:27:26 +0800</pubDate>
-    <lastBuildDate>Wed, 30 May 2018 23:27:26 +0800</lastBuildDate>
+    <pubDate>Wed, 30 May 2018 23:42:12 +0800</pubDate>
+    <lastBuildDate>Wed, 30 May 2018 23:42:12 +0800</lastBuildDate>
     <generator>Jekyll v3.7.3</generator>
     
       <item>
@@ -58,8 +58,8 @@ Microsoft Visual Studio（简称VS）是美国微软公司的开发工具包系�
 &lt;h4 id=&quot;测试程序&quot;&gt;测试程序&lt;/h4&gt;
 </description>
         <pubDate>Wed, 30 May 2018 20:00:00 +0800</pubDate>
-        <link>http://localhost:4000/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/2018/05/30/AI-deep-video/</link>
-        <guid isPermaLink="true">http://localhost:4000/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/2018/05/30/AI-deep-video/</guid>
+        <link>http://localhost:4000/deep-learn/2018/05/30/AI-deep-video/</link>
+        <guid isPermaLink="true">http://localhost:4000/deep-learn/2018/05/30/AI-deep-video/</guid>
         
         <category>deeplearning</category>
         
@@ -68,7 +68,7 @@ Microsoft Visual Studio（简称VS）是美国微软公司的开发工具包系�
         <category>opencv</category>
         
         
-        <category>深度学习</category>
+        <category>deep-learn</category>
         
       </item>
     
