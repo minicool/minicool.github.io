@@ -3,11 +3,74 @@
   <channel>
     <title>MiniCool World</title>
     <description>年迈的工程师</description>
-    <link>https://minicool.github.io//</link>
-    <atom:link href="https://minicool.github.io//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 18 Apr 2018 19:28:45 +0800</pubDate>
-    <lastBuildDate>Wed, 18 Apr 2018 19:28:45 +0800</lastBuildDate>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Wed, 30 May 2018 23:27:26 +0800</pubDate>
+    <lastBuildDate>Wed, 30 May 2018 23:27:26 +0800</lastBuildDate>
     <generator>Jekyll v3.7.3</generator>
+    
+      <item>
+        <title>AI deep learn &amp; video analyse</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;深度学习作为&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;tensorflow简介&quot;&gt;tensorflow简介&lt;/h4&gt;
+
+&lt;h4 id=&quot;配合开发套件&quot;&gt;配合开发套件&lt;/h4&gt;
+
+&lt;h5 id=&quot;环境工具&quot;&gt;环境工具&lt;/h5&gt;
+&lt;p&gt;anaconda
+指的是一个开源的Python发行版本，其包含了conda、Python等180多个科学包及其依赖项。
+&lt;a href=&quot;https://www.anaconda.org/&quot;&gt;官网&lt;/a&gt; 
+&lt;a href=&quot;https://www.anaconda.com/download/#windows&quot;&gt;下载 windows&lt;/a&gt; 
+&lt;a href=&quot;https://www.anaconda.com/download/#macos&quot;&gt;下载 macos&lt;/a&gt; 
+&lt;a href=&quot;https://www.anaconda.com/download/#linux&quot;&gt;下载 linux&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;官方提供了通过Graphical 和Command Line 两种方式，本文选择通过Graphical安装.
+因本人MAC系统，选择下载最新基于Mac OS系统的Python 3.6进行安装。&lt;/p&gt;
+
+&lt;h5 id=&quot;深度学习工具&quot;&gt;深度学习工具&lt;/h5&gt;
+&lt;p&gt;tensorflow
+是谷歌基于DistBelief进行研发的第二代人工智能学习系统，其命名来源于本身的运行原理。Tensor（张量）意味着N维数组，Flow（流）意味着基于数据流图的计算，TensorFlow为张量从流图的一端流动到另一端计算过程。TensorFlow是将复杂的数据结构传输至人工智能神经网中进行分析和处理过程的系统。TensorFlow可被用于语音识别或图像识别等多项机器学习和深度学习领域。
+&lt;a href=&quot;https://www.tensorflow.org/&quot;&gt;官网&lt;/a&gt;
+&lt;a href=&quot;http://www.tensorfly.cn/&quot;&gt;中文社区&lt;/a&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;视频采集分析工具&quot;&gt;视频采集分析工具&lt;/h5&gt;
+&lt;p&gt;opencv
+是一个基于BSD许可（开源）发行的跨平台计算机视觉库，可以运行在Linux、Windows、Android和Mac OS操作系统上。它轻量级而且高效——由一系列 C 函数和少量 C++ 类构成，同时提供了Python、Ruby、MATLAB等语言的接口，实现了图像处理和计算机视觉方面的很多通用算法。
+&lt;a href=&quot;https://www.opencv.org/&quot;&gt;官网&lt;/a&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;开发工具&quot;&gt;开发工具&lt;/h5&gt;
+&lt;p&gt;vscode
+Microsoft Visual Studio（简称VS）是美国微软公司的开发工具包系列产品。VS是一个基本完整的开发工具集，它包括了整个软件生命周期中所需要的大部分工具，如UML工具、代码管控工具、集成开发环境(IDE)等等。所写的目标代码适用于微软支持的所有平台，包括Microsoft Windows、Windows Mobile、Windows CE、.NET Framework、.NET Compact Framework和Microsoft Silverlight 及Windows Phone。
+&lt;a href=&quot;https://code.visualstudio.com/&quot;&gt;官网&lt;/a&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;开发语言&quot;&gt;开发语言&lt;/h5&gt;
+&lt;p&gt;python
+是一种面向对象的解释型计算机程序设计语言，由荷兰人Guido van Rossum于1989年发明，第一个公开发行版发行于1991年。Python是纯粹的自由软件， 源代码和解释器CPython遵循 GPL(GNU General Public License)协议。Python具有丰富和强大的库。它常被昵称为胶水语言，能够把用其他语言制作的各种模块（尤其是C/C++）很轻松地联结在一起。
+&lt;a href=&quot;https://www.python.org/&quot;&gt;官网&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;环境安装&quot;&gt;环境安装&lt;/h4&gt;
+
+&lt;h4 id=&quot;开发调试&quot;&gt;开发调试&lt;/h4&gt;
+
+&lt;h4 id=&quot;测试程序&quot;&gt;测试程序&lt;/h4&gt;
+</description>
+        <pubDate>Wed, 30 May 2018 20:00:00 +0800</pubDate>
+        <link>http://localhost:4000/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/2018/05/30/AI-deep-video/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/2018/05/30/AI-deep-video/</guid>
+        
+        <category>deeplearning</category>
+        
+        <category>tensorflow</category>
+        
+        <category>opencv</category>
+        
+        
+        <category>深度学习</category>
+        
+      </item>
     
       <item>
         <title>block chain &amp; trust issues</title>
@@ -82,8 +145,8 @@ PBFT表面上形成信任元素，但其本质还是认可行为，主要对选�
 
 </description>
         <pubDate>Fri, 30 Mar 2018 20:00:00 +0800</pubDate>
-        <link>https://minicool.github.io//%E9%97%AE%E9%A2%98%E6%8E%A2%E8%AE%A8/2018/03/30/blockchain-bug/</link>
-        <guid isPermaLink="true">https://minicool.github.io//%E9%97%AE%E9%A2%98%E6%8E%A2%E8%AE%A8/2018/03/30/blockchain-bug/</guid>
+        <link>http://localhost:4000/%E9%97%AE%E9%A2%98%E6%8E%A2%E8%AE%A8/2018/03/30/blockchain-bug/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E9%97%AE%E9%A2%98%E6%8E%A2%E8%AE%A8/2018/03/30/blockchain-bug/</guid>
         
         <category>block-chain</category>
         
@@ -137,8 +200,8 @@ http.server
 url.parse&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;req.url,true&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 </description>
         <pubDate>Thu, 15 Mar 2018 20:00:00 +0800</pubDate>
-        <link>https://minicool.github.io//%E5%BC%80%E5%8F%91%E5%B7%A5%E4%BD%9C/2018/03/15/jmessage-Im/</link>
-        <guid isPermaLink="true">https://minicool.github.io//%E5%BC%80%E5%8F%91%E5%B7%A5%E4%BD%9C/2018/03/15/jmessage-Im/</guid>
+        <link>http://localhost:4000/%E5%BC%80%E5%8F%91%E5%B7%A5%E4%BD%9C/2018/03/15/jmessage-Im/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E5%BC%80%E5%8F%91%E5%B7%A5%E4%BD%9C/2018/03/15/jmessage-Im/</guid>
         
         <category>jpush</category>
         
@@ -231,8 +294,8 @@ help: 帮助命令&lt;/p&gt;
 
 </description>
         <pubDate>Fri, 02 Feb 2018 20:00:00 +0800</pubDate>
-        <link>https://minicool.github.io//%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2018/02/02/etherum-code-analy-geth/</link>
-        <guid isPermaLink="true">https://minicool.github.io//%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2018/02/02/etherum-code-analy-geth/</guid>
+        <link>http://localhost:4000/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2018/02/02/etherum-code-analy-geth/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2018/02/02/etherum-code-analy-geth/</guid>
         
         <category>code</category>
         
@@ -294,8 +357,8 @@ help: 帮助命令&lt;/p&gt;
 &lt;p&gt;每个区块链头都包含三个MPT树。包含交易树，收据树，状态树。&lt;/p&gt;
 </description>
         <pubDate>Thu, 01 Feb 2018 20:00:00 +0800</pubDate>
-        <link>https://minicool.github.io//%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2018/02/01/etherum-code-analy-trie/</link>
-        <guid isPermaLink="true">https://minicool.github.io//%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2018/02/01/etherum-code-analy-trie/</guid>
+        <link>http://localhost:4000/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2018/02/01/etherum-code-analy-trie/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2018/02/01/etherum-code-analy-trie/</guid>
         
         <category>code</category>
         
@@ -395,8 +458,8 @@ abigen,bootnode,ethkey,evm,examples,faucet,geth,p2psim,puppeth,ripdump,swarm,wno
 
 </description>
         <pubDate>Thu, 01 Feb 2018 20:00:00 +0800</pubDate>
-        <link>https://minicool.github.io//%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2018/02/01/etherum-code-analy/</link>
-        <guid isPermaLink="true">https://minicool.github.io//%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2018/02/01/etherum-code-analy/</guid>
+        <link>http://localhost:4000/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2018/02/01/etherum-code-analy/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2018/02/01/etherum-code-analy/</guid>
         
         <category>code</category>
         
@@ -404,91 +467,6 @@ abigen,bootnode,ethkey,evm,examples,faucet,geth,p2psim,puppeth,ripdump,swarm,wno
         
         
         <category>源码分析</category>
-        
-      </item>
-    
-      <item>
-        <title>postman &amp; author</title>
-        <description>
-</description>
-        <pubDate>Tue, 07 Nov 2017 20:00:00 +0800</pubDate>
-        <link>https://minicool.github.io//%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7/2017/11/07/postman-author/</link>
-        <guid isPermaLink="true">https://minicool.github.io//%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7/2017/11/07/postman-author/</guid>
-        
-        <category>postman</category>
-        
-        <category>Authorization</category>
-        
-        
-        <category>开发者工具</category>
-        
-      </item>
-    
-      <item>
-        <title>postman &amp; base</title>
-        <description>&lt;h4 id=&quot;简介&quot;&gt;简介&lt;/h4&gt;
-&lt;p&gt;&lt;strong&gt;Postman&lt;/strong&gt; 是一款功能强大的用于模拟发送 HTTP请求应用。其主要特点特点：  &lt;br /&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;创建 + 测试：创建和发送任何的HTTP请求，请求可以保存到历史中再次执行  &lt;br /&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Organize:&lt;/strong&gt; 使用Postman Collections为更有效的测试及集成工作流管理和组织APIs   &lt;br /&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;document:&lt;/strong&gt; 依据你创建的Clollections自动生成API文档,并将其发布成规范的格式  &lt;br /&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;collarorate:&lt;/strong&gt; 通过同步连接你的team和你的api，以及权限控制，API库  &lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;下载和安装&quot;&gt;下载和安装&lt;/h4&gt;
-&lt;p&gt;chrome app：  &lt;br /&gt;&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;chrome的扩展程序中搜索（postman）安装 【需自备翻墙梯子 推荐&lt;a href=&quot;https://github.com/getlantern/forum&quot;&gt;蓝灯&lt;/a&gt;】  &lt;br /&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.cnplugins.com/devtool/postman/download.html&quot;&gt;离线下载&lt;/a&gt;postman扩展程序  &lt;br /&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;native app:  &lt;br /&gt;&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.getpostman.com/apps&quot;&gt;官网下载&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h4 id=&quot;环境变量&quot;&gt;环境变量&lt;/h4&gt;
-&lt;p&gt;环境变量主要通过设置不同环境中对应参数信息，以便在不同环境中进行便捷测试。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/in-post/develop-tool/2017-11-03-postman-base-1.png&quot; alt=&quot;环境变量&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;选择设置不同的环境变量&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/in-post/develop-tool/2017-11-03-postman-base-2.png&quot; alt=&quot;环境变量&quot; /&gt;
-例如 生产环境测试域名为：www.baidu.com   测试环境地址为：192.168.1.123&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;base_url&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;  作为参数模版替代&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;通用设置
-&lt;img src=&quot;/img/in-post/develop-tool/2017-11-03-postman-base-3.png&quot; alt=&quot;通用设置&quot; /&gt;&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;Trim keys and values in request body(去除请求体中的键和值的空格)：如果使用form-data或者url-encoded 应该关闭开功能&lt;/li&gt;
-  &lt;li&gt;Language detection(语言判断)：设置成JSON将强制以JSON进行渲染，和响应头的Content-Type无关&lt;/li&gt;
-  &lt;li&gt;Request Timeout in ms(0 for infinity)：设置请求超时的时间&lt;/li&gt;
-  &lt;li&gt;Send no-cache header：发送一个no-cache请求头，获取服务器最新的资源&lt;/li&gt;
-  &lt;li&gt;Automatically follow redirects：防止服务返回300系列的状态，自动重定向&lt;/li&gt;
-  &lt;li&gt;Send anonymous usage data to Postman：是否循序匿名向postman发送数据&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h4 id=&quot;http-requests&quot;&gt;Http Requests&lt;/h4&gt;
-
-&lt;h4 id=&quot;http-responses&quot;&gt;Http Responses&lt;/h4&gt;
-
-&lt;h4 id=&quot;writting-test&quot;&gt;Writting Test&lt;/h4&gt;
-
-&lt;h4 id=&quot;use-collections&quot;&gt;Use Collections&lt;/h4&gt;
-
-</description>
-        <pubDate>Tue, 07 Nov 2017 20:00:00 +0800</pubDate>
-        <link>https://minicool.github.io//%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7/2017/11/07/postman-base/</link>
-        <guid isPermaLink="true">https://minicool.github.io//%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7/2017/11/07/postman-base/</guid>
-        
-        <category>postman</category>
-        
-        <category>network</category>
-        
-        
-        <category>开发者工具</category>
         
       </item>
     
@@ -639,8 +617,8 @@ Flash Player 插件安装好后，mac系统可以在一下路径找到相应的p
 
 </description>
         <pubDate>Tue, 21 Mar 2017 20:00:00 +0800</pubDate>
-        <link>https://minicool.github.io//%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2017/03/21/electron-demo/</link>
-        <guid isPermaLink="true">https://minicool.github.io//%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2017/03/21/electron-demo/</guid>
+        <link>http://localhost:4000/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2017/03/21/electron-demo/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2017/03/21/electron-demo/</guid>
         
         <category>code</category>
         
@@ -688,8 +666,8 @@ Flash Player 插件安装好后，mac系统可以在一下路径找到相应的p
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 </description>
         <pubDate>Thu, 23 Apr 2015 20:00:00 +0800</pubDate>
-        <link>https://minicool.github.io//%E7%AC%94%E8%AE%B0/2015/04/23/x509/</link>
-        <guid isPermaLink="true">https://minicool.github.io//%E7%AC%94%E8%AE%B0/2015/04/23/x509/</guid>
+        <link>http://localhost:4000/%E7%AC%94%E8%AE%B0/2015/04/23/x509/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E7%AC%94%E8%AE%B0/2015/04/23/x509/</guid>
         
         <category>openssl</category>
         
@@ -784,8 +762,8 @@ Dk无意义长链，所以获取无法获取到口令。（可以保证不会通
 
 </description>
         <pubDate>Thu, 26 Mar 2015 20:00:00 +0800</pubDate>
-        <link>https://minicool.github.io//%E7%AC%94%E8%AE%B0/2015/03/26/Encryption-algorithm-summary/</link>
-        <guid isPermaLink="true">https://minicool.github.io//%E7%AC%94%E8%AE%B0/2015/03/26/Encryption-algorithm-summary/</guid>
+        <link>http://localhost:4000/%E7%AC%94%E8%AE%B0/2015/03/26/Encryption-algorithm-summary/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E7%AC%94%E8%AE%B0/2015/03/26/Encryption-algorithm-summary/</guid>
         
         <category>密码学</category>
         
@@ -793,6 +771,93 @@ Dk无意义长链，所以获取无法获取到口令。（可以保证不会通
         
         
         <category>笔记</category>
+        
+      </item>
+    
+      <item>
+        <title>SSL/TLS &amp; MIN</title>
+        <description>&lt;h4 id=&quot;简述&quot;&gt;简述&lt;/h4&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;SSL/TLS MIN (SSL/TLS man in the middle) 中间人攻击&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;blockquote&gt;
+    &lt;p&gt;SSL(secure sockets layer) 是介于传输层和应用层之间，提供通信数据的安全性和完整性的网络协议。主要提供：
+1.使用证书确认用户和服务器。（身份认证）
+2.在通信数据尾部添加校验码，防止中途篡改。（数据完整性）
+3.加密通信数据和校验码，防止中途窃取。（数据保密性）&lt;/p&gt;
+  &lt;/blockquote&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;SSL握手协议主要由四个协议完成：
+*握手协议
+*密码规则协议
+*记录协议
+*警告协议&lt;/p&gt;
+
+&lt;h4 id=&quot;优点&quot;&gt;优点&lt;/h4&gt;
+
+&lt;h4 id=&quot;缺陷&quot;&gt;缺陷&lt;/h4&gt;
+
+&lt;h4 id=&quot;基础流程wireshark&quot;&gt;基础流程（wireshark）&lt;/h4&gt;
+&lt;blockquote&gt;
+  &lt;blockquote&gt;
+    &lt;p&gt;SSL通信流程
+*客户端向服务器发送 会话ID，可用SSL版本号，当前时间，支持加密算法清单，支持压缩方式清单，产生随机数 Client-Secret（明文）。
+*服务器端向客户端发送 会话ID，使用SSL版本号，当前时间，使用加密算法清单，使用压缩方式，产生随机数 Server-Secret（明文）。
+*服务端将自己的证书发送给客户端。（证书包含公钥）【如果证书中信息不足，RSA协议需要提供公钥密码参数，DK协议需要提供密钥交换参数及公开值】
+*客户端验证服务器的合法性（CA根证书及证书链是否可靠，发行者公钥是否验证证书签名，证书域名是否和实际域名匹配，证书是否过期），合法性验证失败，直接断开。成功继续下一步通信。【如果设置服务器需要验证客户端，需要提供客户端证书】
+*客户端产生新主随机数 Pre-Master-Secret（密文），并用服务端证书中的公钥加密，并发送给服务器端。
+*服务器端使用自己的私钥来解密随机数。
+*双方根据约定的加密方法，使用前面的三个随机数，生成对话密钥（Session key）,用来加密整个对话过程。
+备注：为何需要三个随机数，而不只是需要最后生成Pre-Master-Key.应为不管是客户端，服务端都需要随机数。为保证协商出得密钥的随机性，所以需要引入随机因素来保证。Pre-Master 存在应为SSL协议不信任每个主机完全能生成随机的随机数，如果属于伪随机，那么Pre-Master-Secret就有可能被猜出来。如果使用三个随机数（客户端和服务端）都是伪随机数也十分接近随机。&lt;/p&gt;
+  &lt;/blockquote&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;详细流程&quot;&gt;详细流程&lt;/h4&gt;
+
+&lt;h4 id=&quot;代码&quot;&gt;代码&lt;/h4&gt;
+&lt;p&gt;伪代码&lt;/p&gt;
+
+&lt;h4 id=&quot;防范&quot;&gt;防范&lt;/h4&gt;
+&lt;p&gt;SSL劫持攻击:&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;ARP欺骗&lt;/p&gt;
+  &lt;blockquote&gt;
+    &lt;p&gt;ARP(address resolution protocol) 地址解析协议。是一种IP地址转化为物理地址的协议（OSI第三层 网络层 转化为 OSI第二层 数据链路层）。
+备注：现有三层交换机，支持通过IP地址分发。MAC地址必要性大大降低，但是最初设备接入路由时候，需要MAC地址注册获取IP。MAC地址属于物理地址，IP地址属于逻辑地址。
+ARP欺骗，将IP地址到MAC地址的转换过程进行欺骗，使得IP地址转化为错误MAC地址，从而使数据流量引入错误物理地址。
+在中间人攻击时候，一般将自己伪装成路由器。&lt;/p&gt;
+  &lt;/blockquote&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;DNS欺骗&lt;/p&gt;
+  &lt;blockquote&gt;
+    &lt;p&gt;DNS(domain name system) 域名系统。 处于应用层，将域名解析成IP地址（OSI第7层 应用层 转化为 OSI第三层 网络层）
+DNS欺骗，将域名信息转化为IP地址时候进行欺骗，使得域名地址转化为错误IP地址，从而使的数据流量错误定位IP地址。
+在中间人攻击时候，一般伪装成目标服务器。
+简易防范方法：写入HOSTS，可以绕过DNS攻击。但是应为不能将所有网站都写入HOSTS，所以存在局限性。&lt;/p&gt;
+  &lt;/blockquote&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;伪随机数猜解&lt;/p&gt;
+  &lt;blockquote&gt;
+    &lt;p&gt;通过不断对服务器进行初步校验时，对伪随机进行猜解。&lt;/p&gt;
+  &lt;/blockquote&gt;
+&lt;/blockquote&gt;
+
+</description>
+        <pubDate>Thu, 19 Feb 2015 20:00:00 +0800</pubDate>
+        <link>http://localhost:4000/%E8%BD%AC%E8%BD%BD/2015/02/19/SSL-MIM/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E8%BD%AC%E8%BD%BD/2015/02/19/SSL-MIM/</guid>
+        
+        <category>ssl/tls</category>
+        
+        
+        <category>转载</category>
         
       </item>
     
