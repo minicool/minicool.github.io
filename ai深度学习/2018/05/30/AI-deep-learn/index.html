@@ -12,9 +12,9 @@
 
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>x.509 - 迷你世界 | minicool Blog</title>
+    <title>AI deep learn & tensorflow opencv - 迷你世界 | minicool Blog</title>
 
-    <link rel="canonical" href="http://localhost:4000/%E7%AC%94%E8%AE%B0/2015/04/23/x509/">
+    <link rel="canonical" href="http://localhost:4000/ai%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/2018/05/30/AI-deep-learn/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -127,12 +127,12 @@
 
     <!-- Image to hack wechat -->
 <!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="/img/post-bg-2015.jpg" width="0" height="0"> -->
+<!-- <img src="/img/bg/develop-tool/tensorflow.png" width="0" height="0"> -->
 
 <!-- Post Header -->
 <style type="text/css">
     header.intro-header{
-        background-image: url('/img/post-bg-2015.jpg')
+        background-image: url('/img/bg/develop-tool/tensorflow.png')
     }
 </style>
 <header class="intro-header" >
@@ -142,17 +142,19 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#openssl" title="openssl">openssl</a>
+                        <a class="tag" href="/tags/#deeplearning" title="deeplearning">deeplearning</a>
                         
-                        <a class="tag" href="/tags/#CA" title="CA">CA</a>
+                        <a class="tag" href="/tags/#tensorflow" title="tensorflow">tensorflow</a>
+                        
+                        <a class="tag" href="/tags/#opencv" title="opencv">opencv</a>
                         
                     </div>
-                    <h1>x.509</h1>
+                    <h1>AI deep learn & tensorflow opencv</h1>
                     
                     
-                    <h2 class="subheading">X.509 证书</h2>
+                    <h2 class="subheading">AI深度学习(一)</h2>
                     
-                    <span class="meta">Posted by minicool on April 23, 2015</span>
+                    <span class="meta">Posted by minicool on May 30, 2018</span>
                 </div>
             </div>
         </div>
@@ -173,56 +175,117 @@
                 <!-- Multi-Lingual -->
                                 
 
-				<h3 id="x509">X.509</h3>
+				<blockquote>
+  <p>因在数博会上对GOOGLE推出的Tensorflow颇感到兴趣，又从朋友听到深度学习及应用前景非常广。打算深度学习进行了解并对过程进行笔记。 主要使用tensorflow结合opencv对视频图像进行深度学习，对物品进行分析学习。例如识别车辆品牌及型号，物体快速识别。</p>
+</blockquote>
 
-<p>X.509是一种数字证书格式。数字证书是由权威机构——CA机构，又称为证书授权（Certificate Authority）中心发行的。用于对数字身份信息进行授权，用于验证的证书信息。</p>
+<h4 id="深度学习">深度学习</h4>
+<blockquote>
+  <p>深度学习的概念源于人工神经网络的研究。含多隐层的多层感知器就是一种深度学习结构。深度学习通过组合低层特征形成更加抽象的高层表示属性类别或特征，以发现数据的分布式特征表示。深度学习是机器学习中一种基于对数据进行表征学习的方法。观测值（例如一幅图像）可以使用多种方式来表示，如每个像素强度值的向量，或者更抽象地表示成一系列边、特定形状的区域等。而使用某些特定的表示方法更容易从实例中学习任务（例如，人脸识别或面部表情识别）。深度学习的好处是用非监督式或半监督式的特征学习和分层特征提取高效算法来替代手工获取特征。</p>
+</blockquote>
 
-<h4 id="常见数据格式">常见数据格式</h4>
-<p>cer/crt是用于存放证书，它是2进制形式存放的，不含私钥。</p>
+<h4 id="开发套件准备">开发套件准备</h4>
 
-<p>pem跟crt/cer的区别是它以Ascii来表示，可以用于存放证书或私钥。</p>
+<h5 id="开发环境工具">开发环境工具</h5>
+<p>anaconda
+指的是一个开源的Python发行版本，其包含了conda、Python等180多个科学包及其依赖项。
+<a href="https://www.anaconda.org/">官网</a> 
+<a href="https://www.anaconda.com/download/#windows">下载 windows</a> 
+<a href="https://www.anaconda.com/download/#macos">下载 macos</a> 
+<a href="https://www.anaconda.com/download/#linux">下载 linux</a></p>
 
-<p>pfx/p12用于存放个人证书/私钥，他通常包含保护密码，2进制方式。</p>
+<p>官方提供了通过Graphical 和Command Line 两种方式，本文选择通过Graphical安装.
+因本人MAC系统，选择下载最新基于Mac OS系统的Python 3.6进行安装。</p>
 
-<p>p10是证书请求。</p>
+<h5 id="深度学习工具">深度学习工具</h5>
+<p>tensorflow
+是谷歌基于DistBelief进行研发的第二代人工智能学习系统，其命名来源于本身的运行原理。Tensor（张量）意味着N维数组，Flow（流）意味着基于数据流图的计算，TensorFlow为张量从流图的一端流动到另一端计算过程。TensorFlow是将复杂的数据结构传输至人工智能神经网中进行分析和处理过程的系统。TensorFlow可被用于语音识别或图像识别等多项机器学习和深度学习领域。
+<a href="https://www.tensorflow.org/">官网</a>
+<a href="http://www.tensorfly.cn/">中文社区</a></p>
 
-<p>p7r是CA对证书请求的回复，只用于导入</p>
+<h5 id="视频分析工具">视频分析工具</h5>
+<p>opencv
+是一个基于BSD许可（开源）发行的跨平台计算机视觉库，可以运行在Linux、Windows、Android和Mac OS操作系统上。它轻量级而且高效——由一系列 C 函数和少量 C++ 类构成，同时提供了Python、Ruby、MATLAB等语言的接口，实现了图像处理和计算机视觉方面的很多通用算法。
+<a href="https://www.opencv.org/">官网</a></p>
 
-<p>p7b以树状展示证书链(certificate chain)，同时也支持单个证书，不含私钥。</p>
+<h5 id="语言开发工具">语言开发工具</h5>
+<p>vscode
+Microsoft Visual Studio（简称VS）是美国微软公司的开发工具包系列产品。VS是一个基本完整的开发工具集，它包括了整个软件生命周期中所需要的大部分工具，如UML工具、代码管控工具、集成开发环境(IDE)等等。所写的目标代码适用于微软支持的所有平台，包括Microsoft Windows、Windows Mobile、Windows CE、.NET Framework、.NET Compact Framework和Microsoft Silverlight 及Windows Phone。
+<a href="https://code.visualstudio.com/">官网</a></p>
 
-<h4 id="x509-数据格式">x.509 数据格式</h4>
+<h5 id="开发语言">开发语言</h5>
+<p>python
+是一种面向对象的解释型计算机程序设计语言，由荷兰人Guido van Rossum于1989年发明，第一个公开发行版发行于1991年。Python是纯粹的自由软件， 源代码和解释器CPython遵循 GPL(GNU General Public License)协议。Python具有丰富和强大的库。它常被昵称为胶水语言，能够把用其他语言制作的各种模块（尤其是C/C++）很轻松地联结在一起。
+<a href="https://www.python.org/">官网</a></p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">TBSCertificate</span><span class="o">::=</span><span class="n">SEQUENCE</span><span class="p">{</span>
-    <span class="n">version</span>           <span class="p">[</span><span class="mi">0</span><span class="p">]</span>   <span class="n">EXPLICIT</span> <span class="n">Version</span> <span class="n">DEFAULT</span> <span class="n">v1</span><span class="p">,</span>        <span class="err">#</span><span class="n">x</span><span class="mf">.509</span><span class="err">具体版本号</span>
-    <span class="n">serialNumber</span>            <span class="n">CertificateSerialNumber</span><span class="p">,</span>            <span class="err">#序列号加上唯一标示当前证书</span>
-    <span class="n">signature</span>               <span class="n">AlgorithmIdentifier</span><span class="p">,</span>                <span class="err">#证书签名的算法</span>
-    <span class="n">issuer</span>                  <span class="n">Name</span><span class="p">,</span>                               <span class="err">#</span><span class="n">CA</span><span class="err">的</span><span class="n">X</span><span class="mf">.509</span><span class="err">名字</span>
-    <span class="n">validity</span>                <span class="n">Validity</span><span class="p">,</span>                           <span class="err">#有效期的起止时间</span>
-    <span class="n">subject</span>                 <span class="n">Name</span><span class="p">,</span>                               <span class="err">#该证书所证明的密钥所有者实体</span>
-    <span class="n">subjectPublicKeyInfo</span>    <span class="n">SubjectPublicKeyInfo</span><span class="p">,</span>               <span class="err">#主题的公钥即使用算法的</span><span class="n">ID</span>
-    <span class="n">issuerUniqueID</span>    <span class="p">[</span><span class="mi">1</span><span class="p">]</span>   <span class="n">IMPLICIT</span> <span class="n">UniqueIdentifier</span> <span class="n">OPTIONAL</span><span class="p">,</span> <span class="err">#可选的</span><span class="n">ID</span><span class="err">，唯一标示证书的颁发者</span>
-    <span class="n">subjectUniqueID</span>   <span class="p">[</span><span class="mi">2</span><span class="p">]</span>   <span class="n">IMPLICIT</span> <span class="n">UniqueIdentifier</span> <span class="n">OPTIONAL</span><span class="p">,</span> <span class="err">#可选的</span><span class="n">ID</span><span class="err">，唯一标示证书的主题</span>
-    <span class="n">extensions</span>        <span class="p">[</span><span class="mi">3</span><span class="p">]</span>   <span class="n">EXPLICIT</span> <span class="n">Extensions</span> <span class="n">OPTIONAL</span>        <span class="err">#目前定义的扩展域</span>
-<span class="p">}</span></code></pre></figure>
+<h4 id="环境安装">环境安装</h4>
+<ol>
+  <li>安装anaconda,选择下载安装包，直接安装完成。没有特殊选择项。安装anaconda主要目的是适应多版本python环境搭建及可进行包管理，后续大多数包都可在该系统下进行安装。创建现有环境，
+<img src="/img/in-post/original/2018-05-30-ai-deep-learn-2.png" alt="image01" />
+创建环境分为命令行和图形创建：
+(1). 命令行 创建开发环境命名为tensorflow的环境，适用3.6版本python的</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">$ </span>conda create <span class="nt">-n</span> tensorflow <span class="nt">-python</span><span class="o">=</span>3.6
+<span class="nv">$ </span><span class="nb">source </span>activate tensorflow</code></pre></figure>
+
+<ol>
+  <li>安装tensorflow。分为两种安装方式，
+一种选择anaconda包管理方式进行下载。选择对应开发环境，选择all中，搜索tensorflow.
+<img src="/img/in-post/original/2018-05-30-ai-deep-learn-1.png" alt="image01" />
+另一种功能适用pip进行下载。</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">$ </span>pip <span class="nb">install</span> <span class="nt">--ignore-installed</span> <span class="nt">--upgrade</span> https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.6.0-py3-none-any.whl</code></pre></figure>
+
+<ol>
+  <li>安装opencv。安装方法类似。</li>
+</ol>
+
+<h4 id="开发调试">开发调试</h4>
+<ol>
+  <li>
+    <p>安装vscode。可以选择从官网下载，也可以从conda中按照默认提供下载。
+<img src="/img/in-post/original/2018-05-30-ai-deep-learn-3.png" alt="image03" /></p>
+  </li>
+  <li>
+    <p>下载vscode插件
+安装python插件
+<img src="/img/in-post/original/2018-05-30-ai-deep-learn-4.png" alt="image04" />
+配置python路径
+<img src="/img/in-post/original/2018-05-30-ai-deep-learn-5.png" alt="image05" />
+如果通过官网下载vscode，还另需要安装conda插件
+<img src="/img/in-post/original/2018-05-30-ai-deep-learn-6.png" alt="image06" /></p>
+  </li>
+</ol>
+
+<h4 id="测试程序">测试程序</h4>
+<ol>
+  <li>hello word</li>
+</ol>
+
+<p>通过tensorflow 打印 hello word 以及输出opencv 输出版本。</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="n">tf</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+
+<span class="n">hello</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="s">'hello word!'</span><span class="p">)</span>
+<span class="n">sess</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">hello</span><span class="p">))</span></code></pre></figure>
 
 
                 <hr style="visibility: hidden;">
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/%E7%AC%94%E8%AE%B0/2015/03/26/Encryption-algorithm-summary/" data-toggle="tooltip" data-placement="top" title="Encryption algorithm summary">
+                        <a href="/%E9%97%AE%E9%A2%98%E6%8E%A2%E8%AE%A8/2018/03/30/blockchain-bug/" data-toggle="tooltip" data-placement="top" title="block chain & trust issues">
                         Previous<br>
-                        <span>Encryption algorithm summary</span>
+                        <span>block chain & trust issues</span>
                         </a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2017/03/21/electron-demo/" data-toggle="tooltip" data-placement="top" title="electron & inno & demo">
-                        Next<br>
-                        <span>electron & inno & demo</span>
-                        </a>
-                    </li>
                     
                 </ul> 
             </div>
@@ -677,7 +740,7 @@
 
 
 <!-- Image to hack wechat -->
-<img src="/img/icon_wechat.jpeg" width="0" height="0" />
+<img src="/img/wechat/tensorflow.png" width="0" height="0" />
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
 </body>
