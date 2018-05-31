@@ -5,9 +5,126 @@
     <description>年迈的工程师</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 31 May 2018 13:24:09 +0800</pubDate>
-    <lastBuildDate>Thu, 31 May 2018 13:24:09 +0800</lastBuildDate>
+    <pubDate>Thu, 31 May 2018 13:25:28 +0800</pubDate>
+    <lastBuildDate>Thu, 31 May 2018 13:25:28 +0800</lastBuildDate>
     <generator>Jekyll v3.7.3</generator>
+    
+      <item>
+        <title>AI deep learn &amp; tensorflow opencv</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;因在数博会上对GOOGLE推出的Tensorflow颇感到兴趣，又从朋友听到深度学习及应用前景非常广。打算深度学习进行了解并对过程进行笔记。 主要使用tensorflow结合opencv对视频图像进行深度学习，对物品进行分析学习。例如识别车辆品牌及型号，物体快速识别。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;深度学习&quot;&gt;深度学习&lt;/h4&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;深度学习的概念源于人工神经网络的研究。含多隐层的多层感知器就是一种深度学习结构。深度学习通过组合低层特征形成更加抽象的高层表示属性类别或特征，以发现数据的分布式特征表示。深度学习是机器学习中一种基于对数据进行表征学习的方法。观测值（例如一幅图像）可以使用多种方式来表示，如每个像素强度值的向量，或者更抽象地表示成一系列边、特定形状的区域等。而使用某些特定的表示方法更容易从实例中学习任务（例如，人脸识别或面部表情识别）。深度学习的好处是用非监督式或半监督式的特征学习和分层特征提取高效算法来替代手工获取特征。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;开发套件准备&quot;&gt;开发套件准备&lt;/h4&gt;
+
+&lt;h5 id=&quot;开发环境工具&quot;&gt;开发环境工具&lt;/h5&gt;
+&lt;p&gt;anaconda
+指的是一个开源的Python发行版本，其包含了conda、Python等180多个科学包及其依赖项。
+&lt;a href=&quot;https://www.anaconda.org/&quot;&gt;官网&lt;/a&gt; 
+&lt;a href=&quot;https://www.anaconda.com/download/#windows&quot;&gt;下载 windows&lt;/a&gt; 
+&lt;a href=&quot;https://www.anaconda.com/download/#macos&quot;&gt;下载 macos&lt;/a&gt; 
+&lt;a href=&quot;https://www.anaconda.com/download/#linux&quot;&gt;下载 linux&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;官方提供了通过Graphical 和Command Line 两种方式，本文选择通过Graphical安装.
+因本人MAC系统，选择下载最新基于Mac OS系统的Python 3.6进行安装。&lt;/p&gt;
+
+&lt;h5 id=&quot;深度学习工具&quot;&gt;深度学习工具&lt;/h5&gt;
+&lt;p&gt;tensorflow
+是谷歌基于DistBelief进行研发的第二代人工智能学习系统，其命名来源于本身的运行原理。Tensor（张量）意味着N维数组，Flow（流）意味着基于数据流图的计算，TensorFlow为张量从流图的一端流动到另一端计算过程。TensorFlow是将复杂的数据结构传输至人工智能神经网中进行分析和处理过程的系统。TensorFlow可被用于语音识别或图像识别等多项机器学习和深度学习领域。
+&lt;a href=&quot;https://www.tensorflow.org/&quot;&gt;官网&lt;/a&gt;
+&lt;a href=&quot;http://www.tensorfly.cn/&quot;&gt;中文社区&lt;/a&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;视频分析工具&quot;&gt;视频分析工具&lt;/h5&gt;
+&lt;p&gt;opencv
+是一个基于BSD许可（开源）发行的跨平台计算机视觉库，可以运行在Linux、Windows、Android和Mac OS操作系统上。它轻量级而且高效——由一系列 C 函数和少量 C++ 类构成，同时提供了Python、Ruby、MATLAB等语言的接口，实现了图像处理和计算机视觉方面的很多通用算法。
+&lt;a href=&quot;https://www.opencv.org/&quot;&gt;官网&lt;/a&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;语言开发工具&quot;&gt;语言开发工具&lt;/h5&gt;
+&lt;p&gt;vscode
+Microsoft Visual Studio（简称VS）是美国微软公司的开发工具包系列产品。VS是一个基本完整的开发工具集，它包括了整个软件生命周期中所需要的大部分工具，如UML工具、代码管控工具、集成开发环境(IDE)等等。所写的目标代码适用于微软支持的所有平台，包括Microsoft Windows、Windows Mobile、Windows CE、.NET Framework、.NET Compact Framework和Microsoft Silverlight 及Windows Phone。
+&lt;a href=&quot;https://code.visualstudio.com/&quot;&gt;官网&lt;/a&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;开发语言&quot;&gt;开发语言&lt;/h5&gt;
+&lt;p&gt;python
+是一种面向对象的解释型计算机程序设计语言，由荷兰人Guido van Rossum于1989年发明，第一个公开发行版发行于1991年。Python是纯粹的自由软件， 源代码和解释器CPython遵循 GPL(GNU General Public License)协议。Python具有丰富和强大的库。它常被昵称为胶水语言，能够把用其他语言制作的各种模块（尤其是C/C++）很轻松地联结在一起。
+&lt;a href=&quot;https://www.python.org/&quot;&gt;官网&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;环境安装&quot;&gt;环境安装&lt;/h4&gt;
+&lt;ol&gt;
+  &lt;li&gt;安装anaconda,选择下载安装包，直接安装完成。没有特殊选择项。安装anaconda主要目的是适应多版本python环境搭建及可进行包管理，后续大多数包都可在该系统下进行安装。创建现有环境，
+&lt;img src=&quot;/img/in-post/original/2018-05-30-ai-deep-learn-2.png&quot; alt=&quot;image01&quot; /&gt;
+创建环境分为命令行和图形创建：
+(1). 命令行 创建开发环境命名为tensorflow的环境，适用3.6版本python的&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;conda create &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; tensorflow &lt;span class=&quot;nt&quot;&gt;-python&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;3.6
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;source &lt;/span&gt;activate tensorflow&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;安装tensorflow。分为两种安装方式，
+一种选择anaconda包管理方式进行下载。选择对应开发环境，选择all中，搜索tensorflow.
+&lt;img src=&quot;/img/in-post/original/2018-05-30-ai-deep-learn-1.png&quot; alt=&quot;image01&quot; /&gt;
+另一种功能适用pip进行下载。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;pip &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--ignore-installed&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--upgrade&lt;/span&gt; https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.6.0-py3-none-any.whl&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;安装opencv。安装方法类似。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;开发调试&quot;&gt;开发调试&lt;/h4&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;安装vscode。可以选择从官网下载，也可以从conda中按照默认提供下载。
+&lt;img src=&quot;/img/in-post/original/2018-05-30-ai-deep-learn-3.png&quot; alt=&quot;image03&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;下载vscode插件
+安装python插件
+&lt;img src=&quot;/img/in-post/original/2018-05-30-ai-deep-learn-4.png&quot; alt=&quot;image04&quot; /&gt;
+配置python路径
+&lt;img src=&quot;/img/in-post/original/2018-05-30-ai-deep-learn-5.png&quot; alt=&quot;image05&quot; /&gt;
+如果通过官网下载vscode，还另需要安装conda插件
+&lt;img src=&quot;/img/in-post/original/2018-05-30-ai-deep-learn-6.png&quot; alt=&quot;image06&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;测试程序&quot;&gt;测试程序&lt;/h4&gt;
+&lt;ol&gt;
+  &lt;li&gt;hello word&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;通过tensorflow 打印 hello word 以及输出opencv 输出版本。&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;tensorflow&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;cv2&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__version__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;constant&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'hello word!'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;sess&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Session&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sess&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+</description>
+        <pubDate>Tue, 29 May 2018 22:00:00 +0800</pubDate>
+        <link>http://localhost:4000/ai/2018/05/29/AI-deep-learn/</link>
+        <guid isPermaLink="true">http://localhost:4000/ai/2018/05/29/AI-deep-learn/</guid>
+        
+        <category>deeplearning</category>
+        
+        <category>tensorflow</category>
+        
+        <category>opencv</category>
+        
+        
+        <category>AI</category>
+        
+      </item>
     
       <item>
         <title>block chain &amp; trust issues</title>
@@ -795,58 +912,6 @@ DNS欺骗，将域名信息转化为IP地址时候进行欺骗，使得域名地
         
         
         <category>转载</category>
-        
-      </item>
-    
-      <item>
-        <title>SQL concurrency controlr</title>
-        <description>&lt;h3 id=&quot;乐观锁&quot;&gt;乐观锁&lt;/h3&gt;
-
-&lt;p&gt;乐观锁做为关系性数据库中的一种并发控制方法。它假设数据库运行提交事务处理时候，并不会相互影响。各事务能够在不产生锁的情况下进行处理各自数据。在提交数据更新之前，每个事务会先检查在该事务读取数据后，有没有其他事务又修改了该数据。如果其他事务有更新的话，正在提交的事务会进行回滚。&lt;/p&gt;
-
-&lt;h4 id=&quot;应用&quot;&gt;应用&lt;/h4&gt;
-&lt;p&gt;乐观并发控制多数用于数据争用不大、冲突较少的环境中，这种环境中，偶尔回滚事务的成本会低于读取数据时锁定数据的成本，因此可以获得比其他并发控制方法更高的吞吐量。&lt;/p&gt;
-
-&lt;h4 id=&quot;控制阶段&quot;&gt;控制阶段&lt;/h4&gt;
-&lt;p&gt;乐观并发控制的事务包括以下阶段：
-读取：事务将数据读入缓存，这时系统会给事务分派一个时间戳。
-校验：事务执行完毕后，进行提交。这时同步校验所有事务，如果事务所读取的数据在读取之后又被其他事务修改，则产生冲突，事务被中断回滚。
-写入：通过校验阶段后，将更新的数据写入数据库。&lt;/p&gt;
-
-&lt;h4 id=&quot;优缺点&quot;&gt;优缺点&lt;/h4&gt;
-&lt;p&gt;乐观并发控制相信事务之间的数据竞争(data race)的概率是比较小的，因此尽可能直接做下去，直到提交的时候才去锁定，所以不会产生任何锁和死锁。但如果直接简单这么做，还是有可能会遇到不可预期的结果，例如两个事务都读取了数据库的某一行，经过修改以后写回数据库，这时就遇到了问题。&lt;/p&gt;
-
-&lt;h3 id=&quot;悲观锁&quot;&gt;悲观锁&lt;/h3&gt;
-&lt;p&gt;它可以阻止一个事务以影响其他用户的方式来修改数据。如果一个事务执行的操作读某行数据应用了锁，那只有当这个事务把锁释放，其他事务才能够执行与该锁冲突的操作。&lt;/p&gt;
-
-&lt;h4 id=&quot;应用-1&quot;&gt;应用&lt;/h4&gt;
-&lt;p&gt;悲观并发控制主要用于数据争用激烈的环境，以及发生并发冲突时使用锁保护数据的成本要低于回滚事务的成本的环境中。&lt;/p&gt;
-
-&lt;h4 id=&quot;控制阶段-1&quot;&gt;控制阶段&lt;/h4&gt;
-
-&lt;h4 id=&quot;优缺点-1&quot;&gt;优缺点&lt;/h4&gt;
-&lt;p&gt;悲观并发控制实际上是“先取锁再访问”的保守策略[1]，为数据处理的安全提供了保证。但是在效率方面，处理加锁的机制会让数据库产生额外的开销，还有增加产生死锁的机会；另外，在只读型事务处理中由于不会产生冲突，也没必要使用锁，这样做只能增加系统负载；还有会降低了并行性，一个事务如果锁定了某行数据，其他事务就必须等待该事务处理完才可以处理那行数据。&lt;/p&gt;
-
-&lt;h4 id=&quot;acid&quot;&gt;ACID&lt;/h4&gt;
-&lt;p&gt;ACID，是指数据库管理系统（DBMS）在写入或更新资料的过程中，为保证事务（transaction）是正确可靠的，所必须具备的四个特性：原子性（atomicity，或称不可分割性）、一致性（consistency）、隔离性（isolation，又称独立性）、持久性（durability）。&lt;/p&gt;
-
-&lt;p&gt;在数据库系统中，一个事务是指：由一系列数据库操作组成的一个完整的逻辑过程。例如银行转帐，从原账户扣除金额，以及向目标账户添加金额，这两个数据库操作的总和，构成一个完整的逻辑过程，不可拆分。这个过程被称为一个事务，具有ACID特性。ACID的概念在ISO/IEC 10026-1:1992文件的第四段内有所说明。&lt;/p&gt;
-
-&lt;p&gt;原子性：一个事务（transaction）中的所有操作，要么全部完成，要么全部不完成，不会结束在中间某个环节。事务在执行过程中发生错误，会被回滚（Rollback）到事务开始前的状态，就像这个事务从来没有执行过一样。
-一致性：在事务开始之前和事务结束以后，数据库的完整性没有被破坏。这表示写入的资料必须完全符合所有的预设规则，这包含资料的精确度、串联性以及后续数据库可以自发性地完成预定的工作。
-隔离性：数据库允许多个并发事务同时对其数据进行读写和修改的能力，隔离性可以防止多个事务并发执行时由于交叉执行而导致数据的不一致。事务隔离分为不同级别，包括读未提交（Read uncommitted）、读提交（read committed）、可重复读（repeatable read）和串行化（Serializable）。
-持久性：事务处理结束后，对数据的修改就是永久的，即便系统故障也不会丢失。&lt;/p&gt;
-</description>
-        <pubDate>Mon, 28 Jul 2014 20:00:00 +0800</pubDate>
-        <link>http://localhost:4000/%E7%AC%94%E8%AE%B0/2014/07/28/SQL-concurrency-control/</link>
-        <guid isPermaLink="true">http://localhost:4000/%E7%AC%94%E8%AE%B0/2014/07/28/SQL-concurrency-control/</guid>
-        
-        <category>SQL</category>
-        
-        <category>基础知识</category>
-        
-        
-        <category>笔记</category>
         
       </item>
     

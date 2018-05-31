@@ -12,9 +12,9 @@
 
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>etherum & code analysis - 迷你世界 | minicool Blog</title>
+    <title>AI deep learn & tensorflow opencv - 迷你世界 | minicool Blog</title>
 
-    <link rel="canonical" href="http://localhost:4000/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2018/02/01/etherum-code-analy/">
+    <link rel="canonical" href="http://localhost:4000/ai/2018/05/29/AI-deep-learn/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -50,7 +50,7 @@
 <body ontouchstart="">
 
 <!-- Image to hack wechat -->
-<img src="/img/icon_wechat.jpeg" width="0"
+<img src="/img/wechat/tensorflow.png" width="0"
     height="0" />
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
@@ -132,12 +132,12 @@
 
     <!-- Image to hack wechat -->
 <!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="/img/post-bg-2015.jpg" width="0" height="0"> -->
+<!-- <img src="/img/bg/develop-tool/tensorflow.png" width="0" height="0"> -->
 
 <!-- Post Header -->
 <style type="text/css">
     header.intro-header{
-        background-image: url('/img/post-bg-2015.jpg')
+        background-image: url('/img/bg/develop-tool/tensorflow.png')
     }
 </style>
 <header class="intro-header" >
@@ -147,17 +147,19 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#code" title="code">code</a>
+                        <a class="tag" href="/tags/#deeplearning" title="deeplearning">deeplearning</a>
                         
-                        <a class="tag" href="/tags/#etherum" title="etherum">etherum</a>
+                        <a class="tag" href="/tags/#tensorflow" title="tensorflow">tensorflow</a>
+                        
+                        <a class="tag" href="/tags/#opencv" title="opencv">opencv</a>
                         
                     </div>
-                    <h1>etherum & code analysis</h1>
+                    <h1>AI deep learn & tensorflow opencv</h1>
                     
                     
-                    <h2 class="subheading">以太坊源码分析（一）</h2>
+                    <h2 class="subheading">AI深度学习(一)</h2>
                     
-                    <span class="meta">Posted by minicool on February 1, 2018</span>
+                    <span class="meta">Posted by minicool on May 29, 2018</span>
                 </div>
             </div>
         </div>
@@ -179,109 +181,116 @@
                                 
 
 				<blockquote>
-  <p>区块链作为新的技术，能否真正产生效率，一直是大家争论的话题。但随着数字货币，例如比特币，以太币兑换法币的价值越来越高的时候。争论似乎都已经停止，如何加入到这个资本盛宴才是大家最急迫的一件事。如何真正的了解以太坊等数字平台，不被眼前所蒙蔽，源码称为了解其本质的唯一途径。源码即是真理。</p>
+  <p>因在数博会上对GOOGLE推出的Tensorflow颇感到兴趣，又从朋友听到深度学习及应用前景非常广。打算深度学习进行了解并对过程进行笔记。 主要使用tensorflow结合opencv对视频图像进行深度学习，对物品进行分析学习。例如识别车辆品牌及型号，物体快速识别。</p>
 </blockquote>
 
-<h4 id="何为以太坊">何为以太坊？</h4>
+<h4 id="深度学习">深度学习</h4>
 <blockquote>
-  <p>作为了解一个新事物的入口，必然需要知道它是什么，从哪来，能干什么。所以从缘由说起更能很好的了解。</p>
+  <p>深度学习的概念源于人工神经网络的研究。含多隐层的多层感知器就是一种深度学习结构。深度学习通过组合低层特征形成更加抽象的高层表示属性类别或特征，以发现数据的分布式特征表示。深度学习是机器学习中一种基于对数据进行表征学习的方法。观测值（例如一幅图像）可以使用多种方式来表示，如每个像素强度值的向量，或者更抽象地表示成一系列边、特定形状的区域等。而使用某些特定的表示方法更容易从实例中学习任务（例如，人脸识别或面部表情识别）。深度学习的好处是用非监督式或半监督式的特征学习和分层特征提取高效算法来替代手工获取特征。</p>
 </blockquote>
 
-<p>以太坊（英语：Ethereum）是一个开源的有智能合约功能的公共区块链平台。通过其专用加密货币以太币（Ether，又称“以太币”）提供去中心化的虚拟机（称为“以太虚拟机”Ethereum Virtual Machine）来处理点对点合约。</p>
+<h4 id="开发套件准备">开发套件准备</h4>
 
-<p>区块链(Blockchain)是指通过去中心化和去信任的方式集体维护一个可靠数据库的技术方案。该技术方案让参与系统中的任意多个节点，把一段时间系统内全部事务通过密码学算法计算并记录到一个数据块(block)，生成该数据块的hash用于链接下个数据块，系统所有参与节点来共同检验记录是否为真，并且每个区块的内容都由后续子链上的区块来保证其内容不可被篡改。各个参与节点可以在新区块产生确认及奖励分配上达成共识，从而逐渐形成的一个庞大、去中心化的公开账本。</p>
+<h5 id="开发环境工具">开发环境工具</h5>
+<p>anaconda
+指的是一个开源的Python发行版本，其包含了conda、Python等180多个科学包及其依赖项。
+<a href="https://www.anaconda.org/">官网</a> 
+<a href="https://www.anaconda.com/download/#windows">下载 windows</a> 
+<a href="https://www.anaconda.com/download/#macos">下载 macos</a> 
+<a href="https://www.anaconda.com/download/#linux">下载 linux</a></p>
 
-<h4 id="源码分析准备">源码分析准备</h4>
+<p>官方提供了通过Graphical 和Command Line 两种方式，本文选择通过Graphical安装.
+因本人MAC系统，选择下载最新基于Mac OS系统的Python 3.6进行安装。</p>
 
-<h5 id="资料准备">资料准备</h5>
+<h5 id="深度学习工具">深度学习工具</h5>
+<p>tensorflow
+是谷歌基于DistBelief进行研发的第二代人工智能学习系统，其命名来源于本身的运行原理。Tensor（张量）意味着N维数组，Flow（流）意味着基于数据流图的计算，TensorFlow为张量从流图的一端流动到另一端计算过程。TensorFlow是将复杂的数据结构传输至人工智能神经网中进行分析和处理过程的系统。TensorFlow可被用于语音识别或图像识别等多项机器学习和深度学习领域。
+<a href="https://www.tensorflow.org/">官网</a>
+<a href="http://www.tensorfly.cn/">中文社区</a></p>
+
+<h5 id="视频分析工具">视频分析工具</h5>
+<p>opencv
+是一个基于BSD许可（开源）发行的跨平台计算机视觉库，可以运行在Linux、Windows、Android和Mac OS操作系统上。它轻量级而且高效——由一系列 C 函数和少量 C++ 类构成，同时提供了Python、Ruby、MATLAB等语言的接口，实现了图像处理和计算机视觉方面的很多通用算法。
+<a href="https://www.opencv.org/">官网</a></p>
+
+<h5 id="语言开发工具">语言开发工具</h5>
+<p>vscode
+Microsoft Visual Studio（简称VS）是美国微软公司的开发工具包系列产品。VS是一个基本完整的开发工具集，它包括了整个软件生命周期中所需要的大部分工具，如UML工具、代码管控工具、集成开发环境(IDE)等等。所写的目标代码适用于微软支持的所有平台，包括Microsoft Windows、Windows Mobile、Windows CE、.NET Framework、.NET Compact Framework和Microsoft Silverlight 及Windows Phone。
+<a href="https://code.visualstudio.com/">官网</a></p>
+
+<h5 id="开发语言">开发语言</h5>
+<p>python
+是一种面向对象的解释型计算机程序设计语言，由荷兰人Guido van Rossum于1989年发明，第一个公开发行版发行于1991年。Python是纯粹的自由软件， 源代码和解释器CPython遵循 GPL(GNU General Public License)协议。Python具有丰富和强大的库。它常被昵称为胶水语言，能够把用其他语言制作的各种模块（尤其是C/C++）很轻松地联结在一起。
+<a href="https://www.python.org/">官网</a></p>
+
+<h4 id="环境安装">环境安装</h4>
 <ol>
-  <li><a href="http://ethdocs.org/en/latest/introduction/what-is-ethereum.html">以太坊文档资料</a>[英文]</li>
+  <li>安装anaconda,选择下载安装包，直接安装完成。没有特殊选择项。安装anaconda主要目的是适应多版本python环境搭建及可进行包管理，后续大多数包都可在该系统下进行安装。创建现有环境，
+<img src="/img/in-post/original/2018-05-30-ai-deep-learn-2.png" alt="image01" />
+创建环境分为命令行和图形创建：
+(1). 命令行 创建开发环境命名为tensorflow的环境，适用3.6版本python的</li>
 </ol>
 
-<h5 id="源码准备">源码准备</h5>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">$ </span>conda create <span class="nt">-n</span> tensorflow <span class="nt">-python</span><span class="o">=</span>3.6
+<span class="nv">$ </span><span class="nb">source </span>activate tensorflow</code></pre></figure>
+
 <ol>
-  <li>以太坊源码地址 <a href="https://github.com/ethereum/go-ethereum">Go Ethereum</a></li>
-  <li>以太合约语言地址 <a href="https://github.com/ethereum/solidity">Solidity</a></li>
-  <li>go语言开发套件 <a href="https://www.jetbrains.com/go/">goLand</a></li>
-  <li>cpp语言开发套件 <a href="https://developer.apple.com/xcode/">xcode</a> [因本人是MAC系统所以选择自带Xcode，windows系统 建议选Visual Studio开发套件]</li>
-  <li>编辑器套件 <a href="https://code.visualstudio.com/Download">visual stdio code</a> [vscode不仅作为编辑器使用，也可以通过配置go,cpp等套件进行对应开发套件]</li>
+  <li>安装tensorflow。分为两种安装方式，
+一种选择anaconda包管理方式进行下载。选择对应开发环境，选择all中，搜索tensorflow.
+<img src="/img/in-post/original/2018-05-30-ai-deep-learn-1.png" alt="image01" />
+另一种功能适用pip进行下载。</li>
 </ol>
 
-<h5 id="下载源码">下载源码</h5>
-<p>下载Go Ethereum并编译源码</p>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">$ </span>pip <span class="nb">install</span> <span class="nt">--ignore-installed</span> <span class="nt">--upgrade</span> https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.6.0-py3-none-any.whl</code></pre></figure>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">git</span> <span class="nb">clone</span> <span class="n">https</span><span class="ss">:/</span><span class="o">/</span><span class="n">github</span><span class="p">.</span><span class="nf">com</span><span class="o">/</span><span class="n">ethereum</span><span class="o">/</span><span class="n">go</span><span class="o">-</span><span class="n">ethereum</span><span class="p">.</span><span class="nf">git</span>
-<span class="n">cd</span>  <span class="n">go</span><span class="o">-</span><span class="n">ethereum</span>
-<span class="n">git</span> <span class="n">checkout</span> <span class="n">v1</span><span class="o">.</span><span class="mf">8.0</span>
-<span class="n">make</span> <span class="n">geth</span>
-<span class="n">make</span> <span class="n">all</span></code></pre></figure>
+<ol>
+  <li>安装opencv。安装方法类似。</li>
+</ol>
 
-<p>查看geth版本信息</p>
+<h4 id="开发调试">开发调试</h4>
+<ol>
+  <li>
+    <p>安装vscode。可以选择从官网下载，也可以从conda中按照默认提供下载。
+<img src="/img/in-post/original/2018-05-30-ai-deep-learn-3.png" alt="image03" /></p>
+  </li>
+  <li>
+    <p>下载vscode插件
+安装python插件
+<img src="/img/in-post/original/2018-05-30-ai-deep-learn-4.png" alt="image04" />
+配置python路径
+<img src="/img/in-post/original/2018-05-30-ai-deep-learn-5.png" alt="image05" />
+如果通过官网下载vscode，还另需要安装conda插件
+<img src="/img/in-post/original/2018-05-30-ai-deep-learn-6.png" alt="image06" /></p>
+  </li>
+</ol>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="p">.</span><span class="nf">/</span><span class="n">build</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">geth</span> <span class="n">version</span>
-<span class="no">Geth</span>
-<span class="no">Version</span><span class="p">:</span> <span class="mf">1.8</span><span class="o">.</span><span class="mi">2</span><span class="o">-</span><span class="n">unstable</span>
-<span class="no">Git</span> <span class="no">Commit</span><span class="p">:</span> <span class="n">fa375955ad52bc7936f33c8d8cec68fb9007baaa</span>
-<span class="no">Architecture</span><span class="p">:</span> <span class="n">amd64</span>
-<span class="no">Protocol</span> <span class="no">Versions</span><span class="p">:</span> <span class="p">[</span><span class="mi">63</span> <span class="mi">62</span><span class="p">]</span>
-<span class="no">Network</span> <span class="no">Id</span><span class="p">:</span> <span class="mi">1</span>
-<span class="no">Go</span> <span class="no">Version</span><span class="p">:</span> <span class="n">go1</span><span class="o">.</span><span class="mf">8.3</span>
-<span class="no">Operating</span> <span class="no">System</span><span class="p">:</span> <span class="n">darwin</span></code></pre></figure>
+<h4 id="测试程序">测试程序</h4>
+<ol>
+  <li>hello word</li>
+</ol>
 
-<h4 id="执行程序">执行程序</h4>
-<blockquote>
-  <p>cd ./build/bin</p>
-</blockquote>
+<p>通过tensorflow 打印 hello word 以及输出opencv 输出版本。</p>
 
-<p>获得12个执行程序
-abigen,bootnode,ethkey,evm,examples,faucet,geth,p2psim,puppeth,ripdump,swarm,wnode</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="n">tf</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
 
-<p>关键执行程序：
-【geth】:以太坊CLI（command-line interface）命令行客户端。它是作为连接以太坊网络的入口节点，以太坊网络包括主网络（现交易真实公有链网络），测试网络（应用测试环境网络），专用网络（自行的搭建私有链网络）。Geth默认能作为一个完整节点运行，并且可以作为单独回溯节点（保留所有历史数据）及轻量节点（实时数据检索）。它可以被其他进程用作进入以太坊网络的网关，通过HTTP，WebSocket，IPC传输或者JSON RPC访问。</p>
+<span class="k">print</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
 
-<p>【abigen】：源代码生成器。它将以太坊智能合约定义(代码) 转换为易于使用的、编译时类型安全的Go软件包。 如果合约字节码可用的话，它可以在易用的以太坊智能合约ABI(Application Binary Interface)二进制应用接口上扩展功能。 同时也能编译Solidity源文件，使开发更加精简。</p>
-
-<p>【bootnode】：网络节点发现应用（以太坊客户端节点发现功能）。只参与网络节点的发现，不能运行任何更高级别的应用程序协议。它作为轻量级引导节点来帮助找到专用网络中的对等设备。</p>
-
-<p>【ethkey】: 密钥生成管理应用（以太坊客户端密钥管理）。具有生成密钥，检查密钥的管理功能。对发送消息进行签名及消息签名验证。</p>
-
-<p>【evm】:EVM（Ethereum Virtual Machine）可以进行开发实用工具版本的以太坊虚拟机。能够在可配置的环境和执行模式下运行字节码片段。其目的是允许对EVM操作码进行封装，细粒度的调试。</p>
-
-<p>【examples】:节点适配器例子。适配使用SIM,exec,docker.</p>
-
-<p>【faucet】:-未知。从帮助中看应该是对以太坊网络进行配置。后面源码分析再重新整理。</p>
-
-<p>【p2psim】:p2p仿真网络命令行工具。后面源码分析再重新整理。</p>
-
-<p>【puppeth】:管理私有以太坊网络工具。安装和维护私有以太坊网络工具。后面源码分析再重新整理。</p>
-
-<p>【ripdump】:RLP (Recursive Length Prefix) 前缀长度递归转换开发者通用工具，用来把二进制前缀长度递归 (以太坊协议中用于网络及一致性的数据编码) 转换成对用户友好的分层表示。</p>
-
-<p>【swarm】: swarm守护进程和工具。作为swarm网络的入口点。</p>
-
-<p>【wnode】:-未知</p>
-
-<p>以上为生成的执行程序。</p>
-
+<span class="n">hello</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="s">'hello word!'</span><span class="p">)</span>
+<span class="n">sess</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">hello</span><span class="p">))</span></code></pre></figure>
 
 
                 <hr style="visibility: hidden;">
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2017/03/21/electron-demo/" data-toggle="tooltip" data-placement="top" title="electron & inno & demo">
+                        <a href="/%E9%97%AE%E9%A2%98%E6%8E%A2%E8%AE%A8/2018/03/30/blockchain-bug/" data-toggle="tooltip" data-placement="top" title="block chain & trust issues">
                         Previous<br>
-                        <span>electron & inno & demo</span>
+                        <span>block chain & trust issues</span>
                         </a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2018/02/01/etherum-code-analy-trie/" data-toggle="tooltip" data-placement="top" title="etherum & trie">
-                        Next<br>
-                        <span>etherum & trie</span>
-                        </a>
-                    </li>
                     
                 </ul> 
             </div>

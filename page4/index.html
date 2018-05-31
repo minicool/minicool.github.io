@@ -12,9 +12,9 @@
 
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>etherum & trie - 迷你世界 | minicool Blog</title>
+    <title>迷你世界 | minicool Blog</title>
 
-    <link rel="canonical" href="http://localhost:4000/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2018/02/01/etherum-code-analy-trie/">
+    <link rel="canonical" href="http://localhost:4000/page4/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -130,269 +130,300 @@
 </script>
 
 
-    <!-- Image to hack wechat -->
-<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="/img/post-bg-2015.jpg" width="0" height="0"> -->
-
-<!-- Post Header -->
-<style type="text/css">
-    header.intro-header{
-        background-image: url('/img/post-bg-2015.jpg')
-    }
-</style>
-<header class="intro-header" >
+    <!-- Page Header -->
+<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-heading">
-                    <div class="tags">
-                        
-                        <a class="tag" href="/tags/#code" title="code">code</a>
-                        
-                        <a class="tag" href="/tags/#etherum" title="etherum">etherum</a>
-                        
-                    </div>
-                    <h1>etherum & trie</h1>
-                    
-                    
-                    <h2 class="subheading">以太坊源码分析（一）Merkle Patricia Tries</h2>
-                    
-                    <span class="meta">Posted by minicool on February 1, 2018</span>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
+                <div class="site-heading">
+                    <h1>MiniCool World</h1>
+                    <!--<hr class="small">-->
+                    <span class="subheading">- 发现这个有趣的迷你世界 -</span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Post Content -->
-<article>
-    <div class="container">
-        <div class="row">
+<!-- Main Content -->
+<div class="container">
+	<div class="row">
+        
 
+<!-- USE SIDEBAR -->
     <!-- Post Container -->
-            <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                post-container">
-
-                <!-- Multi-Lingual -->
-                                
-
-				<blockquote>
-  <p>包trie 实现了MPT(Merkle Patricia Tries)数据结构，这种数据结构实际上是一种Trie树变种。MPT是以太坊中一种非常重要的数据结构，用来存储用户账户的状态及其变更、交易信息、交易的收据信息。MPT实际上是三种数据结构的组合，分别是Trie树， Patricia Trie， 和Merkle树。下面分别介绍这三种数据结构。</p>
-</blockquote>
-
-<h4 id="trie-tree">Trie Tree</h4>
-<p>Trie树，又称字典树，单词查找树或者前缀树，是一种用于快速检索的多叉树结构，如英文字母的字典树是一个26叉树，数字的字典树是一个10叉树。</p>
-
-<p>Trie树可以利用字符串的公共前缀来节约存储空间。如下图所示，该trie树用10个节点保存了6个字符串：tea，ten，to，in，inn，int：</p>
-
-<p><img src="/img/in-post/reproduce/2017-08-15-etherum-code-analy-trie-1.jpg" alt="image01" /></p>
-
-<p>在该trie树中，字符串in，inn和int的公共前缀是“in”，因此可以只存储一份“in”以节省空间。当然，如果系统中存在大量字符串且这些字符串基本没有公共前缀，则相应的trie树将非常消耗内存，这也是trie树的一个缺点。</p>
-
-<p>Trie树的基本性质可以归纳为：</p>
-
-<p>根节点不包含字符，除根节点以外每个节点只包含一个字符。
-从根节点到某一个节点，路径上经过的字符连接起来，为该节点对应的字符串。
-每个节点的所有子节点包含的字符串不相同。</p>
-
-<h4 id="patricia-trie">Patricia Trie</h4>
-<p>前缀树跟Trie树的不同之处在于Trie树给每一个字符串分配一个节点，这样将使那些很长但又没有公共节点的字符串的Trie树退化成数组。在以太坊里面会由黑客构造很多这种节点造成拒绝服务攻击。前缀树的不同之处在于如果节点公共前缀，那么就使用公共前缀，否则就把剩下的所有节点插入同一个节点。Patricia相对Tire的优化正如下图：</p>
-
-<p><img src="/img/in-post/reproduce/2017-08-15-etherum-code-analy-trie-2.png" alt="image02" /></p>
-
-<p><img src="/img/in-post/reproduce/2017-08-15-etherum-code-analy-trie-2-1.png" alt="image02-1" /></p>
-
-<p>上图存储的8个Key Value对，可以看到前缀树的特点。</p>
-
-<p>Key	value
-6c0a5c71ec20bq3w	5
-6c0a5c71ec20CX7j	27
-6c0a5c71781a1FXq	18
-6c0a5c71781a9Dog	64
-6c0a8f743b95zUfe	30
-6c0a8f743b95jx5R	2
-6c0a8f740d16y03G	43
-6c0a8f740d16vcc1	48</p>
-
-<h4 id="merkle-tree">Merkle Tree</h4>
-<p>Merkle Tree，通常也被称作Hash Tree，顾名思义，就是存储hash值的一棵树。Merkle树的叶子是数据块(例如，文件或者文件的集合)的hash值。非叶节点是其对应子节点串联字符串的hash。</p>
-
-<p><img src="/img/in-post/reproduce/2017-08-15-etherum-code-analy-trie-3.png" alt="image03" /></p>
-
-<p>Merkle Tree的主要作用是当我拿到Top Hash的时候，这个hash值代表了整颗树的信息摘要，当树里面任何一个数据发生了变动，都会导致Top Hash的值发生变化。 而Top Hash的值是会存储到区块链的区块头里面去的， 区块头是必须经过工作量证明。 这也就是只要拿到一个区块头，就可以对整个区块链信息进行验证。</p>
-
-<h4 id="etherum-mpt">etherum MPT</h4>
-<p>每个区块链头都包含三个MPT树。包含交易树，收据树，状态树。</p>
+    		<div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                post-container
+            ">
+    			
+<div class="post-preview">
+    <a href="/%E8%BD%AC%E8%BD%BD/2010/01/01/npm-scripts/">
+        <h2 class="post-title">
+            npm scripts 使用指南
+        </h2>
+        
+        <h3 class="post-subtitle">
+            如何使用 npm 脚本简易指南
+        </h3>
+        
+        <div class="post-content-preview">
+            
+  该文章转载 阮一峰的网络日志
 
 
-                <hr style="visibility: hidden;">
-                <ul class="pager">
-                    
-                    <li class="previous">
-                        <a href="/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2018/02/01/etherum-code-analy/" data-toggle="tooltip" data-placement="top" title="etherum & code analysis">
-                        Previous<br>
-                        <span>etherum & code analysis</span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="next">
-                        <a href="/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2018/02/02/etherum-code-analy-geth/" data-toggle="tooltip" data-placement="top" title="etherum & geth CLI">
-                        Next<br>
-                        <span>etherum & geth CLI</span>
-                        </a>
-                    </li>
-                    
-                </ul> 
-            </div>
-    
-    <!-- Side Catalog Container -->
-    
-    <div class="
-        col-lg-2 col-lg-offset-0
-        visible-lg-block
-        sidebar-container
-        catalog-container">
-        <div class="side-catalog">
-            <hr class="hidden-sm hidden-xs">
-            <h5>
-                <a class="catalog-toggle" href="#">CATALOG</a>
-            </h5>
-            <ul class="catalog-body"></ul>
+
+  Node 开发离不开 npm，而脚本功能是 npm 最强大、最常用的功能之一。
+
+
+一、什么是 npm 脚本？
+npm 允许在package.json文件里面，使用scripts字段定义脚本命令。
+
+{
+  // ...
+  "scripts": {
+    "build": "node build.js"
+  }
+}
+
+上面代码是package...
         </div>
-    </div>
-                
+    </a>
+    <p class="post-meta">
+        Posted by minicool on January 1, 2010
+    </p>
+</div>
+<hr>
 
+
+<!-- Pager -->
+
+<ul class="pager">
+    
+    <li class="previous">
+        <a href="/page3">&larr; Newer Posts</a>
+    </li>
+    
+    
+</ul>
+
+
+    		</div>
     <!-- Sidebar Container -->
             <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                sidebar-container">
-
-                <!-- Featured Tags start-->
+                col-lg-3 col-lg-offset-0
+                col-md-3 col-md-offset-0
+                col-sm-12
+                col-xs-12
+                sidebar-container
+            ">
+                <!-- Featured Tags -->
                 
                 <section>
                     <hr class="hidden-sm hidden-xs">
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
-        				
+                        
                             
-                				<a href="/tags/#npm" title="npm" rel="1">
+                                <a href="/tags/#npm" title="npm" rel="1">
                                     npm
                                 </a>
                             
-        				
+                        
                             
-                				<a href="/tags/#SQL" title="SQL" rel="2">
+                                <a href="/tags/#SQL" title="SQL" rel="2">
                                     SQL
                                 </a>
                             
-        				
+                        
                             
-                				<a href="/tags/#基础知识" title="基础知识" rel="2">
+                                <a href="/tags/#基础知识" title="基础知识" rel="2">
                                     基础知识
                                 </a>
                             
-        				
+                        
                             
-                				<a href="/tags/#ssl/tls" title="ssl/tls" rel="1">
+                                <a href="/tags/#ssl/tls" title="ssl/tls" rel="1">
                                     ssl/tls
                                 </a>
                             
-        				
+                        
                             
-                				<a href="/tags/#密码学" title="密码学" rel="1">
+                                <a href="/tags/#密码学" title="密码学" rel="1">
                                     密码学
                                 </a>
                             
-        				
+                        
                             
-                				<a href="/tags/#算法" title="算法" rel="1">
+                                <a href="/tags/#算法" title="算法" rel="1">
                                     算法
                                 </a>
                             
-        				
+                        
                             
-                				<a href="/tags/#openssl" title="openssl" rel="1">
+                                <a href="/tags/#openssl" title="openssl" rel="1">
                                     openssl
                                 </a>
                             
-        				
+                        
                             
-                				<a href="/tags/#CA" title="CA" rel="1">
+                                <a href="/tags/#CA" title="CA" rel="1">
                                     CA
                                 </a>
                             
-        				
+                        
                             
-                				<a href="/tags/#code" title="code" rel="4">
+                                <a href="/tags/#code" title="code" rel="4">
                                     code
                                 </a>
                             
-        				
+                        
                             
-                				<a href="/tags/#electron" title="electron" rel="1">
+                                <a href="/tags/#electron" title="electron" rel="1">
                                     electron
                                 </a>
                             
-        				
+                        
                             
-                				<a href="/tags/#demo" title="demo" rel="1">
+                                <a href="/tags/#demo" title="demo" rel="1">
                                     demo
                                 </a>
                             
-        				
+                        
                             
-                				<a href="/tags/#etherum" title="etherum" rel="3">
+                                <a href="/tags/#etherum" title="etherum" rel="3">
                                     etherum
                                 </a>
                             
-        				
+                        
                             
-                				<a href="/tags/#jpush" title="jpush" rel="1">
+                                <a href="/tags/#jpush" title="jpush" rel="1">
                                     jpush
                                 </a>
                             
-        				
+                        
                             
-                				<a href="/tags/#IM" title="IM" rel="1">
+                                <a href="/tags/#IM" title="IM" rel="1">
                                     IM
                                 </a>
                             
-        				
+                        
                             
-                				<a href="/tags/#block-chain" title="block-chain" rel="1">
+                                <a href="/tags/#block-chain" title="block-chain" rel="1">
                                     block-chain
                                 </a>
                             
-        				
+                        
                             
-                				<a href="/tags/#deeplearning" title="deeplearning" rel="1">
+                                <a href="/tags/#deeplearning" title="deeplearning" rel="1">
                                     deeplearning
                                 </a>
                             
-        				
+                        
                             
-                				<a href="/tags/#tensorflow" title="tensorflow" rel="1">
+                                <a href="/tags/#tensorflow" title="tensorflow" rel="1">
                                     tensorflow
                                 </a>
                             
-        				
+                        
                             
-                				<a href="/tags/#opencv" title="opencv" rel="1">
+                                <a href="/tags/#opencv" title="opencv" rel="1">
                                     opencv
                                 </a>
                             
-        				
-        			</div>
+                        
+                    </div>
                 </section>
                 
-                <!-- Featured Tags end-->                
 
+                <!-- Category -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/categories/">CATEGORY</a></h5>
+                    <div class="tags">
+                        
+                            <a href="/categories/#转载-ref" title="转载" rel="2">
+                                转载
+                            </a>
+                        
+                            <a href="/categories/#笔记-ref" title="笔记" rel="4">
+                                笔记
+                            </a>
+                        
+                            <a href="/categories/#源码分析-ref" title="源码分析" rel="4">
+                                源码分析
+                            </a>
+                        
+                            <a href="/categories/#开发工作-ref" title="开发工作" rel="1">
+                                开发工作
+                            </a>
+                        
+                            <a href="/categories/#问题探讨-ref" title="问题探讨" rel="1">
+                                问题探讨
+                            </a>
+                        
+                            <a href="/categories/#AI-ref" title="AI" rel="1">
+                                AI
+                            </a>
+                        
+                    </div>
+                </section>
+                              
 
-                <!-- Friends Blog start-->
+                <!-- Short About -->
+                <section class="visible-md visible-lg">
+                    <hr><h5><a href="/about/">ABOUT ME</a></h5>
+                    <div class="short-about">
+                        
+                            <img src="/img/me/avatar.jpeg" />
+                        
+                        
+                            <p>假如生活欺骗了你，不要悲伤，不要哭泣。 -做个有趣的灵魂</p>
+                        
+                        <!-- SNS Link -->
+                        <ul class="list-inline">
+                            
+                            
+                            <li>
+                                <a href="mailto:minicool.software@gmail.com">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                            <li>
+                                <a href="https://twitter.com/minicool">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                            
+                            
+                            
+                            <li>
+                                <a target="_blank" href="https://github.com/minicool">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </section>
+                <!-- Friends Blog -->
                 
                 <hr>
                 <h5>FRIENDS</h5>
@@ -404,73 +435,22 @@
                     
                 </ul>
                 
-                <!-- Friends Blog start-->
 
-                <!-- READ ANALY start-->
+                <!-- READ ANALY -->
                 
                 <hr>
                 <h5>READ ANALY</h5>
-                <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span>
-                   
-                <!-- READ ANALY end-->                  
-                
-                <!-- gitment start -->                
-                
-                <div id="container"></div>
-                <script>
-                  var gitment = new Gitment({
-                    id: window.location.pathname, 
-                    owner: 'minicool',
-                    repo: 'minicool.github.io',
-                    oauth: {
-                    client_id: '5d7b7a70ed66f348595e',
-                    client_secret: '',
-                    },
-                  })
-                  gitment.render('container')
-                </script>
-                
-                <!-- gitment end -->                      
-            </div>
-        </div>
-    </div>
-</article>
-
-
-<!-- async load function -->
-<script>
-    function async(u, c) {
-      var d = document, t = 'script',
-          o = d.createElement(t),
-          s = d.getElementsByTagName(t)[0];
-      o.src = u;
-      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-      s.parentNode.insertBefore(o, s);
-    }
-</script>
-<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
-<script>
-    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
-        anchors.options = {
-          visible: 'always',
-          placement: 'right',
-          icon: '#'
-        };
-        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
-    })
-</script>
-<style>
-    /* place left on bigger screen */
-    @media all and (min-width: 800px) {
-        .anchorjs-link{
-            position: absolute;
-            left: -0.75em;
-            font-size: 1.1em;
-            margin-top : -0.1em;
-        }
-    }
-</style>
-
+                <span id="busuanzi_container_site_pv">
+                        本站 总访问量 <span id="busuanzi_value_site_pv"></span> 次
+                    </span><br>
+                <span id="busuanzi_container_site_uv">
+                        本站 访客数 <span id="busuanzi_value_site_uv"></span> 人次
+                    </span>    
+                                  
+    		</div>
+        
+	</div>
+</div>
 
 
     <!-- Footer -->
@@ -635,62 +615,6 @@
 
 
 <!-- Side Catalog -->
-
-<script type="text/javascript">
-    function generateCatalog (selector) {
-
-        // interop with multilangual 
-         
-        _containerSelector = 'div.post-container'
-         
-
-        // init
-        var P = $(_containerSelector),a,n,t,l,i,c;
-        a = P.find('h1,h2,h3,h4,h5,h6');
-
-        // clean
-        $(selector).html('')
-
-        // appending
-        a.each(function () {
-            n = $(this).prop('tagName').toLowerCase();
-            i = "#"+$(this).prop('id');
-            t = $(this).text();
-            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
-            l = $('<li class="'+n+'_nav"></li>').append(c);
-            $(selector).append(l);
-        });
-        return true;
-    }
-
-    generateCatalog(".catalog-body");
-
-    // toggle side catalog
-    $(".catalog-toggle").click((function(e){
-        e.preventDefault();
-        $('.side-catalog').toggleClass("fold")
-    }))
-
-    /*
-     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
-     * Fork by Hux to support padding
-     */
-    async("/js/jquery.nav.js", function () {
-        $('.catalog-body').onePageNav({
-            currentClass: "active",
-            changeHash: !1,
-            easing: "swing",
-            filter: "",
-            scrollSpeed: 700,
-            scrollOffset: 0,
-            scrollThreshold: .2,
-            begin: null,
-            end: null,
-            scrollChange: null,
-            padding: 80
-        });
-    });
-</script>
 
 
 <!-- Multi-Lingual -->
