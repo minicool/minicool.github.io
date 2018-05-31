@@ -219,16 +219,50 @@ Microsoft Visual Studio（简称VS）是美国微软公司的开发工具包系�
 <a href="https://www.python.org/">官网</a></p>
 
 <h4 id="环境安装">环境安装</h4>
-<p>1.首先安装anaconda</p>
+<ol>
+  <li>安装anaconda,选择下载安装包，直接安装完成。没有特殊选择项。安装anaconda主要目的是适应多版本python环境搭建及可进行包管理，后续大多数包都可在该系统下进行安装。创建现有环境，
+<img src="/img/in-post/original/2018-05-30-ai-deep-learn-2.png" alt="image01" />
+创建环境分为命令行和图形创建：
+(1). 命令行 创建开发环境命名为tensorflow的环境，适用3.6版本python的</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">$ </span>conda create <span class="nt">-n</span> tensorflow <span class="nt">-python</span><span class="o">=</span>3.6
+<span class="nv">$ </span><span class="nb">source </span>activate tensorflow</code></pre></figure>
+
+<ol>
+  <li>安装tensorflow。分为两种安装方式，
+一种选择anaconda包管理方式进行下载。选择对应开发环境，选择all中，搜索tensorflow.
+<img src="/img/in-post/original/2018-05-30-ai-deep-learn-1.png" alt="image01" />
+另一种功能适用pip进行下载。</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">$ </span>pip <span class="nb">install</span> <span class="nt">--ignore-installed</span> <span class="nt">--upgrade</span> https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.6.0-py3-none-any.whl</code></pre></figure>
+
+<ol>
+  <li>安装opencv。安装方法类似。</li>
+</ol>
 
 <h4 id="开发调试">开发调试</h4>
+<ol>
+  <li>
+    <p>安装vscode。可以选择从官网下载，也可以从conda中按照默认提供下载。
+<img src="/img/in-post/original/2018-05-30-ai-deep-learn-3.png" alt="image03" /></p>
+  </li>
+  <li>
+    <p>下载vscode插件
+安装python插件
+<img src="/img/in-post/original/2018-05-30-ai-deep-learn-4.png" alt="image04" />
+配置python路径
+<img src="/img/in-post/original/2018-05-30-ai-deep-learn-5.png" alt="image05" /></p>
+  </li>
+</ol>
 
 <h4 id="测试程序">测试程序</h4>
 <ol>
   <li>hello word</li>
 </ol>
 
-<p>主要通过tensorflow 打印 hello word 以及输出opencv 输出版本。</p>
+<p>通过tensorflow 打印 hello word 以及输出opencv 输出版本。</p>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="n">tf</span>
 <span class="kn">import</span> <span class="nn">cv2</span>
