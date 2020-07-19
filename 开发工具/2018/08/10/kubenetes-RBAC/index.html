@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="年迈的工程师">
+    <meta name="keyword"  content="c++,go,transflow,etherment">
+    <meta name="theme-color" content="#000000">
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>kubenetes RBAC - 迷你世界 | minicool Blog</title>
+
+    <link rel="canonical" href="http://localhost:4000/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/2018/08/10/kubenetes-RBAC/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog.min.css">
+
+    <!-- Highlight Github CSS -->
+    <!-- local Highlight --> 
+    <!-- <link rel="stylesheet" href="/css/highlight.rouge.css"> -->
+    <!-- CDN Highlight -->
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/default.min.css">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+
+    <!-- Custom Fonts -->
+    <!-- CDN font-awesome -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- local font-awesome -->   
+    <!-- <link rel="stylesheet" href="/css/fontawesome-all.min.css"> -->
+
+    <!-- Gitment -->  
+    
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.jpeg" width="0"
+    height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">MiniCool World</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="blog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/">Category</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#blog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-2015.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/post-bg-2015.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#kubentes" title="kubentes">kubentes</a>
+                        
+                        <a class="tag" href="/tags/#RBAC" title="RBAC">RBAC</a>
+                        
+                    </div>
+                    <h1>kubenetes RBAC</h1>
+                    
+                    
+                    <h2 class="subheading">k8s 角色基础访问控制权限</h2>
+                    
+                    <span class="meta">Posted by minicool on August 10, 2018</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <!-- Multi-Lingual -->
+                                
+
+				<blockquote>
+  <p>在Kubernetes中，授权有ABAC（基于属性的访问控制）、RBAC（基于角色的访问控制）、Webhook、Node、AlwaysDeny（一直拒绝）和AlwaysAllow（一直允许）这6种模式。从1.6版本起，Kubernetes 默认启用RBAC访问控制策略。从1.8开始，RBAC已作为稳定的功能。通过设置–authorization-mode=RBAC，启用RABC。在RABC API中，通过如下的步骤进行授权：1）定义角色：在定义角色时会指定此角色对于资源的访问控制的规则；2）绑定角色：将主体与角色进行绑定，对用户进行访问授权。</p>
+</blockquote>
+
+<h3 id="授权主体subject">授权主体（Subject）</h3>
+<p>RBAC授权中的主体可以是组，用户或者服务帐户。用户通过字符串表示，比如“alice”、 “bob@example.com”等，具体的形式取决于管理员在认证模块中所配置的用户名。system:被保留作为用来Kubernetes系统使用，因此不能作为用户的前缀。组也有认证模块提供，格式与用户类似。</p>
+
+<h4 id="用户useraccount">用户（UserAccount）</h4>
+<p>用户，这是有外部独立服务进行管理的，管理员进行私钥的分配，用户可以使用KeyStone或者Goolge 帐号，甚至一个用户名和密码的文件列表也可以。对于用户的管理集群内部没有一个关联的资源对象，所以用户不能通过集群内部的API 来进行管理</p>
+
+<p>创建一个只能访问某个 namespace 的用户
+namespace:test-ns
+username:test-user
+group:test-group</p>
+
+<ol>
+  <li>创建命名空间“test-user”
+command line：命令行</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">$kubectl</span> create namespace test-ns <span class="c">#创建命名空间</span>
+namespace <span class="s2">"test-ns"</span> created
+
+<span class="nv">$kubectl</span> get ns                         <span class="c">#获取命名空间列表</span>
+NAME           STATUS    AGE
+default        Active    9d
+test-ns        Active    35s
+docker         Active    9d
+kube-public    Active    9d
+kube-system    Active    9d</code></pre></figure>
+
+<p>yaml:格式文件配置</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c">#test-ns.yaml</span>
+<span class="nv">$ </span><span class="nb">cat </span>test-ns.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+ name: test-ns
+
+<span class="nv">$ </span>kubectl create <span class="nt">-f</span> test-ns.ymal
+namespace <span class="s2">"test-ns"</span> created </code></pre></figure>
+
+<ol>
+  <li>创建用户凭证
+Kubernetes没有User Account的API 对象，不过要创建一个用户帐号的话也是挺简单的，利用管理员分配的一个私钥就可以创建了。
+在此利用openssl来创建，创建私钥，命名为wolken.key</li>
+</ol>
+
+<p>(1)使用openssl创建私钥</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">openssl genrsa <span class="nt">-out</span> test-user.key 2048</code></pre></figure>
+
+<p>(2)使用私钥创建证书签名请求文件
+使用刚刚创建的私钥创建一个证书签名请求文件：test-user.csr，要注意需要确保在-subj参数中指定用户名和组(CN表示用户名，O表示组)：</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">openssl req <span class="nt">-new</span> <span class="nt">-key</span> test-user.key <span class="nt">-out</span> test-user.csr <span class="nt">-subj</span> <span class="s2">"/CN=test-user/O=test-group"</span></code></pre></figure>
+
+<p>(3)使用Kubernetes集群的授权创建的证书请求
+然后找到Kubernetes集群的CA，
+kubeadm安装的集群，CA相关证书位于/etc/kubernetes/pki/目录下面，
+二进制方式搭建的，应该在最开始搭建集群的时候就已经指定好了CA的目录(/data/kubernetes/ssl)，
+然后利用该目录下面的ca.crt和ca.key两个文件来批准上面的证书请求。
+找到kubernetes集群认证中心，位置通常在/etc/kubernetes/pki，检查是否存在ca.crt、ca.key。生成最终的证书test-user.crt，有效期30天。</p>
+
+<p>openssl x509 -req -in test-user.csr -CA /etc/kubernetes/pki/ca.crt -CAkey /etc/kubernetes/pki/ca.key -CAcreateserial -out test-user.crt -days 30
+到此凭证已经可用。可直接在kubeconfig中指定client-certificate与client-key文件位置。但是我需要在本地机器连接该账号。于是将wolken.crt与wolken.key转为base64。通过client-certificate-data与client-key-data配置。</p>
+
+<p>(4)生成凭证及上下文
+现在可以使用刚刚创建的证书文件和私钥文件在集群中创建新的凭证和上下文(Context):</p>
+
+<p>创建用户凭证</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">$ </span>kubectl config set-credentials test-user-cre <span class="nt">--client-certificate</span><span class="o">=</span>test-user.crt  <span class="nt">--client-key</span><span class="o">=</span>test-user.key</code></pre></figure>
+
+<p>用户凭证也可以通过certificate-data及key-data写入</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">cat </span>test-user.crt|base64 <span class="nt">--wrap</span><span class="o">=</span>0  <span class="c">#获取base64位test-user.crt</span>
+<span class="nb">cat </span>test-user.key|base64 <span class="nt">--wrap</span><span class="o">=</span>0  <span class="c">#获取base64位test-user.key</span>
+将输出写进kubeconfig，或者通过命令创建用户，将上面的输出替换对应位置<span class="o">{</span>CRT_BASE64<span class="o">}</span>与<span class="o">{</span>KEY_BASE64<span class="o">}</span>
+kubectl config set-credentials test-user-cre <span class="nt">--client-certificate-data</span><span class="o">={</span>CRT_BASE64<span class="o">}</span>  <span class="nt">--client-key-data</span><span class="o">={</span>KEY_BASE64<span class="o">}</span></code></pre></figure>
+
+<p>创建该用户新的Context:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">$ </span>kubectl config set-context test-user-context <span class="nt">--cluster</span><span class="o">=</span>kubernetes <span class="nt">--namespace</span><span class="o">=</span>test-user <span class="nt">--user</span><span class="o">=</span>test-user-cre</code></pre></figure>
+
+<p>检测上下文:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">$ </span>kubectl <span class="nt">--context</span><span class="o">=</span>test-user-context get pods
+Error from server <span class="o">(</span>Forbidden<span class="o">)</span>: pods is forbidden: User <span class="s2">"test-user-cre"</span> cannot list pods <span class="k">in </span>the namespace <span class="s2">"default"</span></code></pre></figure>
+
+<p>会发现请求被forbidden，是因为没有配置权限给test-user。</p>
+
+<p>按照现有环境配置，k8s 组件访问 apiserver 使用基于证书的认证方式，apiserver 接受请求时会从client 证书中提取
+CN、O字段，分别作为 subjects 中的 User 和 Group</p>
+
+<h4 id="用户组group">用户组（Group）</h4>
+<p>用来关联多个账户的，集群中有一些默认创建的组，比如cluster-admin</p>
+
+<h4 id="服务账户service-account">服务账户（Service Account）</h4>
+<p>通过Kubernetes API 来管理的一些用户帐号，和namespace 进行关联的，适用于集群内部运行的应用程序，需要通过API 来完成权限认证，所以在集群内部进行权限操作，都需要使用到 ServiceAccount</p>
+
+<h3 id="规则rule">规则（Rule）</h3>
+<p>Kubernetes有一个很基本的特性就是它的所有资源对象都是模型化的 API 对象，允许执行 CRUD(Create、Read、Update、Delete)操作(也就是我们常说的增、删、改、查操作)，比如下面的这下资源：</p>
+
+<p>resourse:
+Pods、
+Nodes、
+Services、
+Deployment、
+Replicasets、
+Statefulsets、
+Namespace、
+Persistents、
+Secrets和ConfigMaps
+上面这些资源对象的可能存在的操作有：</p>
+
+<p>verbs:
+create
+get
+delete
+list
+update
+edit
+watch
+exec
+在更上层，这些资源和API Group 进行关联，比如Pods属于Core API Group，而Deployements属于 apps API Group，</p>
+
+<h3 id="角色和集群角色-role--clusterrole">角色和集群角色 (Role &amp; ClusterRole)</h3>
+<p>在RBAC API中，角色包含代表权限集合的规则。在这里，权限只有被授予，而没有被拒绝的设置。在Kubernetes中有两类角色，即普通角色和集群角色。可以通过Role定义在一个命名空间中的角色，或者可以使用ClusterRole定义集群范围的角色。</p>
+
+<p>Role 和 ClusterRole：角色和集群角色，这两个对象都包含上面的Rules 元素，二者的区别在于，在Role 中，定义的规则只适用于单个命名空间，也就是和namespace 关联的，而ClusterRole 是集群范围内的，因此定义的规则不受命名空间的约束。另外Role和 ClusterRole在Kubernetes中都被定义为集群内部的API 资源，和Pod、ConfigMap 这些类似，都是集群的资源对象，所以同样的可以使用kubectl相关的命令来进行操作</p>
+
+<h4 id="角色role">角色(Role)</h4>
+<p>一个角色只能被用来授予访问单一命令空间中的资源。一般来说角色都是被限定在某个命名空间中。</p>
+
+<p>example: 
+“default”命令空间中定义了一个名为“pod-reader”的角色，此角色能够对在“default”命名空间中访问Pod：</p>
+
+<ol>
+  <li>查询role角色在”default”命名空间 或者查询所有命名空间</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">$kubectl</span> get roles <span class="nt">--namespace</span><span class="o">=</span>default
+
+<span class="nv">$kubectl</span> get roles <span class="nt">--all-namespaces</span></code></pre></figure>
+
+<ol>
+  <li>创建角色信息</li>
+</ol>
+
+<p>yaml格式载入</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="s">$ cat test-pod-reader-role.yaml</span>
+    <span class="s">kind</span><span class="pi">:</span> <span class="s">Role</span>
+    <span class="s">apiVersion</span><span class="pi">:</span> <span class="s">rbac.authorization.k8s.io/v1</span>
+    <span class="s">metadata</span><span class="pi">:</span>
+    <span class="na">namespace</span><span class="pi">:</span> <span class="s">test-ns</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">test-pod-reader</span>
+    <span class="na">rules</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">apiGroups</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">"</span><span class="pi">]</span> <span class="c1"># "" indicates the core API group</span>
+    <span class="na">resources</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">pods"</span><span class="pi">]</span>
+    <span class="na">resourceNames</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">readablepod"</span><span class="pi">,</span><span class="s2">"</span><span class="s">anotherpod"</span><span class="pi">]</span>
+    <span class="na">verbs</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">get"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">watch"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">list"</span><span class="pi">]</span>
+
+<span class="s">$kubectl create -f create-role.yaml</span></code></pre></figure>
+
+<p>命令行</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="c1">#标准语法</span>
+<span class="s">$ role NAME --verb=verb --resource=resource.group/subresource [--resource-name=resourcename] [--dry-run]</span>
+
+<span class="s">$ kubectl create role test-pod-reader --verb=get,list,watch --resource=pods --resource-name=readablepod --resource-name=anotherpod --namespace=test-ns</span></code></pre></figure>
+
+<h4 id="集群角色clusterrole">集群角色(ClusterRole)</h4>
+
+<p>集群角色(ClusterRole)能够被授予如下资源的权限：</p>
+
+<p>集群范围的资源（类似于Node）
+非资源端点（类似于”/healthz”）
+集群中所有命名空间的资源（类似Pod）
+下面是授予集群角色读取秘密字典文件访问权限的例子：</p>
+
+<ol>
+  <li>查询clusterrole角色</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">$kubectl</span> get clusterrole</code></pre></figure>
+
+<ol>
+  <li>创建集群角色
+yaml格式</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="c1">#test-clusterrole.yaml</span>
+<span class="s">kind:ClusterRole</span>
+<span class="s">apiVersion:rbac.authorization.k8s.io/v1</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="c1"># "namespace" omitted since ClusterRoles are not namespaced</span>
+  <span class="s">name:test-clusterrole-secret-reader</span>
+<span class="na">rules</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s">apiGroups:[""]</span>
+  <span class="s">resources:["secrets"]</span> <span class="c1">#明确资源类型</span>
+  <span class="s">verbs:["get","watch","list"]</span>
+
+<span class="s">$ kubectl create -f test-clusterrole.yaml</span>  </code></pre></figure>
+
+<p>命令行</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="s">$ clusterrole NAME --verb=verb --resource=resource.group [--resource-name=resourcename] [--dry-run]</span>
+
+<span class="s">$ kubectl create role test-pod-reader\</span>
+<span class="s">--verb=get,list,watch\</span>
+<span class="s">--resource=secrets</span></code></pre></figure>
+
+<h3 id="角色绑定和集群角色绑定rolebinding--clusterrolebinding">角色绑定和集群角色绑定(RoleBinding &amp; ClusterRoleBinding)</h3>
+<p>角色绑定用于将角色与一个或一组用户进行绑定，从而实现将对用户进行授权的目的。主体分为用户、组和服务帐户。角色绑定也分为角色普通角色绑定和集群角色绑定。
+角色绑定和集群角色绑定，简单来说就是把声明的Subject和Role 进行绑定的过程(给某个用户绑定上操作的权限)，二者的区别也是作用范围的区别：RoleBinding只会影响到当前namespace 下面的资源操作权限，而ClusterRoleBinding会影响到所有的 namespace。</p>
+
+<h4 id="角色绑定-rolebinding">角色绑定 (RoleBinding)</h4>
+<p>角色绑定只能引用同一个命名空间下的角色。在下面的例子中，在”default”命名空间中角色绑定将‘jane’用户和“pod-reader”角色进行了绑定，这就授予了“jane”能够访问“default”命名空间下的Pod。</p>
+
+<p>RoleBinding既可以引用相同namespace下的Role；又可以引用一个ClusterRole，RoleBinding引用ClusterRole时用户继承的权限会被限制在RoleBinding所在的namespace下。</p>
+
+<ol>
+  <li>yaml 文件创建</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="c1">#test-rolebinging.yaml</span>
+<span class="c1"># This role binding allows "jane" to read pods in the "default" namespace.</span>
+<span class="s">kind:RoleBinding</span>
+<span class="s">apiVersion:rbac.authorization.k8s.io/v1</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="s">name:read-pods</span>
+  <span class="s">namespace:test-user</span>
+<span class="na">subjects</span><span class="pi">:</span> <span class="c1">#主体</span>
+<span class="pi">-</span> <span class="s">kind:User</span>
+  <span class="s">name:test-user-csr</span>
+  <span class="s">apiGroup:rbac.authorization.k8s.io</span>
+<span class="na">roleRef</span><span class="pi">:</span> <span class="c1">#引用的角色</span>
+  <span class="s">kind:Role</span>
+  <span class="s">name:test-role</span>
+  <span class="s">apiGroup:rbac.authorization.k8s.io</span></code></pre></figure>
+
+<ol>
+  <li>命令行创建</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="s">$ rolebinding NAME --clusterrole=NAME|--role=NAME [--user=username] [--group=groupname] [--serviceaccount=namespace:serviceaccountname] [--dry-run]</span>
+
+<span class="s">kubectl create rolebinding read-pods \</span>
+<span class="s">--role=test-role \</span>
+<span class="s">--user=test-user-csr \</span>
+<span class="s">--user=test-user-csr1 \</span>
+<span class="s">--group=test-user-group</span></code></pre></figure>
+
+<h4 id="集群角色绑定">集群角色绑定</h4>
+
+<p>1.查询</p>
+
+<p>名称为 “alice@example.com”用户：</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">subjects</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s">kind:User</span>
+  <span class="s">name:"alice@example.com"</span>
+  <span class="s">apiGroup:rbac.authorization.k8s.io</span></code></pre></figure>
+
+<p>名称为“frontend-admins”的组：</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">subjects</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s">kind:Group</span>
+  <span class="s">name:"frontend-admins"</span>
+  <span class="s">apiGroup:rbac.authorization.k8s.io</span></code></pre></figure>
+
+<p>在kube-system命名空间中，名称为“default”的服务帐户：</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">subjects</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s">kind:ServiceAccount</span>
+  <span class="s">name:default</span>
+  <span class="s">namespace:kube-system</span></code></pre></figure>
+
+<p>在“qa”命名空间中，所有的服务帐户：</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">subjects</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s">kind:Group</span>
+  <span class="s">name:system:serviceaccounts:qa</span>
+  <span class="s">apiGroup:rbac.authorization.k8s.io</span></code></pre></figure>
+
+<p>所有的服务帐户：</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">subjects</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s">kind:Group</span>
+  <span class="s">name:system:serviceaccounts</span>
+  <span class="s">apiGroup:rbac.authorization.k8s.io</span></code></pre></figure>
+
+<p>所有被认证的用户 (version 1.5+):</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">subjects</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s">kind:Group</span>
+  <span class="s">name:system:authenticated</span>
+  <span class="s">apiGroup:rbac.authorization.k8s.io</span></code></pre></figure>
+
+<p>所有未被认证的用户 (version 1.5+):</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">subjects</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s">kind:Group</span>
+  <span class="s">name:system:unauthenticated</span>
+  <span class="s">apiGroup:rbac.authorization.k8s.io</span></code></pre></figure>
+
+<p>所有用户(version 1.5+):</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">subjects</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s">kind:Group</span>
+  <span class="s">name:system:authenticated</span>
+  <span class="s">apiGroup:rbac.authorization.k8s.io</span>
+<span class="pi">-</span> <span class="s">kind:Group</span>
+  <span class="s">name:system:unauthenticated</span>
+  <span class="s">apiGroup:rbac.authorization.k8s.io</span></code></pre></figure>
+
+<h4 id="cfssl-创建用户私钥及凭证">cfssl 创建用户私钥及凭证</h4>
+<ol>
+  <li>安装cfssl
+$brew install cfssl</li>
+</ol>
+
+<h4 id="kubenetes-config">kubenetes config</h4>
+
+
+                <hr style="visibility: hidden;">
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/2018/08/07/kubenetes-fabric8/" data-toggle="tooltip" data-placement="top" title="kubenetes-fabric8">
+                        Previous<br>
+                        <span>kubenetes-fabric8</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/08/17/kubenetes-harbor/" data-toggle="tooltip" data-placement="top" title="Kubenetes Harbor">
+                        Next<br>
+                        <span>Kubenetes Harbor</span>
+                        </a>
+                    </li>
+                    
+                </ul> 
+            </div>
+    
+    <!-- Side Catalog Container -->
+    
+    <div class="
+        col-lg-2 col-lg-offset-0
+        visible-lg-block
+        sidebar-container
+        catalog-container">
+        <div class="side-catalog">
+            <hr class="hidden-sm hidden-xs">
+            <h5>
+                <a class="catalog-toggle" href="#">CATALOG</a>
+            </h5>
+            <ul class="catalog-body"></ul>
+        </div>
+    </div>
+                
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags start-->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#npm" title="npm" rel="1">
+                                    npm
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#SQL" title="SQL" rel="2">
+                                    SQL
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#基础知识" title="基础知识" rel="2">
+                                    基础知识
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#ssl/tls" title="ssl/tls" rel="1">
+                                    ssl/tls
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#密码学" title="密码学" rel="1">
+                                    密码学
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#算法" title="算法" rel="1">
+                                    算法
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#openssl" title="openssl" rel="1">
+                                    openssl
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#CA" title="CA" rel="1">
+                                    CA
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#code" title="code" rel="4">
+                                    code
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#electron" title="electron" rel="1">
+                                    electron
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#demo" title="demo" rel="1">
+                                    demo
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#etherum" title="etherum" rel="3">
+                                    etherum
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#jpush" title="jpush" rel="1">
+                                    jpush
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#IM" title="IM" rel="1">
+                                    IM
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#kubenetes" title="kubenetes" rel="2">
+                                    kubenetes
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#dashboard" title="dashboard" rel="1">
+                                    dashboard
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#trarfik" title="trarfik" rel="1">
+                                    trarfik
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Let's Encrypt" title="Let's Encrypt" rel="1">
+                                    Let's Encrypt
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#https" title="https" rel="2">
+                                    https
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#certbot" title="certbot" rel="1">
+                                    certbot
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#csr" title="csr" rel="1">
+                                    csr
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#block-chain" title="block-chain" rel="1">
+                                    block-chain
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#deeplearning" title="deeplearning" rel="1">
+                                    deeplearning
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#tensorflow" title="tensorflow" rel="1">
+                                    tensorflow
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#opencv" title="opencv" rel="1">
+                                    opencv
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#kubentes" title="kubentes" rel="5">
+                                    kubentes
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#helm" title="helm" rel="3">
+                                    helm
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#charts" title="charts" rel="1">
+                                    charts
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#fabric8" title="fabric8" rel="1">
+                                    fabric8
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#RBAC" title="RBAC" rel="1">
+                                    RBAC
+                                </a>
+                            
+        				
+        			</div>
+                </section>
+                
+                <!-- Featured Tags end-->                
+
+
+                <!-- Friends Blog start-->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="http://huangxuan.me">Hux Blog</a></li>
+                    
+                        <li><a href="#">void</a></li>
+                    
+                </ul>
+                
+                <!-- Friends Blog start-->
+
+                <!-- READ ANALY start-->
+                
+                <hr>
+                <h5>READ ANALY</h5>
+                <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span>
+                   
+                <!-- READ ANALY end-->                  
+                
+                <!-- gitment start -->                
+                
+                <div id="container"></div>
+                <script>
+                  var gitment = new Gitment({
+                    id: window.location.pathname, 
+                    owner: 'minicool',
+                    repo: 'minicool.github.io',
+                    oauth: {
+                    client_id: '5d7b7a70ed66f348595e',
+                    client_secret: '',
+                    },
+                  })
+                  gitment.render('container')
+                </script>
+                
+                <!-- gitment end -->                      
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+                    <li>
+                        <a href="mailto:minicool.software@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    <li>
+                        <a href="https://twitter.com/minicool">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/minicool">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; MiniCool World 2020
+                    <iframe
+                    style="margin-left: 2px; margin-bottom:-5px;"
+                    frameborder="0" scrolling="0" width="91px" height="20px"
+                    src="https://ghbtns.com/github-btn.html?user=minicool&repo=minicool.github.io&type=star&count=true" >
+                </iframe>
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> |
+                    Powered by <a href="http://jekyllrb.com" target="_blank">Jekyll</a> |
+                    Data by <a href="https://analytics.google.com" target="_blank">Google</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.min.js "></script>
+
+<!-- Gitment JavaScript-->  
+<!-- 
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+ -->
+
+<!-- Read Analy JavaScript-->  
+<!-- busuanzi http://busuanzi.ibruce.info/-->  
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-34165243-1';
+    var _gaDomain = 'minicool.github.io';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+
+        // interop with multilangual 
+         
+        _containerSelector = 'div.post-container'
+         
+
+        // init
+        var P = $(_containerSelector),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        // clean
+        $(selector).html('')
+
+        // appending
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+<!-- Multi-Lingual -->
+
+
+
+</body>
+
+</html>

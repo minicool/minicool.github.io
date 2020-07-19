@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="年迈的工程师">
+    <meta name="keyword"  content="c++,go,transflow,etherment">
+    <meta name="theme-color" content="#000000">
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>kubenetes-trarfik - 迷你世界 | minicool Blog</title>
+
+    <link rel="canonical" href="http://localhost:4000/%E5%BC%80%E5%8F%91%E5%B7%A5%E4%BD%9C/2018/03/15/Kubernetes-traefik/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog.min.css">
+
+    <!-- Highlight Github CSS -->
+    <!-- local Highlight --> 
+    <!-- <link rel="stylesheet" href="/css/highlight.rouge.css"> -->
+    <!-- CDN Highlight -->
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/default.min.css">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+
+    <!-- Custom Fonts -->
+    <!-- CDN font-awesome -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- local font-awesome -->   
+    <!-- <link rel="stylesheet" href="/css/fontawesome-all.min.css"> -->
+
+    <!-- Gitment -->  
+    
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.jpeg" width="0"
+    height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">MiniCool World</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="blog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/">Category</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#blog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-2015.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/post-bg-2015.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#kubenetes" title="kubenetes">kubenetes</a>
+                        
+                        <a class="tag" href="/tags/#trarfik" title="trarfik">trarfik</a>
+                        
+                    </div>
+                    <h1>kubenetes-trarfik</h1>
+                    
+                    
+                    <h2 class="subheading">trarfik 应用</h2>
+                    
+                    <span class="meta">Posted by minicool on March 15, 2018</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <!-- Multi-Lingual -->
+                                
+
+				<blockquote>
+  <p>用来作反向代理和负载均衡的，比较适用于微服务化的场景，支持多种分布式的Key-Value存储系统，支持容器技术，下面这个图诠释了它的工作.</p>
+</blockquote>
+
+<h4 id="traefik-特性">Traefik 特性</h4>
+<ul>
+  <li>速度快</li>
+  <li>不需要安装其他依赖，使用 GO 语言编译可执行文件</li>
+  <li>支持最小化官方 Docker 镜像</li>
+  <li>支持多种后台，如 Docker, Swarm mode, Kubernetes, Marathon, Consul, Etcd, Rancher, Amazon ECS 等等</li>
+  <li>支持 REST API</li>
+  <li>配置文件热重载，不需要重启进程</li>
+  <li>支持自动熔断功能</li>
+  <li>支持轮训、负载均衡</li>
+  <li>提供简洁的 UI 界面</li>
+  <li>支持 Websocket, HTTP/2, GRPC</li>
+  <li>自动更新 HTTPS 证书</li>
+  <li>支持高可用集群模式</li>
+</ul>
+
+<h3 id="源码安装">源码安装</h3>
+<blockquote>
+  <p>通过github下载源码</p>
+</blockquote>
+
+<h1 id="git-clone-httpsgithubcomcontainoustraefikgit">git clone https://github.com/containous/traefik.git</h1>
+
+<p>####</p>
+
+<h4 id="helm-安装">helm 安装</h4>
+
+<h3 id="traefik-配置">traefik 配置</h3>
+<p>正常的traefik通过下面的配置为指定的后端开启sticky</p>
+
+<p>[backends]
+  [backends.backend1]
+    # Enable sticky session
+    [backends.backend1.loadbalancer.stickiness]</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre># Customize the cookie name
+#
+# Optional
+# Default: a sha1 (6 chars)
+#
+#  cookieName = "my_cookie"
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>但此处由于我们将Traefik作为ingress controller安装在kubernetes中，因此Traefik的配置文件是托管给K8s来动态更新的，因此不能通过修改配置文件配置sticky
+Kubernetes中可以通过为指定的service对象或ingress对象声明annotation来为ingress controller做额外的详细配置。例如，如果要开启sticky，只需要在想要开启sticky的服务端对应的service上添加以下的annotation即可。</p>
+
+<p>(配置页面)[https://docs.traefik.io/configuration/backends/kubernetes/#annotations]</p>
+
+<p>General annotations¶
+The following general annotations are applicable on the Ingress object:</p>
+
+<p>Annotation	Description
+traefik.ingress.kubernetes.io/buffering: <YML>	(3) See buffering section.
+traefik.ingress.kubernetes.io/error-pages: <YML>	(1) See custom error pages section.
+traefik.ingress.kubernetes.io/frontend-entry-points: http,https	Override the default frontend endpoints.
+traefik.ingress.kubernetes.io/pass-tls-cert: "true"	Override the default frontend PassTLSCert value. Default: false.
+traefik.ingress.kubernetes.io/preserve-host: "true"	Forward client Host header to the backend.
+traefik.ingress.kubernetes.io/priority: "3"	Override the default frontend rule priority.
+traefik.ingress.kubernetes.io/rate-limit: <YML>	(2) See rate limiting section.
+traefik.ingress.kubernetes.io/redirect-entry-point: https	Enables Redirect to another entryPoint for that frontend (e.g. HTTPS).
+traefik.ingress.kubernetes.io/redirect-permanent: "true"	Return 301 instead of 302.
+traefik.ingress.kubernetes.io/redirect-regex: ^http://localhost/(.*)	Redirect to another URL for that frontend. Must be set with traefik.ingress.kubernetes.io/redirect-replacement.
+traefik.ingress.kubernetes.io/redirect-replacement: http://mydomain/$1	Redirect to another URL for that frontend. Must be set with traefik.ingress.kubernetes.io/redirect-regex.
+traefik.ingress.kubernetes.io/rewrite-target: /users	Replaces each matched Ingress path with the specified one, and adds the old path to the X-Replaced-Path header.
+traefik.ingress.kubernetes.io/rule-type: PathPrefixStrip	Override the default frontend rule type. Default: PathPrefix.
+traefik.ingress.kubernetes.io/whitelist-source-range: "1.2.3.0/24, fe80::/16"	A comma-separated list of IP ranges permitted for access. all source IPs are permitted if the list is empty or a single range is ill-formatted. Please note, you may have to set service.spec.externalTrafficPolicy to the value Local to preserve the source IP of the request for filtering. Please see this link for more information.
+ingress.kubernetes.io/whitelist-x-forwarded-for: "true"	Use X-Forwarded-For header as valid source of IP for the white list.
+traefik.ingress.kubernetes.io/app-root: "/index.html"	Redirects all requests for / to the defined path. (4)</YML></YML></YML></p>
+
+
+                <hr style="visibility: hidden;">
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/%E5%BC%80%E5%8F%91%E5%B7%A5%E4%BD%9C/2018/03/15/kubenetes-dashboard/" data-toggle="tooltip" data-placement="top" title="kubenetes-dashboard">
+                        Previous<br>
+                        <span>kubenetes-dashboard</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/%E5%BC%80%E5%8F%91%E5%B7%A5%E4%BD%9C/2018/03/15/certbot/" data-toggle="tooltip" data-placement="top" title="https-certbot">
+                        Next<br>
+                        <span>https-certbot</span>
+                        </a>
+                    </li>
+                    
+                </ul> 
+            </div>
+    
+    <!-- Side Catalog Container -->
+    
+    <div class="
+        col-lg-2 col-lg-offset-0
+        visible-lg-block
+        sidebar-container
+        catalog-container">
+        <div class="side-catalog">
+            <hr class="hidden-sm hidden-xs">
+            <h5>
+                <a class="catalog-toggle" href="#">CATALOG</a>
+            </h5>
+            <ul class="catalog-body"></ul>
+        </div>
+    </div>
+                
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags start-->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#npm" title="npm" rel="1">
+                                    npm
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#SQL" title="SQL" rel="2">
+                                    SQL
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#基础知识" title="基础知识" rel="2">
+                                    基础知识
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#ssl/tls" title="ssl/tls" rel="1">
+                                    ssl/tls
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#密码学" title="密码学" rel="1">
+                                    密码学
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#算法" title="算法" rel="1">
+                                    算法
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#openssl" title="openssl" rel="1">
+                                    openssl
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#CA" title="CA" rel="1">
+                                    CA
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#code" title="code" rel="4">
+                                    code
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#electron" title="electron" rel="1">
+                                    electron
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#demo" title="demo" rel="1">
+                                    demo
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#etherum" title="etherum" rel="3">
+                                    etherum
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#jpush" title="jpush" rel="1">
+                                    jpush
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#IM" title="IM" rel="1">
+                                    IM
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#kubenetes" title="kubenetes" rel="2">
+                                    kubenetes
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#dashboard" title="dashboard" rel="1">
+                                    dashboard
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#trarfik" title="trarfik" rel="1">
+                                    trarfik
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Let's Encrypt" title="Let's Encrypt" rel="1">
+                                    Let's Encrypt
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#https" title="https" rel="2">
+                                    https
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#certbot" title="certbot" rel="1">
+                                    certbot
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#csr" title="csr" rel="1">
+                                    csr
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#block-chain" title="block-chain" rel="1">
+                                    block-chain
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#deeplearning" title="deeplearning" rel="1">
+                                    deeplearning
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#tensorflow" title="tensorflow" rel="1">
+                                    tensorflow
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#opencv" title="opencv" rel="1">
+                                    opencv
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#kubentes" title="kubentes" rel="5">
+                                    kubentes
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#helm" title="helm" rel="3">
+                                    helm
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#charts" title="charts" rel="1">
+                                    charts
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#fabric8" title="fabric8" rel="1">
+                                    fabric8
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#RBAC" title="RBAC" rel="1">
+                                    RBAC
+                                </a>
+                            
+        				
+        			</div>
+                </section>
+                
+                <!-- Featured Tags end-->                
+
+
+                <!-- Friends Blog start-->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="http://huangxuan.me">Hux Blog</a></li>
+                    
+                        <li><a href="#">void</a></li>
+                    
+                </ul>
+                
+                <!-- Friends Blog start-->
+
+                <!-- READ ANALY start-->
+                
+                <hr>
+                <h5>READ ANALY</h5>
+                <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span>
+                   
+                <!-- READ ANALY end-->                  
+                
+                <!-- gitment start -->                
+                
+                <div id="container"></div>
+                <script>
+                  var gitment = new Gitment({
+                    id: window.location.pathname, 
+                    owner: 'minicool',
+                    repo: 'minicool.github.io',
+                    oauth: {
+                    client_id: '5d7b7a70ed66f348595e',
+                    client_secret: '',
+                    },
+                  })
+                  gitment.render('container')
+                </script>
+                
+                <!-- gitment end -->                      
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+                    <li>
+                        <a href="mailto:minicool.software@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    <li>
+                        <a href="https://twitter.com/minicool">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/minicool">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; MiniCool World 2020
+                    <iframe
+                    style="margin-left: 2px; margin-bottom:-5px;"
+                    frameborder="0" scrolling="0" width="91px" height="20px"
+                    src="https://ghbtns.com/github-btn.html?user=minicool&repo=minicool.github.io&type=star&count=true" >
+                </iframe>
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> |
+                    Powered by <a href="http://jekyllrb.com" target="_blank">Jekyll</a> |
+                    Data by <a href="https://analytics.google.com" target="_blank">Google</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.min.js "></script>
+
+<!-- Gitment JavaScript-->  
+<!-- 
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+ -->
+
+<!-- Read Analy JavaScript-->  
+<!-- busuanzi http://busuanzi.ibruce.info/-->  
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-34165243-1';
+    var _gaDomain = 'minicool.github.io';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+
+        // interop with multilangual 
+         
+        _containerSelector = 'div.post-container'
+         
+
+        // init
+        var P = $(_containerSelector),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        // clean
+        $(selector).html('')
+
+        // appending
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+<!-- Multi-Lingual -->
+
+
+
+</body>
+
+</html>

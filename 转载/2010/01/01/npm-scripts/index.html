@@ -82,11 +82,11 @@
                     </li>
                     
                     <li>
-                        <a href="/about/">About</a>
+                        <a href="/tags/">Tags</a>
                     </li>
                     
                     <li>
-                        <a href="/tags/">Tags</a>
+                        <a href="/about/">About</a>
                     </li>
                     
                     <li>
@@ -189,8 +189,8 @@
 
 <figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="w">
   </span><span class="err">//</span><span class="w"> </span><span class="err">...</span><span class="w">
-  </span><span class="s2">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"build"</span><span class="p">:</span><span class="w"> </span><span class="s2">"node build.js"</span><span class="w">
+  </span><span class="nl">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"build"</span><span class="p">:</span><span class="w"> </span><span class="s2">"node build.js"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span></code></pre></figure>
 
@@ -218,11 +218,11 @@
 
 <p>这意味着，当前目录的node_modules/.bin子目录里面的所有脚本，都可以直接用脚本名调用，而不必加上路径。比如，当前项目的依赖里面有 Mocha，只要直接写mocha test就可以了。</p>
 
-<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">"test"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mocha test"</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="nl">"test"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mocha test"</span></code></pre></figure>
 
 <p>而不用写成下面这样。</p>
 
-<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">"test"</span><span class="p">:</span><span class="w"> </span><span class="s2">"./node_modules/.bin/mocha test"</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="nl">"test"</span><span class="p">:</span><span class="w"> </span><span class="s2">"./node_modules/.bin/mocha test"</span></code></pre></figure>
 
 <p>由于 npm 脚本的唯一要求就是可以在 Shell 执行，因此它不一定是 Node 脚本，任何可执行文件都可以写在里面。</p>
 
@@ -231,19 +231,19 @@
 <h4 id="三通配符">三、通配符</h4>
 <p>由于 npm 脚本就是 Shell 脚本，因为可以使用 Shell 通配符。</p>
 
-<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">"lint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jshint *.js"</span><span class="w">
-</span><span class="s2">"lint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jshint **/*.js"</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="nl">"lint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jshint *.js"</span><span class="w">
+</span><span class="nl">"lint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jshint **/*.js"</span></code></pre></figure>
 
 <p>上面代码中，*表示任意文件名，**表示任意一层子目录。</p>
 
 <p>如果要将通配符传入原始命令，防止被 Shell 转义，要将星号转义。</p>
 
-<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">"test"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tap test/</span><span class="se">\*</span><span class="s2">.js"</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="nl">"test"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tap test/</span><span class="se">\*</span><span class="s2">.js"</span></code></pre></figure>
 
 <h4 id="四传参">四、传参</h4>
 <p>向 npm 脚本传入参数，要使用–标明。</p>
 
-<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">"lint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jshint **.js"</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="nl">"lint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jshint **.js"</span></code></pre></figure>
 
 <p>向上面的npm run lint命令传入参数，必须写成下面这样。</p>
 
@@ -270,26 +270,26 @@
 <h4 id="六默认值">六、默认值</h4>
 <p>一般来说，npm 脚本由用户提供。但是，npm 对两个脚本提供了默认值。也就是说，这两个脚本不用定义，就可以直接使用。</p>
 
-<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">"start"</span><span class="p">:</span><span class="w"> </span><span class="s2">"node server.js"</span><span class="err">，</span><span class="w">
-</span><span class="s2">"install"</span><span class="p">:</span><span class="w"> </span><span class="s2">"node-gyp rebuild"</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="nl">"start"</span><span class="p">:</span><span class="w"> </span><span class="s2">"node server.js"</span><span class="err">，</span><span class="w">
+</span><span class="nl">"install"</span><span class="p">:</span><span class="w"> </span><span class="s2">"node-gyp rebuild"</span></code></pre></figure>
 
 <p>上面代码中，npm run start的默认值是node server.js，前提是项目根目录下有server.js这个脚本；npm run install的默认值是node-gyp rebuild，前提是项目根目录下有binding.gyp文件。</p>
 
 <h4 id="七钩子">七、钩子</h4>
 <p>npm 脚本有pre和post两个钩子。举例来说，build脚本命令的钩子就是prebuild和postbuild。</p>
 
-<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">"prebuild"</span><span class="p">:</span><span class="w"> </span><span class="s2">"echo I run before the build script"</span><span class="p">,</span><span class="w">
-</span><span class="s2">"build"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cross-env NODE_ENV=production webpack"</span><span class="p">,</span><span class="w">
-</span><span class="s2">"postbuild"</span><span class="p">:</span><span class="w"> </span><span class="s2">"echo I run after the build script"</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="nl">"prebuild"</span><span class="p">:</span><span class="w"> </span><span class="s2">"echo I run before the build script"</span><span class="err">,</span><span class="w">
+</span><span class="nl">"build"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cross-env NODE_ENV=production webpack"</span><span class="err">,</span><span class="w">
+</span><span class="nl">"postbuild"</span><span class="p">:</span><span class="w"> </span><span class="s2">"echo I run after the build script"</span></code></pre></figure>
 
 <p>用户执行npm run build的时候，会自动按照下面的顺序执行。</p>
 
 <p>npm run prebuild &amp;&amp; npm run build &amp;&amp; npm run postbuild
 因此，可以在这两个钩子里面，完成一些准备工作和清理工作。下面是一个例子。</p>
 
-<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">"clean"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rimraf ./dist &amp;&amp; mkdir dist"</span><span class="p">,</span><span class="w">
-</span><span class="s2">"prebuild"</span><span class="p">:</span><span class="w"> </span><span class="s2">"npm run clean"</span><span class="p">,</span><span class="w">
-</span><span class="s2">"build"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cross-env NODE_ENV=production webpack"</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="nl">"clean"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rimraf ./dist &amp;&amp; mkdir dist"</span><span class="err">,</span><span class="w">
+</span><span class="nl">"prebuild"</span><span class="p">:</span><span class="w"> </span><span class="s2">"npm run clean"</span><span class="err">,</span><span class="w">
+</span><span class="nl">"build"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cross-env NODE_ENV=production webpack"</span></code></pre></figure>
 
 <p>npm 默认提供下面这些钩子。</p>
 
@@ -307,15 +307,15 @@ prerestart，postrestart
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">const</span> <span class="nx">TARGET</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">npm_lifecycle_event</span><span class="p">;</span>
 
-<span class="k">if</span> <span class="p">(</span><span class="nx">TARGET</span> <span class="o">===</span> <span class="s1">'test'</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">TARGET</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">test</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`Running the test task!`</span><span class="p">);</span>
 <span class="p">}</span>
 
-<span class="k">if</span> <span class="p">(</span><span class="nx">TARGET</span> <span class="o">===</span> <span class="s1">'pretest'</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">TARGET</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">pretest</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`Running the pretest task!`</span><span class="p">);</span>
 <span class="p">}</span>
 
-<span class="k">if</span> <span class="p">(</span><span class="nx">TARGET</span> <span class="o">===</span> <span class="s1">'posttest'</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">TARGET</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">posttest</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`Running the posttest task!`</span><span class="p">);</span>
 <span class="p">}</span></code></pre></figure>
 
@@ -350,10 +350,10 @@ postrestart</p>
 <p>首先，通过npm_package_前缀，npm 脚本可以拿到package.json里面的字段。比如，下面是一个package.json。</p>
 
 <figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"foo"</span><span class="p">,</span><span class="w"> 
-  </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.2.5"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"view"</span><span class="p">:</span><span class="w"> </span><span class="s2">"node view.js"</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"foo"</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.2.5"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"view"</span><span class="p">:</span><span class="w"> </span><span class="s2">"node view.js"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span></code></pre></figure>
 
@@ -367,34 +367,34 @@ postrestart</p>
 
 <p>npm_package_前缀也支持嵌套的package.json字段。</p>
 
-<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="w">  </span><span class="s2">"repository"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"git"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxx"</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="err">scripts</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"view"</span><span class="p">:</span><span class="w"> </span><span class="s2">"echo $npm_package_repository_type"</span><span class="w">
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="w">  </span><span class="nl">"repository"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"git"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxx"</span><span class="w">
+  </span><span class="p">}</span><span class="err">,</span><span class="w">
+  </span><span class="err">scripts:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"view"</span><span class="p">:</span><span class="w"> </span><span class="s2">"echo $npm_package_repository_type"</span><span class="w">
   </span><span class="p">}</span></code></pre></figure>
 
 <p>上面代码中，repository字段的type属性，可以通过npm_package_repository_type取到。</p>
 
 <p>下面是另外一个例子。</p>
 
-<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-  </span><span class="s2">"install"</span><span class="p">:</span><span class="w"> </span><span class="s2">"foo.js"</span><span class="w">
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="nl">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"install"</span><span class="p">:</span><span class="w"> </span><span class="s2">"foo.js"</span><span class="w">
 </span><span class="p">}</span></code></pre></figure>
 
 <p>上面代码中，npm_package_scripts_install变量的值等于foo.js。</p>
 
 <p>然后，npm 脚本还可以通过npm_config_前缀，拿到 npm 的配置变量，即npm config get xxx命令返回的值。比如，当前模块的发行标签，可以通过npm_config_tag取到。</p>
 
-<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">"view"</span><span class="p">:</span><span class="w"> </span><span class="s2">"echo $npm_config_tag"</span><span class="p">,</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="nl">"view"</span><span class="p">:</span><span class="w"> </span><span class="s2">"echo $npm_config_tag"</span><span class="err">,</span></code></pre></figure>
 
 <p>注意，package.json里面的config对象，可以被环境变量覆盖。</p>
 
 <figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="w"> 
-  </span><span class="s2">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"foo"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"config"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"port"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"8080"</span><span class="w"> </span><span class="p">},</span><span class="w">
-  </span><span class="s2">"scripts"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"start"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"node server.js"</span><span class="w"> </span><span class="p">}</span><span class="w">
+  </span><span class="nl">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"foo"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"config"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"port"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"8080"</span><span class="w"> </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"scripts"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"start"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"node server.js"</span><span class="w"> </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span></code></pre></figure>
 
 <p>上面代码中，npm_package_config_port变量返回的是8080。这个值可以用下面的方法覆盖。</p>
@@ -403,46 +403,46 @@ postrestart</p>
 
 <p>最后，env命令可以列出所有环境变量。</p>
 
-<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">"env"</span><span class="p">:</span><span class="w"> </span><span class="s2">"env"</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="nl">"env"</span><span class="p">:</span><span class="w"> </span><span class="s2">"env"</span></code></pre></figure>
 
 <h4 id="十常用脚本示例">十、常用脚本示例</h4>
 
 <p>// 删除目录</p>
 
-<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">"clean"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rimraf dist/*"</span><span class="p">,</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="nl">"clean"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rimraf dist/*"</span><span class="err">,</span></code></pre></figure>
 
 <p>// 本地搭建一个 HTTP 服务</p>
 
-<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">"serve"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http-server -p 9090 dist/"</span><span class="p">,</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="nl">"serve"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http-server -p 9090 dist/"</span><span class="err">,</span></code></pre></figure>
 
 <p>// 打开浏览器</p>
 
-<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">"open:dev"</span><span class="p">:</span><span class="w"> </span><span class="s2">"opener http://localhost:9090"</span><span class="p">,</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="nl">"open:dev"</span><span class="p">:</span><span class="w"> </span><span class="s2">"opener http://localhost:9090"</span><span class="err">,</span></code></pre></figure>
 
 <p>// 实时刷新</p>
 
-<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="w"> </span><span class="s2">"livereload"</span><span class="p">:</span><span class="w"> </span><span class="s2">"live-reload --port 9091 dist/"</span><span class="p">,</span><span class="w">
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="w"> </span><span class="nl">"livereload"</span><span class="p">:</span><span class="w"> </span><span class="s2">"live-reload --port 9091 dist/"</span><span class="err">,</span><span class="w">
  </span></code></pre></figure>
 
 <p>// 构建 HTML 文件</p>
 
-<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">"build:html"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jade index.jade &gt; dist/index.html"</span><span class="p">,</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="nl">"build:html"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jade index.jade &gt; dist/index.html"</span><span class="err">,</span></code></pre></figure>
 
 <p>// 只要 CSS 文件有变动，就重新执行构建</p>
 
-<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">"watch:css"</span><span class="p">:</span><span class="w"> </span><span class="s2">"watch 'npm run build:css' assets/styles/"</span><span class="p">,</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="nl">"watch:css"</span><span class="p">:</span><span class="w"> </span><span class="s2">"watch 'npm run build:css' assets/styles/"</span><span class="err">,</span></code></pre></figure>
 
 <p>// 只要 HTML 文件有变动，就重新执行构建</p>
 
-<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">"watch:html"</span><span class="p">:</span><span class="w"> </span><span class="s2">"watch 'npm run build:html' assets/html"</span><span class="p">,</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="nl">"watch:html"</span><span class="p">:</span><span class="w"> </span><span class="s2">"watch 'npm run build:html' assets/html"</span><span class="err">,</span></code></pre></figure>
 
 <p>// 部署到 Amazon S3</p>
 
-<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">"deploy:prod"</span><span class="p">:</span><span class="w"> </span><span class="s2">"s3-cli sync ./dist/ s3://example-com/prod-site/"</span><span class="p">,</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="nl">"deploy:prod"</span><span class="p">:</span><span class="w"> </span><span class="s2">"s3-cli sync ./dist/ s3://example-com/prod-site/"</span><span class="err">,</span></code></pre></figure>
 
 <p>// 构建 favicon</p>
 
-<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">"build:favicon"</span><span class="p">:</span><span class="w"> </span><span class="s2">"node scripts/favicon.js"</span><span class="p">,</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="nl">"build:favicon"</span><span class="p">:</span><span class="w"> </span><span class="s2">"node scripts/favicon.js"</span><span class="err">,</span></code></pre></figure>
 
 <h4 id="十一参考链接">十一、参考链接</h4>
 <p><a href="https://www.keithcirkel.co.uk/how-to-use-npm-as-a-build-tool/">How to Use npm as a Build Tool</a>, by Keith Cirkel</p>
@@ -455,9 +455,9 @@ postrestart</p>
                     
                     
                     <li class="next">
-                        <a href="/%E7%AC%94%E8%AE%B0/2013/05/27/SQL-execution-order/" data-toggle="tooltip" data-placement="top" title="SQL execution order">
+                        <a href="/2011/08/11/kubenetes-kubeadm/" data-toggle="tooltip" data-placement="top" title="Kubenetes Kubeadm">
                         Next<br>
-                        <span>SQL execution order</span>
+                        <span>Kubenetes Kubeadm</span>
                         </a>
                     </li>
                     
@@ -565,6 +565,48 @@ postrestart</p>
                             
         				
                             
+                				<a href="/tags/#kubenetes" title="kubenetes" rel="2">
+                                    kubenetes
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#dashboard" title="dashboard" rel="1">
+                                    dashboard
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#trarfik" title="trarfik" rel="1">
+                                    trarfik
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Let's Encrypt" title="Let's Encrypt" rel="1">
+                                    Let's Encrypt
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#https" title="https" rel="2">
+                                    https
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#certbot" title="certbot" rel="1">
+                                    certbot
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#csr" title="csr" rel="1">
+                                    csr
+                                </a>
+                            
+        				
+                            
                 				<a href="/tags/#block-chain" title="block-chain" rel="1">
                                     block-chain
                                 </a>
@@ -585,6 +627,36 @@ postrestart</p>
                             
                 				<a href="/tags/#opencv" title="opencv" rel="1">
                                     opencv
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#kubentes" title="kubentes" rel="5">
+                                    kubentes
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#helm" title="helm" rel="3">
+                                    helm
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#charts" title="charts" rel="1">
+                                    charts
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#fabric8" title="fabric8" rel="1">
+                                    fabric8
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#RBAC" title="RBAC" rel="1">
+                                    RBAC
                                 </a>
                             
         				
@@ -724,7 +796,7 @@ postrestart</p>
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; MiniCool World 2018
+                    Copyright &copy; MiniCool World 2020
                     <iframe
                     style="margin-left: 2px; margin-bottom:-5px;"
                     frameborder="0" scrolling="0" width="91px" height="20px"

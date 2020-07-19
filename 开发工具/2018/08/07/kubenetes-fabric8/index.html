@@ -12,9 +12,9 @@
 
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>迷你世界 | minicool Blog</title>
+    <title>kubenetes-fabric8 - 迷你世界 | minicool Blog</title>
 
-    <link rel="canonical" href="http://localhost:4000/page2/">
+    <link rel="canonical" href="http://localhost:4000/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/2018/08/07/kubenetes-fabric8/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -82,11 +82,11 @@
                     </li>
                     
                     <li>
-                        <a href="/about/">About</a>
+                        <a href="/tags/">Tags</a>
                     </li>
                     
                     <li>
-                        <a href="/tags/">Tags</a>
+                        <a href="/about/">About</a>
                     </li>
                     
                     <li>
@@ -130,371 +130,355 @@
 </script>
 
 
-    <!-- Page Header -->
-<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-2015.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/post-bg-2015.jpg')
+    }
+</style>
+<header class="intro-header" >
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
-                <div class="site-heading">
-                    <h1>MiniCool World</h1>
-                    <!--<hr class="small">-->
-                    <span class="subheading">- 发现这个有趣的迷你世界 -</span>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#kubentes" title="kubentes">kubentes</a>
+                        
+                        <a class="tag" href="/tags/#fabric8" title="fabric8">fabric8</a>
+                        
+                    </div>
+                    <h1>kubenetes-fabric8</h1>
+                    
+                    
+                    <h2 class="subheading">kubernetes fabric8 分析</h2>
+                    
+                    <span class="meta">Posted by minicool on August 7, 2018</span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-	<div class="row">
-        
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
 
-<!-- USE SIDEBAR -->
     <!-- Post Container -->
-    		<div class="
-                col-lg-8 col-lg-offset-1
-                col-md-8 col-md-offset-1
-                col-sm-12
-                col-xs-12
-                post-container
-            ">
-    			
-<div class="post-preview">
-    <a href="/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2018/02/01/etherum-code-analy-trie/">
-        <h2 class="post-title">
-            etherum & trie
-        </h2>
-        
-        <h3 class="post-subtitle">
-            以太坊源码分析（一）Merkle Patricia Tries
-        </h3>
-        
-        <div class="post-content-preview">
-            
-  包trie 实现了MPT(Merkle Patricia Tries)数据结构，这种数据结构实际上是一种Trie树变种。MPT是以太坊中一种非常重要的数据结构，用来存储用户账户的状态及其变更、交易信息、交易的收据信息。MPT实际上是三种数据结构的组合，分别是Trie树， Patricia Trie， 和Merkle树。下面分别介绍这三种数据结构。
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <!-- Multi-Lingual -->
+                                
+
+				<blockquote>
+  <p>fabric8是一个开源集成开发平台，为基于Kubernetes和Jenkins的微服务提供持续发布。</p>
+</blockquote>
+
+<h3 id="安装">安装</h3>
+
+<h4 id="mac平台">mac平台</h4>
+
+<ol>
+  <li>使用howbrew安装</li>
+</ol>
+
+<p>$ brew install gofabric8</p>
+
+<ol>
+  <li>
+    <p>启动gofabric8 
+$ gofabric8 deploy -y -domain=wangzhenhua.com –namespace=fabric8</p>
+  </li>
+  <li>
+    <p>验证安装情况
+$ gofabric8 validate
+$ gofabric8 volumes</p>
+  </li>
+  <li>
+    <p>请注意，这里我们需要把RBAC关掉</p>
+  </li>
+</ol>
+
+<p>$ kubectl create clusterrolebinding permissive-binding –clusterrole=cluster-admin –user=admin –user=kubelet –group=system:serviceaccounts</p>
+
+<h4 id="k8s集群">k8s集群</h4>
+<p>安装好了kube-dns和ingress-controller组件，和helm工具。</p>
+
+<p>1.添加helm源
+helm repo add fabric8 https://fabric8.io/helm</p>
+
+<p>2.下载官方模版
+$ helm fetch fabric8/fabric8-platform
+$ tar -xvf fabric8-platform-2.4.24-helm.tar.gz</p>
+
+<p>3.对模版进行配置及修改</p>
+
+<p>2.使用官方提供模版,现阶段需要翻墙 国内没有找到对应镜像
+helm install fabric8/fabric8-platform –name fabric8-platform</p>
+
+<p>自动安装一堆的deployment、PersistentVolumeClaim和ConfigMap； 
+在提供足够的PersistentVolume，并根据实际情况修改好必要的ConfigMap之前，大部分组件是不可能正常运行的。</p>
+
+<p>3.
+cat «EOF | kubectl apply -f -
+apiVersion: “v1”
+data:
+  config.yml: |-
+    exposer: “Ingress”
+    domain: “minicool.local”
+kind: “ConfigMap”
+metadata:
+  name: “exposecontroller”
+EOF</p>
 
 
-Trie Tree
-Trie树，又...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by minicool on February 1, 2018
-    </p>
-</div>
-<hr>
 
-<div class="post-preview">
-    <a href="/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2018/02/01/etherum-code-analy/">
-        <h2 class="post-title">
-            etherum & code analysis
-        </h2>
-        
-        <h3 class="post-subtitle">
-            以太坊源码分析（一）
-        </h3>
-        
-        <div class="post-content-preview">
-            
-  区块链作为新的技术，能否真正产生效率，一直是大家争论的话题。但随着数字货币，例如比特币，以太币兑换法币的价值越来越高的时候。争论似乎都已经停止，如何加入到这个资本盛宴才是大家最急迫的一件事。如何真正的了解以太坊等数字平台，不被眼前所蒙蔽，源码称为了解其本质的唯一途径。源码即是真理。
-
-
-何为以太坊？
-
-  作为了解一个新事物的入口，必然需要知道它是什么，从哪来，能干什么。所以从缘由说起...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by minicool on February 1, 2018
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/2017/03/21/electron-demo/">
-        <h2 class="post-title">
-            electron & inno & demo
-        </h2>
-        
-        <h3 class="post-subtitle">
-            基于electron的小开发
-        </h3>
-        
-        <div class="post-content-preview">
-            
-  electron作为跨平台，基于Chrome内核的开发平台，为B端转C段带了快速有效的应用。如何有效成为跨平台全栈平台,electron称为一个不错的桥梁工具。
-  electron简介
-  1.https://electronjs.org/docs
-2.https://github.com/electron/electron-api-demos
-3.https://www.w3csc...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by minicool on March 21, 2017
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/%E7%AC%94%E8%AE%B0/2015/04/23/x509/">
-        <h2 class="post-title">
-            x.509
-        </h2>
-        
-        <h3 class="post-subtitle">
-            X.509 证书
-        </h3>
-        
-        <div class="post-content-preview">
-            X.509
-
-X.509是一种数字证书格式。数字证书是由权威机构——CA机构，又称为证书授权（Certificate Authority）中心发行的。用于对数字身份信息进行授权，用于验证的证书信息。
-
-常见数据格式
-cer/crt是用于存放证书，它是2进制形式存放的，不含私钥。
-
-pem跟crt/cer的区别是它以Ascii来表示，可以用于存放证书或私钥。
-
-pfx/p12用于存放个人证书/...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by minicool on April 23, 2015
-    </p>
-</div>
-<hr>
-
-
-<!-- Pager -->
-
-<ul class="pager">
+                <hr style="visibility: hidden;">
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/2018/08/07/helm-charts/" data-toggle="tooltip" data-placement="top" title="helm-charts">
+                        Previous<br>
+                        <span>helm-charts</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/2018/08/10/kubenetes-RBAC/" data-toggle="tooltip" data-placement="top" title="kubenetes RBAC">
+                        Next<br>
+                        <span>kubenetes RBAC</span>
+                        </a>
+                    </li>
+                    
+                </ul> 
+            </div>
     
-    <li class="previous">
-        <a href="/">&larr; Newer Posts</a>
-    </li>
+    <!-- Side Catalog Container -->
     
-    
-    <li class="next">
-        <a href="/page3">Older Posts &rarr;</a>
-    </li>
-    
-</ul>
+    <div class="
+        col-lg-2 col-lg-offset-0
+        visible-lg-block
+        sidebar-container
+        catalog-container">
+        <div class="side-catalog">
+            <hr class="hidden-sm hidden-xs">
+            <h5>
+                <a class="catalog-toggle" href="#">CATALOG</a>
+            </h5>
+            <ul class="catalog-body"></ul>
+        </div>
+    </div>
+                
 
-
-    		</div>
     <!-- Sidebar Container -->
             <div class="
-                col-lg-3 col-lg-offset-0
-                col-md-3 col-md-offset-0
-                col-sm-12
-                col-xs-12
-                sidebar-container
-            ">
-                <!-- Featured Tags -->
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags start-->
                 
                 <section>
                     <hr class="hidden-sm hidden-xs">
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
-                        
+        				
                             
-                                <a href="/tags/#npm" title="npm" rel="1">
+                				<a href="/tags/#npm" title="npm" rel="1">
                                     npm
                                 </a>
                             
-                        
+        				
                             
-                                <a href="/tags/#SQL" title="SQL" rel="2">
+                				<a href="/tags/#SQL" title="SQL" rel="2">
                                     SQL
                                 </a>
                             
-                        
+        				
                             
-                                <a href="/tags/#基础知识" title="基础知识" rel="2">
+                				<a href="/tags/#基础知识" title="基础知识" rel="2">
                                     基础知识
                                 </a>
                             
-                        
+        				
                             
-                                <a href="/tags/#ssl/tls" title="ssl/tls" rel="1">
+                				<a href="/tags/#ssl/tls" title="ssl/tls" rel="1">
                                     ssl/tls
                                 </a>
                             
-                        
+        				
                             
-                                <a href="/tags/#密码学" title="密码学" rel="1">
+                				<a href="/tags/#密码学" title="密码学" rel="1">
                                     密码学
                                 </a>
                             
-                        
+        				
                             
-                                <a href="/tags/#算法" title="算法" rel="1">
+                				<a href="/tags/#算法" title="算法" rel="1">
                                     算法
                                 </a>
                             
-                        
+        				
                             
-                                <a href="/tags/#openssl" title="openssl" rel="1">
+                				<a href="/tags/#openssl" title="openssl" rel="1">
                                     openssl
                                 </a>
                             
-                        
+        				
                             
-                                <a href="/tags/#CA" title="CA" rel="1">
+                				<a href="/tags/#CA" title="CA" rel="1">
                                     CA
                                 </a>
                             
-                        
+        				
                             
-                                <a href="/tags/#code" title="code" rel="4">
+                				<a href="/tags/#code" title="code" rel="4">
                                     code
                                 </a>
                             
-                        
+        				
                             
-                                <a href="/tags/#electron" title="electron" rel="1">
+                				<a href="/tags/#electron" title="electron" rel="1">
                                     electron
                                 </a>
                             
-                        
+        				
                             
-                                <a href="/tags/#demo" title="demo" rel="1">
+                				<a href="/tags/#demo" title="demo" rel="1">
                                     demo
                                 </a>
                             
-                        
+        				
                             
-                                <a href="/tags/#etherum" title="etherum" rel="3">
+                				<a href="/tags/#etherum" title="etherum" rel="3">
                                     etherum
                                 </a>
                             
-                        
+        				
                             
-                                <a href="/tags/#jpush" title="jpush" rel="1">
+                				<a href="/tags/#jpush" title="jpush" rel="1">
                                     jpush
                                 </a>
                             
-                        
+        				
                             
-                                <a href="/tags/#IM" title="IM" rel="1">
+                				<a href="/tags/#IM" title="IM" rel="1">
                                     IM
                                 </a>
                             
-                        
+        				
                             
-                                <a href="/tags/#block-chain" title="block-chain" rel="1">
+                				<a href="/tags/#kubenetes" title="kubenetes" rel="2">
+                                    kubenetes
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#dashboard" title="dashboard" rel="1">
+                                    dashboard
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#trarfik" title="trarfik" rel="1">
+                                    trarfik
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Let's Encrypt" title="Let's Encrypt" rel="1">
+                                    Let's Encrypt
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#https" title="https" rel="2">
+                                    https
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#certbot" title="certbot" rel="1">
+                                    certbot
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#csr" title="csr" rel="1">
+                                    csr
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#block-chain" title="block-chain" rel="1">
                                     block-chain
                                 </a>
                             
-                        
+        				
                             
-                                <a href="/tags/#deeplearning" title="deeplearning" rel="1">
+                				<a href="/tags/#deeplearning" title="deeplearning" rel="1">
                                     deeplearning
                                 </a>
                             
-                        
+        				
                             
-                                <a href="/tags/#tensorflow" title="tensorflow" rel="1">
+                				<a href="/tags/#tensorflow" title="tensorflow" rel="1">
                                     tensorflow
                                 </a>
                             
-                        
+        				
                             
-                                <a href="/tags/#opencv" title="opencv" rel="1">
+                				<a href="/tags/#opencv" title="opencv" rel="1">
                                     opencv
                                 </a>
                             
-                        
-                    </div>
+        				
+                            
+                				<a href="/tags/#kubentes" title="kubentes" rel="5">
+                                    kubentes
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#helm" title="helm" rel="3">
+                                    helm
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#charts" title="charts" rel="1">
+                                    charts
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#fabric8" title="fabric8" rel="1">
+                                    fabric8
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#RBAC" title="RBAC" rel="1">
+                                    RBAC
+                                </a>
+                            
+        				
+        			</div>
                 </section>
                 
+                <!-- Featured Tags end-->                
 
-                <!-- Category -->
-                
-                <section>
-                    <hr class="hidden-sm hidden-xs">
-                    <h5><a href="/categories/">CATEGORY</a></h5>
-                    <div class="tags">
-                        
-                            <a href="/categories/#转载-ref" title="转载" rel="2">
-                                转载
-                            </a>
-                        
-                            <a href="/categories/#笔记-ref" title="笔记" rel="4">
-                                笔记
-                            </a>
-                        
-                            <a href="/categories/#源码分析-ref" title="源码分析" rel="4">
-                                源码分析
-                            </a>
-                        
-                            <a href="/categories/#开发工作-ref" title="开发工作" rel="1">
-                                开发工作
-                            </a>
-                        
-                            <a href="/categories/#问题探讨-ref" title="问题探讨" rel="1">
-                                问题探讨
-                            </a>
-                        
-                            <a href="/categories/#AI-ref" title="AI" rel="1">
-                                AI
-                            </a>
-                        
-                    </div>
-                </section>
-                              
 
-                <!-- Short About -->
-                <section class="visible-md visible-lg">
-                    <hr><h5><a href="/about/">ABOUT ME</a></h5>
-                    <div class="short-about">
-                        
-                            <img src="/img/me/avatar.jpeg" />
-                        
-                        
-                            <p>假如生活欺骗了你，不要悲伤，不要哭泣。 -做个有趣的灵魂</p>
-                        
-                        <!-- SNS Link -->
-                        <ul class="list-inline">
-                            
-                            
-                            <li>
-                                <a href="mailto:minicool.software@gmail.com">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            
-                            
-                            <li>
-                                <a href="https://twitter.com/minicool">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            
-                            
-                            
-                            
-                            
-                            <li>
-                                <a target="_blank" href="https://github.com/minicool">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            
-                        </ul>
-                    </div>
-                </section>
-                <!-- Friends Blog -->
+                <!-- Friends Blog start-->
                 
                 <hr>
                 <h5>FRIENDS</h5>
@@ -506,22 +490,73 @@ pfx/p12用于存放个人证书/...
                     
                 </ul>
                 
+                <!-- Friends Blog start-->
 
-                <!-- READ ANALY -->
+                <!-- READ ANALY start-->
                 
                 <hr>
                 <h5>READ ANALY</h5>
-                <span id="busuanzi_container_site_pv">
-                        本站 总访问量 <span id="busuanzi_value_site_pv"></span> 次
-                    </span><br>
-                <span id="busuanzi_container_site_uv">
-                        本站 访客数 <span id="busuanzi_value_site_uv"></span> 人次
-                    </span>    
-                                  
-    		</div>
-        
-	</div>
-</div>
+                <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span>
+                   
+                <!-- READ ANALY end-->                  
+                
+                <!-- gitment start -->                
+                
+                <div id="container"></div>
+                <script>
+                  var gitment = new Gitment({
+                    id: window.location.pathname, 
+                    owner: 'minicool',
+                    repo: 'minicool.github.io',
+                    oauth: {
+                    client_id: '5d7b7a70ed66f348595e',
+                    client_secret: '',
+                    },
+                  })
+                  gitment.render('container')
+                </script>
+                
+                <!-- gitment end -->                      
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
 
 
     <!-- Footer -->
@@ -573,7 +608,7 @@ pfx/p12用于存放个人证书/...
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; MiniCool World 2018
+                    Copyright &copy; MiniCool World 2020
                     <iframe
                     style="margin-left: 2px; margin-bottom:-5px;"
                     frameborder="0" scrolling="0" width="91px" height="20px"
@@ -686,6 +721,62 @@ pfx/p12用于存放个人证书/...
 
 
 <!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+
+        // interop with multilangual 
+         
+        _containerSelector = 'div.post-container'
+         
+
+        // init
+        var P = $(_containerSelector),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        // clean
+        $(selector).html('')
+
+        // appending
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
 
 
 <!-- Multi-Lingual -->

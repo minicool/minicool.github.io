@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="年迈的工程师">
+    <meta name="keyword"  content="c++,go,transflow,etherment">
+    <meta name="theme-color" content="#000000">
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>kubenetes-helm - 迷你世界 | minicool Blog</title>
+
+    <link rel="canonical" href="http://localhost:4000/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/2018/08/07/kubenets-helm/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog.min.css">
+
+    <!-- Highlight Github CSS -->
+    <!-- local Highlight --> 
+    <!-- <link rel="stylesheet" href="/css/highlight.rouge.css"> -->
+    <!-- CDN Highlight -->
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/default.min.css">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+
+    <!-- Custom Fonts -->
+    <!-- CDN font-awesome -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- local font-awesome -->   
+    <!-- <link rel="stylesheet" href="/css/fontawesome-all.min.css"> -->
+
+    <!-- Gitment -->  
+    
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.jpeg" width="0"
+    height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">MiniCool World</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="blog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/">Category</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#blog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-2015.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/post-bg-2015.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#kubentes" title="kubentes">kubentes</a>
+                        
+                        <a class="tag" href="/tags/#helm" title="helm">helm</a>
+                        
+                    </div>
+                    <h1>kubenetes-helm</h1>
+                    
+                    
+                    <h2 class="subheading">k8s 模版管理工具</h2>
+                    
+                    <span class="meta">Posted by minicool on August 7, 2018</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <!-- Multi-Lingual -->
+                                
+
+				<blockquote>
+  <p>Helm是目前Kubernetes服务编排领域的唯一开源子项目，做为Kubernetes应用的一个包管理工具，可理解为Kubernetes的apt-get / yum，由Deis 公司发起，该公司已经被微软收购。Helm通过软件打包的形式，支持发布的版本管理和控制，很大程度上简化了Kubernetes应用部署和管理的复杂性。</p>
+</blockquote>
+
+<blockquote>
+  <p>Helm产生原因
+利用Kubernetes部署一个应用，需要Kubernetes原生资源文件如deployment、replicationcontroller、service或pod 等。而对于一个复杂的应用，会有很多类似上面的资源描述文件，如果有更新或回滚应用的需求，可能要修改和维护所涉及的大量资源文件，且由于缺少对发布过的应用版本管理和控制，使Kubernetes上的应用维护和更新等面临诸多的挑战，而Helm可以帮我们解决这些问题。</p>
+</blockquote>
+
+<blockquote>
+  <p>Helm主要处理Kubernetes应用编排中资源文件管理工作。</p>
+  <ol>
+    <li>管理、编辑与更新大量的K8s配置文件</li>
+    <li>部署一个含有大量配置文件的复杂K8s应用</li>
+    <li>分享和复用K8s配置和应用</li>
+    <li>参数化配置模板支持多个环境</li>
+    <li>管理应用的发布：回滚、diff和查看发布历史</li>
+    <li>控制一个部署周期中的某一些环节</li>
+    <li>发布后的验证</li>
+  </ol>
+</blockquote>
+
+<p>###重要概念：
+chart：包含了创建Kubernetes的一个应用实例的必要信息
+config：包含了应用发布配置信息
+release：是一个chart及其配置的一个运行实例</p>
+
+<p>###基本构架
+helm主要由helm client 和 tiler server 组成。</p>
+
+<p>1.helm [go编写 开源]
+helm客户端是一个命令行工具，负责管理charts、reprepository和release。它通过gPRC API（使用kubectl port-forward将tiller的端口映射到本地，然后再通过映射后的端口跟tiller通信）向tiller发送请求，并由tiller来管理对应的Kubernetes资源。
+Helm客户端的使用方法参见Helm命令。
+(1)仓库管理
+(2)本地chart开发
+(3)与Tiller sever交互
+(4)发送预安装的chart
+(5)查询release信息
+(6)要求升级或卸载已存在的release</p>
+
+<p>2.tiller [go编写 开源]
+tiller接收来自helm客户端的请求，并把相关资源的操作发送到Kubernetes，负责管理（安装、查询、升级或删除等）和跟踪Kubernetes资源。为了方便管理，tiller(自身没有数据库)把release的相关信息保存在kubernetes的ConfigMap中。
+tiller对外暴露gRPC API，供helm客户端调用。
+(1)监听来自Helm client的请求
+(2)通过chart及其配置构建一次发布
+(3)安装chart到Kubernetes集群，并跟踪随后的发布
+(4)通过与Kubernetes交互升级或卸载chart</p>
+
+<p>3.Repository 是 Chart 仓库，Helm客户端通过HTTP协议来访问仓库中Chart的索引文件和压缩包。</p>
+
+<p>###Helm通信原理
+Helm过程</p>
+
+<p>Chart Install 过程：
+Helm从指定的目录或者tgz文件中解析出Chart结构信息
+Helm将指定的Chart结构和Values信息通过gRPC传递给Tiller
+Tiller根据Chart和Values生成一个Release
+Tiller将Release发送给Kubernetes用于生成Release</p>
+
+<p>Chart Update过程：
+Helm从指定的目录或者tgz文件中解析出Chart结构信息
+Helm将要更新的Release的名称和Chart结构，Values信息传递给Tiller
+Tiller生成Release并更新指定名称的Release的History
+Tiller将Release发送给Kubernetes用于更新Release</p>
+
+<p>Chart Rollback过程：
+Helm将要回滚的Release的名称传递给Tiller
+Tiller根据Release的名称查找History
+Tiller从History中获取上一个Release
+Tiller将上一个Release发送给Kubernetes用于替换当前Release</p>
+
+<p>Chart依赖说明： 
+Tiller在处理Chart时，直接将Chart以及其依赖的所有Charts合并为一个Release，同时传递给Kubernetes。因此Tiller并不负责管理依赖之间的启动顺序。Chart中的应用需要能够自行处理依赖关系。</p>
+
+<h4 id="前期准备工作">前期准备工作</h4>
+
+<h3 id="安装方式">安装方式</h3>
+<h4 id="helm-client安装">Helm Client安装</h4>
+<p>1.brew 安装
+$brew install kubenetes-helm</p>
+
+<p>2.tar包 安装
+github: https://github.com/kubernetes/helm/releases
+下载 Helm 2.6.1：
+https://storage.googleapis.com/kubernetes-helm/helm-v2.9.1-linux-amd64.tar.gz
+解包：
+tar -zxvf helm-v2.9.1-linux-amd64.tgz
+helm二进制文件移到/usr/local/bin目录：
+mv linux-amd64/helm /usr/local/bin/helm</p>
+
+<h4 id="helm-tiller安装">Helm Tiller安装</h4>
+<ol>
+  <li>Helm Tiller安装
+Helm Tiller是Helm的server，用来管理release。</li>
+</ol>
+
+<p>Tiller有多种安装方式，比如本地安装或以pod形式部署到Kubernetes集群中。本文以pod安装为例，安装Tiller的最简单方式是helm init, 该命令会检查helm本地环境设置是否正确，helm init会连接kubectl默认连接的kubernetes集群（可以通过kubectl config view查看），一旦连接集群成功，tiller会被安装到kube-system namespace中。</p>
+
+<p>执行helm init 
+该命令会通过Kubernetes的Deployment 部署tiller，并且在本机配置一个名为local的本地repo，当前用户目录下会生成.helm文件夹（即~/.helm）放置repo相关内容。
+————————————-
+helm init主要做了以下三件事情：</p>
+
+<p>部署Tiller
+初始化本地 cache
+初始化本地 chart仓库</p>
+
+<h3 id="定义配置部署">定义配置部署</h3>
+<p>&lt;1&gt;为了起在指定节点上和使用已有镜像，我修改了tiller的deployment： 
+kubectl edit deployment tiller-deploy -n kube-system</p>
+
+<p>image: registry.cn-hangzhou.aliyuncs.com/google_containers/tiller:v2.9.1
+  nodeSelector:
+    node-role.kubernetes.io/master: “true”
+  tolerations:</p>
+<ul>
+  <li>key: node-role.kubernetes.io/master
+effect: NoSchedule</li>
+</ul>
+
+<p>&lt;2&gt;修改tiller的svc使其暴露nodePort端口： 
+kubectl edit svc tiller-deploy -n kube-system</p>
+
+<p>ports:</p>
+<ul>
+  <li>name: tiller
+nodePort: 32134
+  type: NodePort</li>
+</ul>
+
+<p>&lt;3&gt;Tiller还可以通过指定启动参数的形式修改这些配置：</p>
+
+<p>安装金丝雀build： –canary-image
+安装指定image：–tiller-image
+指定某一个Kubernetes集群：–kube-context
+指定namespace安装：–tiller-namespace</p>
+
+<p>helm init –tiller-image=daocloud.io/liukuan73/tiller-lk:v2.9.1 –tiller-namespace=kube-system</p>
+
+<p>&lt;4&gt; Helm TILLER删除 
+由于 Tiller的数据存储于Kubernetes ConfigMap中，所以删除、升降级Tiller，原Helm部署的应用数据并不会丢失。 
+删除Tiller：</p>
+
+<p>helm reset</p>
+
+<h3 id="rbac配置补充">RBAC配置补充</h3>
+<p>如果启用的RBAC（Role-Based Access Control），在 helm init 时指定sa</p>
+<h3 id="命令行">命令行</h3>
+<ol>
+  <li>创建sa
+kubectl create serviceaccount –namespace kube-system tiller</li>
+  <li>给sa绑定cluster-admin规则
+kubectl create clusterrolebinding tiller-cluster-rule –clusterrole=cluster-admin –serviceaccount=kube-system:tiller</li>
+  <li>编辑 Tiller Deployment 名称为： tiller-deploy.
+kubectl edit deploy –namespace kube-system tiller-deploy
+插入一行 （serviceAccount: tiller） in the spec: template: spec section of the file:
+…
+spec:
+  replicas: 1
+  selector:
+ matchLabels:
+   app: helm
+   name: tiller
+  strategy:
+ rollingUpdate:
+   maxSurge: 1
+   maxUnavailable: 1
+ type: RollingUpdate
+  template:
+ metadata:
+   creationTimestamp: null
+   labels:
+     app: helm
+     name: tiller
+ spec:
+   serviceAccount: tiller
+   containers:
+    <ul>
+      <li>env:
+        <ul>
+          <li>name: TILLER_NAMESPACE
+value: kube-system
+。。。</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="文本修改配置">文本修改配置</h3>
+<h3 id="配置helm的service-account及其相关角色">配置helm的Service account及其相关角色</h3>
+<p>[root@k8s-master helm]# vi helm-rbac.yml 
+—
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    k8s-app: helm
+  name: helm-admin
+  namespace: kube-system</p>
+
+<hr />
+<p>apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: helm-admin
+  labels:
+    k8s-app: helm
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:</p>
+<ul>
+  <li>kind: ServiceAccount
+name: helm-admin
+namespace: kube-system</li>
+</ul>
+
+<p>[root@k8s-master helm]# kubectl apply -f helm-rbac.yml</p>
+
+<p>注意，默认情况下只需要执行 helm init 就可以完成tiller部署，而且看上去很正常，但是无法执行 helm install 。因为helm需要访问k8s的API，而我们的集群启用了RBAC，要让helm正常工作，我们需要为其配置好相关权限。</p>
+
+<h3 id="部署tiller并为其指定sa">部署tiller并为其指定sa</h3>
+<p>[root@k8s-master helm]# helm init –service-account helm-admin</p>
+
+<h3 id="如果你不是第一次执行">如果你不是第一次执行</h3>
+<p>[root@k8s-master helm]# helm init –service-account helm-admin –upgrade</p>
+
+<h3 id="安装检测及失败分析处理">安装检测及失败分析处理</h3>
+<p>1.检测Tiller是否成功安装：
+$kubectl get po -n kube-system</p>
+
+<p>成功状态：
+NAME                                         READY     STATUS    RESTARTS   AGE
+tiller-deploy-7dd5fbfd8f-hgpx6               1/1       Running   0          2m</p>
+
+<ol>
+  <li>失败分析处理
+（1）镜像拉取失败</li>
+</ol>
+
+<p>失败现状：</p>
+
+<p>$kubectl get po -n kube-system</p>
+
+<p>NAME                                         READY     STATUS    RESTARTS   AGE
+tiller-deploy-7dd5fbfd8f-hgpx6               0/1  ImagePullBackOff   0      2m</p>
+
+<p>(2) 问题分析处理
+helm init  在缺省配置下， Helm 会利用 “gcr.io/kubernetes-helm/tiller” 镜像在Kubernetes集群上安装配置 Tiller；并且利用 “https://kubernetes-charts.storage.googleapis.com” 作为缺省的 stable repository 的地址。由于在国内可能无法访问 “gcr.io”, “storage.googleapis.com” 等域名，阿里云容器服务为此提供了镜像站点。</p>
+
+<p>请执行如下命令利用阿里云的镜像来配置 Helm</p>
+
+<p>helm init –upgrade -i registry.cn-hangzhou.aliyuncs.com/google_containers/tiller:v2.9.1 –stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts</p>
+
+<p>（2）unable to do port forwarding: socat not found.
+（1）失败现状
+[root@k8s-master hello-svc]# helm version
+Client: &amp;version.Version{SemVer:”v2.8.1”, GitCommit:”6af75a8fd72e2aa18a2b278cfe5c7a1c5feca7f2”, GitTreeState:”clean”}
+E0224 14:13:16.077226    7416 portforward.go:331] an error occurred forwarding 37271 -&gt; 44134: error forwarding port 44134 to pod 76a7312e49220a229e443546a4b32d3e0406f09fd9b3646b3d30f6833e121375, uid : unable to do port forwarding: socat not found.
+Error: cannot connect to Tiller
+（2）问题分析处理
+解决办法在node节点安装socat
+yum install socat</p>
+
+<p>(3)版本不一致
+(1)失败现状
+Client: &amp;version.Version{SemVer:”v2.9.1”, GitCommit:”20adb27c7c5868466912eebdf6664e7390ebe710”, GitTreeState:”clean”}
+Server: &amp;version.Version{SemVer:”v2.6.1”, GitCommit:”bbc1f71dc03afc5f00c6ac84b9308f8ecb4f39ac”, GitTreeState:”clean”}</p>
+
+<p>(2)问题分析处理
+重新下载helm一致的版本包，和images的版本保持一致
+或者更新更新tiller版本
+helm init –upgrade -i registry.cn-hangzhou.aliyuncs.com/google_containers/tiller:v2.9.1</p>
+
+<h3 id="chatt-repo">chatt repo</h3>
+<p>chart repo是一个可用来存储index.yml与打包的chart文件的HTTP server。</p>
+
+<p>当要分享chart时，需要上传chart文件到chart仓库。任何一个能能够提供YAML与tar文件的HTTP server都可以当做chart仓库，比如Google Cloud Storage (GCS) bucket、Amazon S3 bucket、Github Pages或创建你自己的web服务器。官方chart仓库由Kubernetes Charts维护， Helm允许我们创建私有chart仓库。</p>
+
+<p>3.1 chart repo结构
+查看目前的repo，helm repo list:</p>
+
+<p>NAME            URL
+stable          https://kubernetes-charts.storage.googleapis.com
+local           http://127.0.0.1:8879/charts
+helm执行tiller命令后默认会配置一个名为local的本地repo。</p>
+
+<p>一个chart仓库由一个chart包与index.yaml文件组成，index.yaml记录了chart仓库中全部chart的索引，一个本地chart仓库的布局例子如下：</p>
+
+<p>~/.helm/
+|– cache
+| <code class="language-plaintext highlighter-rouge"><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>-- archive
+| |-- drupal-0.9.2.tgz
+| 
+</pre></td></tr></tbody></table></code>– mariadb-1.0.3.tgz
+|– plugins
+|– repository
+| |– cache
+| | |– fantastic-charts-index.yaml
+| | |– local-index.yaml -&gt; /home/ts1/.helm/repository/local/index.yaml
+| | |– mariadb-1.0.3.tgz-index.yaml
+| | |– memcached-1.2.1.tgz-index.yaml
+| | |– mychart_xia-0.1.0.tgz-index.yaml
+| | |– mysql-0.2.8.tgz-index.yaml
+| | |– stable-index.yaml
+| | |– test-0.1.0.tgz-index.yaml
+| | <code class="language-plaintext highlighter-rouge"><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre>-- test-0.1.8.tgz-index.yaml
+| |-- local
+| | |-- index.yaml
+| | |-- mychart-0.1.0.tgz
+| | |-- mychart_xia-0.1.0.tgz
+| | |-- mysql-0.2.8.tgz
+| | |-- mysql-6.19.centos-29.tgz
+| | |-- test-0.1.0.tgz
+| | |-- test-0.1.8.tgz
+| | 
+</pre></td></tr></tbody></table></code>– test-0.1.9.tgz
+| <code class="language-plaintext highlighter-rouge"><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>-- repositories.yaml
+</pre></td></tr></tbody></table></code>– starters</p>
+
+<p>~/.helm/repository/local/index.yaml文件中记录了chart的诸如名称、url、version等一些metadata信息。</p>
+
+<p>3.2 启动repo服务
+&lt;1&gt;创建repo目录：</p>
+
+<p>mkdir -p /dcos/appstore/local-repo</p>
+
+<p>备注： 此处我没用默认的local repo，而是创建一个新的文件夹并创建一个新的repo演示。</p>
+
+<p>&lt;2&gt;启动本地repo仓库服务:</p>
+
+<p>helm serve –address 0.0.0.0:8879 –repo-path /dcos/appstore/local-repo &amp;</p>
+
+<p>&lt;3&gt;通过helm repo add命令添加本地repo：</p>
+
+<p>helm repo add local-repo http://10.142.21.21:8879
+    “local-repo” has been added to your repositories</p>
+
+<p>&lt;4&gt;查看本地chart仓库是否添加成功：</p>
+
+<p>helm repo list:</p>
+
+<p>NAME            URL
+stable          https://kubernetes-charts.storage.googleapis.com
+local           http://127.0.0.1:8879/charts
+local-repo      http://10.142.21.21:8879</p>
+
+<p>备注：helm serve 不指定任何参数的话会在默认的repo目录（/root/.helm/repository/local 
+启动服务，根据该目录下的软件包（tgz）信息在该目录下创建index.html文件。
+可以通过指定–repo-path参数实现在自定义的目录下启动服务，并在那个目录下创建index.html文件。</p>
+
+<p>3.3 向repo中增加软件包
+上面步骤中，已经创建了一个本地的repo，接下来讲述如何在repo中增加一个可用来部署的软件包chart。chart须遵循 SemVer 2 规则填写正确的版本格式。各种chart包可以在github下载。</p>
+
+<p>&lt;1&gt;将chart文件夹移动到repo目录，并将chart打包：</p>
+
+<p>cp -r jenkins /dcos/appstore/local-repo/
+cd /dcos/appstore/local-repo
+helm package jenkins –save=false</p>
+
+<p>备注:</p>
+
+<p>helm package的作用是在当前目录下将软件打包为tgz，假如这个软件包中有requirement.yaml，则打包时还需要加上–dependency-update，用来update dependencies from “requirements.yaml” to dir “charts/” before packaging
+–save=false的作用是不将tgz文件再拷贝一份到默认的local chart repo文件夹（/root/.helm/repository/local/）下，否则默认会将tgz拷贝一份到那，并检查那个目录下的index.html是否存在，不存在会报错。或者在3.2中最后把没用到的local repo删掉，就不用加–save=false了。</p>
+
+<p>&lt;2&gt;更新index.yaml文件 
+通过helm repo index 命令将chart的metadata记录更新在index.yaml文件中:</p>
+
+<p>cd /dcos/appstore/local-repo
+helm repo index –url=http://10.142.21.21:8879 .  <br />
+helm repo update</p>
+
+<p>备注： 
+这句话的作用是:Read the current directory and generate an index file based on the charts found.</p>
+
+<p>&lt;3&gt;验证</p>
+
+<p>查找新上传的chart: 
+helm search jenkins
+NAME                    CHART VERSION   APP VERSION DESCRIPTION
+local-repo/jenkins  0.16.3          2.107       Open source continuous integration server. It s…
+stable/jenkins          0.16.3          2.107       Open source continuous integration server. It s…</p>
+
+<p>安装chart软件包（即release过程）：
+helm install local-repo/jenkins</p>
+
+<p>备注：helm install会用到socat，需要在所有节点上安装socat</p>
+
+<h3 id="导入chart">导入chart</h3>
+<p>Helm 支持四种安装方法：</p>
+
+<p>安装仓库中的 chart，例如：helm install stable/nginx</p>
+
+<p>通过 tar 包安装，例如：helm install ./nginx-1.2.3.tgz</p>
+
+<p>通过 chart 本地目录安装，例如：helm install ./nginx</p>
+
+<p>通过 URL 安装，例如：helm install https://example.com/charts/nginx-1.2.3.tgz</p>
+
+<h4 id="chart">Chart</h4>
+<p>Helm管理的kubernetes资源包称之为Chart，Chart是一个结构相对固定的文件目录。一个单独的Chart可以用于部署一下简单的Kubernetes资源，如：memcached，又或者更复杂的应用，如完整的Web应用：HTTP servers, databases, caches等等。</p>
+
+<p>3.1、Chart的结构
+[root@k8s-master mychart]# tree mychart/
+mychart                              # Chart的名字，也就是目录的名字
+├── charts                           # Chart所依赖的子Chart
+│   ├── jenkins-0.14.0.tgz           # 被“mychart”依赖的其中一个subChart
+│   ├── mysubchart                   # 被“mychart”依赖的另一个subChart
+│   │   ├── charts                 <br />
+│   │   ├── Chart.yaml
+│   │   ├── templates
+│   │   │   └── configmap.yaml
+│   │   └── values.yaml
+│   └── redis-1.1.17.tgz           <br />
+├── Chart.yaml                       # 记录关于该Chart的描述信息：比如名称、版本等等
+├── config1.toml                     # 其他文件：可以是任何文件
+├── config2.toml                     # 其他文件：可以是任何文件
+├── requirements.yaml                # 记录该Chart的依赖，类似pom.xml
+├── templates                        # 存放模版文件，模板也就是将k8s的yml文件参数化，最终还是会被helm处理成k8s的正常yml文件，然后用来部署对应的资源
+│   ├── configmap.yaml               # 一个ConfigMap资源模版
+│   ├── <em>helpers.tpl                 # “</em>“开头的文件不会本部署到k8s上，可以用于定于通用信息，在其他地方应用，如loables
+│   └── NOTES.txt                    # 在执行helm instll安装此Chart之后会被输出到屏幕的一些自定义信息
+└── values.yaml                      # 参数定义文件，这里定义的参数最终会应用到模版中</p>
+
+<p>Chart可以是目录，也可以是tgz格式的压缩包。</p>
+
+<p>charts目录和requirements.yaml文件到区别就和lib和pom.xml的区别类似，一个用于存放，一个用于描述</p>
+
+<p>###
+3.1.1、创建一个Chart
+[root@k8s-master charts]# pwd
+/root/charts</p>
+
+<p>[root@k8s-master charts]# helm create mychart-2</p>
+
+<p>[root@k8s-master charts]# ll
+drwxr-xr-x. 4 root root  93 3月  12 10:48 mychart-2</p>
+
+<p>[root@k8s-master charts]# tree mychart-2
+mychart-2
+├── charts
+├── Chart.yaml
+├── templates
+│   ├── deployment.yaml
+│   ├── _helpers.tpl
+│   ├── ingress.yaml
+│   ├── NOTES.txt
+│   └── service.yaml
+└── values.yaml</p>
+
+<p>2 directories, 7 files</p>
+
+<p>或者获取chart
+获取版本为0.2.8的mysql并解压缩包：</p>
+
+<p>$ helm fetch stable/mysql –version 0.2.8 –untar
+$ ls mysql/
+ Chart.yaml README.md templates values.yaml</p>
+
+<p>利用helm lint命令检查下载的chart是否存在问题：
+$ helm lint mysql
+ ==&gt; Linting mysql
+ Lint OK
+1 chart(s) linted, no failures</p>
+
+<p>盖chart中的默认值，通过指定配置文件方式：</p>
+
+<p>helm install -f myvalues.yaml ./redis
+或者通过–set key=value形式：</p>
+
+<p>$ helm install –set name=prod ./redis</p>
+
+<p>安装release名称为mysql例子如下，请注意NOTES中对Mysql的使用说明：</p>
+
+<p>$ helm install -n mysql -f mysql/values.yaml –set resources.requests.memory=512Mi mysql
+NAME: mysql
+LAST DEPLOYED: Thu Sep 14 05:48:31 2017
+NAMESPACE: default
+STATUS: DEPLOYED</p>
+
+<p>通过helm status查看release状态：</p>
+
+<p>$ helm status mysql
+ LAST DEPLOYED: Tue Sep 12 07:31:49 2017
+ NAMESPACE: default
+ STATUS: DEPLOYED
+或通过helm list -a查看全部的release，tag “-a”是查看全部的release，包括已部署、部署失败、正在删除、已删除release等。</p>
+
+<p>$ helm list -a
+$ helm list -a | grep mysqlmysql           1       Tue Sep 12 07:31:49 2017 DEPLOYED mysql-0.2.8         default</p>
+
+<p>更新release
+Helm使用helm upgrade更新已安装的release：</p>
+
+<p>$ helm upgrade mysql -f mysql/values.yaml –set resources.requests.memory=1024Mi mysql
+查看指定release的历史部署版本信息：</p>
+
+<p>$ helm hist  mysql
+REVISION    UPDATED                        STATUS           CHART          DESCRIPTION
+1           Tue Sep 12 07:31:49 2017       SUPERSEDED       mysql-0.2.8    Install complete
+2           Tue Sep 12 07:44:00 2017       DEPLOYED         mysql-0.2.8    Upgrade complete
+查看指定release的历史版本部署时部分配置信息，以resources.requests.memory为例，符合查看部署符合预期：即第一次部署resources.requests.memory设置为512Mi，第二次的升级resources.requests.memory设置为1024Mi：</p>
+
+<p>$ helm get –revision 1 mysql
+ resources:
+ requests:
+ cpu: 100m
+ memory: 512Mi</p>
+
+<p>$ helm get –revision 2 mysql
+resources:
+ requests:
+ cpu: 100m
+ memory: 1024Mi</p>
+
+<p>版本回滚
+回滚到第一次的版本：</p>
+
+<p>helm rollback –debug mysql 1
+[debug] Created tunnel using local port: ‘60303’
+[debug] SERVER: “localhost:60303”
+Rollback was a success! Happy Helming!
+查看mysql release的版本信息，当前已经回滚到REVISION为1的版本：</p>
+
+<p>$ helm hist mysql
+REVISION           UPDATED                    STATUS        CHART          DESCRIPTION
+1                  Tue Sep 12 07:31:49 2017   SUPERSEDED    mysql-0.2.8    Install complete
+2                  Tue Sep 12 07:44:00 2017   SUPERSEDED    mysql-0.2.8    Upgrade complete
+3                  Tue Sep 12 08:50:48 2017   DEPLOYED      mysql-0.2.8    Rollback to 1
+删除chart
+$ helm delete mysql
+ release “mysql” deleted
+确认chart是否删除：</p>
+
+<p>$ helm ls -a mysql
+NAME     REVISION      UPDATED                     STATUS      CHART           NAMESPACE
+mysql    3             Tue Sep 12 08:50:48 2017    DELETED     mysql-0.2.8     default
+即使删除的chart，其发布的历史信息还是继续被保存。</p>
+
+<p>$ helm hist mysql
+REVISION      UPDATED                     STATUS         CHART          DESCRIPTION
+1             Tue Sep 12 07:31:49 2017    SUPERSEDED     mysql-0.2.8    Install complete
+2             Tue Sep 12 07:44:00 2017    SUPERSEDED     mysql-0.2.8    Upgrade complete
+3             Tue Sep 12 08:50:48 2017    DELETED        mysql-0.2.8    Deletion complete
+可以恢复一个已经删除的release：</p>
+
+<p>$ helm rollback –debug mysql 2
+[debug] Created tunnel using local port: ‘37413’
+[debug] SERVER: “localhost:37413”
+Rollback was a success! Happy Helming!
+如果希望彻底删除一个release，可以用如下命令：</p>
+
+<p>$ helm delete –purge mysql
+ release “mysql” deleted
+再次查看刚被删除的mysql release，提示已经无法找到，符合预期：</p>
+
+<p>$ helm hist mysql
+ Error: release: “mysql” not found</p>
+
+<h3 id="为了后面的实验我们先删除helm默认生成的文件">为了后面的实验，我们先删除helm默认生成的文件</h3>
+<p>[root@k8s-master charts]# rm -rf mychart-2/templates/*</p>
+
+<p>helm会帮我们创建一下必要的模版文件，简单的Chart直接修改这些文件即可</p>
+
+<p>3.1.2、文件：Chart.yaml
+[root@k8s-master charts]# vi mychart-2/Chart.yaml 
+apiVersion: v1
+appVersion: “1.0”
+description: A Helm chart for Kubernetes
+name: mychart-2
+version: 0.1.0</p>
+
+<p>apiVersion：官网文档上没有，helm create创建的的模版中有，指k8s API的版本
+appVersion：当前Chart包含的应用的版本，比如redis、apache等
+description：当前Chart的描述信息
+name：当前Chart的名称
+version：当前Chart的版本，版本规范，打包后的文件名：name-version.tgz，如：nginx-1.2.3.tgz</p>
+
+<p>name: [必须] Chart的名称
+version: [必须] Chart的版本号，版本号必须符合 SemVer 2：http://semver.org/
+description: [可选] Chart的简要描述
+keywords:</p>
+<ul>
+  <li>[可选] 关键字列表
+home: [可选] 项目地址
+sources:</li>
+  <li>[可选] 当前Chart的下载地址列表
+maintainers: # [可选]</li>
+  <li>name: [必须] 名字
+email: [可选] 邮箱
+engine: gotpl # [可选] 模版引擎，默认值是gotpl
+icon: [可选] 一个SVG或PNG格式的图片地址</li>
+</ul>
+
+<p>3.1.3、文件：values.yaml
+此文件主要用来存放Chart的默认值，这些值会被应用到模版中，替换掉模版中的变量，生成最终k8s的yaml部署文件，例如：</p>
+
+<p>[root@k8s-master charts]# vi mychart/values.yaml
+favorite:
+  drink: coffee
+  food: pizza</p>
+
+<p>[root@k8s-master charts]# vi mychart/templates/configmap.yaml 
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: -configmap
+data:
+  myvalue: “Hello World”
+  drink: 
+  food:</p>
+
+<p>在这个例子中，我们有一个configmap.yaml模版，模版中点了一个ConfigMap，模版中包含了很多  ，这些  中以.Values开头的会被替换成values.yaml中的值，.Release开头的会被替换成release相关的变量值，Release是内置变量中的一员。quote是一个function，当然还有很多其他的function。</p>
+
+<p>这里为什么说默认值呢，因为在执行 helm install 时，可以通过 helm install –set tags.front-end=true –set subchart2.enabled=false 这种方式来改变实际的值。</p>
+
+<p>3.1.4、文件：requirements.yaml
+关于template的详细内容，将在下文阐述。</p>
+
+<p>这个文件需要手动创建，requirements.yaml文件用来定义Chart的依赖，直接将这些依赖放到chart目录下也是可以的。使用文件来管理是来会更加便利。简单文件的格式如下：</p>
+
+<p>dependencies:</p>
+<ul>
+  <li>name: redis
+version: 1.1.17
+repository: https://kubernetes-charts.storage.googleapis.com</li>
+</ul>
+
+<p>文件内容表明当前Chart依赖redis-1.1.17这个Chart，这个Chart的仓库地址是https://kubernetes-charts.storage.googleapis.com，这个地址必须已经添加到你的helm中，添加命令：helm repo add ，查看命令：helm repo list 。</p>
+
+<p>然后我们执行 helm dependency update chartName 命令helm就会帮我们下载requirements.yaml文件中定义的其他Chart，这些Chart会存放在charts目录中。</p>
+
+<p>[root@k8s-master charts]# helm dependency update mychart-2/
+Hang tight while we grab the latest from your chart repositories…
+…Successfully got an update from the “stable” chart repository
+Update Complete. ⎈Happy Helming!⎈
+Saving 1 charts
+Downloading redis from repo https://kubernetes-charts.storage.googleapis.com
+Deleting outdated charts</p>
+
+<p>[root@k8s-master charts]# ll mychart-2/charts/
+总用量 8
+-rw-r–r–. 1 root root 6189 3月  12 10:54 redis-1.1.17.tgz
+命令简写：helm dep up mychart-2/</p>
+
+<p>下面是一个复杂一点的例子：</p>
+
+<p>dependencies:</p>
+<ul>
+  <li>name: redis
+version: 1.1.17
+repository: https://kubernetes-charts.storage.googleapis.com
+condition: redis.enabled
+tags:
+    <ul>
+      <li>redis</li>
+    </ul>
+  </li>
+  <li>name: jenkins
+version: 0.14.0
+repository: https://kubernetes-charts.storage.googleapis.com
+condition: jenkins.enabled
+tags:
+    <ul>
+      <li>jenkins</li>
+    </ul>
+  </li>
+  <li>name: redis
+version: 1.1.17
+repository: https://kubernetes-charts.storage.googleapis.com
+alias: newname
+tags:
+    <ul>
+      <li>redis</li>
+    </ul>
+  </li>
+</ul>
+
+<p>在这个例子中，涉及到alias、condition、tags三个关键字，我们配合下面的values.yaml文件一项一项来解释，values.yaml文件内容：</p>
+
+<p>redis:
+  enabled: false</p>
+
+<p>jenkins:
+  enabled: false</p>
+
+<p>tags:
+  redis: false
+  jenkins: true</p>
+
+<p>alias：给依赖的Chart定义别名，官网上说：别名会在下载之后，以新名称存放在charts目录下，但是实时上并非如此。在我的实验过程中，上面的例子会下载三个Chart：redis、jenkins和redis，也就是redis下载了两次，但是在charts目录下只有redis和jenkins两个文件，没有newname。我在想alias目前可能只是记录在文件中，最后一个redis依然叫redis，而且将第一个redis覆盖了，所以只有两个文件。也可能是我的实验姿势不对。
+condition：boolean值，用来决定当前依赖是否启用，如果condition后面的值不存在，比如redis.enabled或者jenkins.enabled未定义，则忽略condition。condition可定义多个值，用 “,” 分隔。如果第一个值存在，则忽略后面的值。
+tags：boolean值，与condition类似，但是condition的优先级更高，如果同时定义了condition和tags，tags将被忽略。在不考虑condition时，tags中的任何一个值被定义为true，则启用该依赖</p>
+
+<p>3.1.5、目录：charts
+目录charts用来存放当前Chart依赖的其他Chart，这些被依赖的Chart可以是上文requirements.yaml文件中描述的，也可以直接在charts目录下创建新的charts</p>
+
+<p>[root@k8s-master charts]# cd mychart-2/charts/
+[root@k8s-master charts]# pwd
+/root/charts/mychart-2/charts
+[root@k8s-master charts]# helm create mysubchart-1
+Creating mysubchart-1
+[root@k8s-master charts]# helm create mysubchart-2
+Creating mysubchart-2
+[root@k8s-master charts]# ll
+drwxr-xr-x. 4 root root 93 3月  12 12:10 mysubchart-1
+drwxr-xr-x. 4 root root 93 3月  12 12:10 mysubchart-2</p>
+
+<p>每个subChart都是一个结构完整的Chart，可以是目录，也可以是tgz文件，tgz文件可以用 tar -zxvf 命令解压
+此时若部署mychart-2，也会连同mysubchart-1和mysubchart-2一同部署到k8s上</p>
+
+<h3 id="helm-命令行">helm 命令行</h3>
+
+<h3 id="添加仓库">添加仓库</h3>
+<p>$helm repo add fabric8 https://fabric8.io/helm</p>
+
+<h3 id="查看仓库">查看仓库</h3>
+<p>$helm repo list</p>
+
+<h3 id="重制仓库">重制仓库</h3>
+<p>$helm repo reset</p>
+
+<p>搜索fabric8提供的工具</p>
+<h3 id="搜索charts">搜索charts</h3>
+<p>$helm search fabric8</p>
+
+<h4 id="部署artifactory">部署artifactory</h4>
+<p>准备PV
+阿里云上的Kebernetes集群目前不支持StorageClass，PV需要提前建好
+Artifactory Instance一共需要三个PV，分别供数据库/Artifactory/Nginx使用，我的PV定义文件如下：
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv004
+spec:
+  capacity:
+    storage: 1000Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    path: /opt/nfs/pv004
+    server: 192.168.252.83</p>
+
+<p>Helm安装Artifactory Instance
+使用helm安装非常方便，执行如下的命令等10分钟左右即可
+helm install –name artifactory stable/artifactory</p>
+
+<p>###提示
+helm 跟kubectl 一样，从.kube/config 读取配置证书跟k8s通讯，</p>
+
+
+                <hr style="visibility: hidden;">
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/ai/2018/05/29/AI-deep-learn/" data-toggle="tooltip" data-placement="top" title="AI deep learn & tensorflow opencv">
+                        Previous<br>
+                        <span>AI deep learn & tensorflow opencv</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/2018/08/07/hlem-repo-svc/" data-toggle="tooltip" data-placement="top" title="helm-repo-svc">
+                        Next<br>
+                        <span>helm-repo-svc</span>
+                        </a>
+                    </li>
+                    
+                </ul> 
+            </div>
+    
+    <!-- Side Catalog Container -->
+    
+    <div class="
+        col-lg-2 col-lg-offset-0
+        visible-lg-block
+        sidebar-container
+        catalog-container">
+        <div class="side-catalog">
+            <hr class="hidden-sm hidden-xs">
+            <h5>
+                <a class="catalog-toggle" href="#">CATALOG</a>
+            </h5>
+            <ul class="catalog-body"></ul>
+        </div>
+    </div>
+                
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags start-->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#npm" title="npm" rel="1">
+                                    npm
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#SQL" title="SQL" rel="2">
+                                    SQL
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#基础知识" title="基础知识" rel="2">
+                                    基础知识
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#ssl/tls" title="ssl/tls" rel="1">
+                                    ssl/tls
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#密码学" title="密码学" rel="1">
+                                    密码学
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#算法" title="算法" rel="1">
+                                    算法
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#openssl" title="openssl" rel="1">
+                                    openssl
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#CA" title="CA" rel="1">
+                                    CA
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#code" title="code" rel="4">
+                                    code
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#electron" title="electron" rel="1">
+                                    electron
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#demo" title="demo" rel="1">
+                                    demo
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#etherum" title="etherum" rel="3">
+                                    etherum
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#jpush" title="jpush" rel="1">
+                                    jpush
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#IM" title="IM" rel="1">
+                                    IM
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#kubenetes" title="kubenetes" rel="2">
+                                    kubenetes
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#dashboard" title="dashboard" rel="1">
+                                    dashboard
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#trarfik" title="trarfik" rel="1">
+                                    trarfik
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Let's Encrypt" title="Let's Encrypt" rel="1">
+                                    Let's Encrypt
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#https" title="https" rel="2">
+                                    https
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#certbot" title="certbot" rel="1">
+                                    certbot
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#csr" title="csr" rel="1">
+                                    csr
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#block-chain" title="block-chain" rel="1">
+                                    block-chain
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#deeplearning" title="deeplearning" rel="1">
+                                    deeplearning
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#tensorflow" title="tensorflow" rel="1">
+                                    tensorflow
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#opencv" title="opencv" rel="1">
+                                    opencv
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#kubentes" title="kubentes" rel="5">
+                                    kubentes
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#helm" title="helm" rel="3">
+                                    helm
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#charts" title="charts" rel="1">
+                                    charts
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#fabric8" title="fabric8" rel="1">
+                                    fabric8
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#RBAC" title="RBAC" rel="1">
+                                    RBAC
+                                </a>
+                            
+        				
+        			</div>
+                </section>
+                
+                <!-- Featured Tags end-->                
+
+
+                <!-- Friends Blog start-->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="http://huangxuan.me">Hux Blog</a></li>
+                    
+                        <li><a href="#">void</a></li>
+                    
+                </ul>
+                
+                <!-- Friends Blog start-->
+
+                <!-- READ ANALY start-->
+                
+                <hr>
+                <h5>READ ANALY</h5>
+                <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span>
+                   
+                <!-- READ ANALY end-->                  
+                
+                <!-- gitment start -->                
+                
+                <div id="container"></div>
+                <script>
+                  var gitment = new Gitment({
+                    id: window.location.pathname, 
+                    owner: 'minicool',
+                    repo: 'minicool.github.io',
+                    oauth: {
+                    client_id: '5d7b7a70ed66f348595e',
+                    client_secret: '',
+                    },
+                  })
+                  gitment.render('container')
+                </script>
+                
+                <!-- gitment end -->                      
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+                    <li>
+                        <a href="mailto:minicool.software@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    <li>
+                        <a href="https://twitter.com/minicool">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/minicool">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; MiniCool World 2020
+                    <iframe
+                    style="margin-left: 2px; margin-bottom:-5px;"
+                    frameborder="0" scrolling="0" width="91px" height="20px"
+                    src="https://ghbtns.com/github-btn.html?user=minicool&repo=minicool.github.io&type=star&count=true" >
+                </iframe>
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> |
+                    Powered by <a href="http://jekyllrb.com" target="_blank">Jekyll</a> |
+                    Data by <a href="https://analytics.google.com" target="_blank">Google</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.min.js "></script>
+
+<!-- Gitment JavaScript-->  
+<!-- 
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+ -->
+
+<!-- Read Analy JavaScript-->  
+<!-- busuanzi http://busuanzi.ibruce.info/-->  
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-34165243-1';
+    var _gaDomain = 'minicool.github.io';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+
+        // interop with multilangual 
+         
+        _containerSelector = 'div.post-container'
+         
+
+        // init
+        var P = $(_containerSelector),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        // clean
+        $(selector).html('')
+
+        // appending
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+<!-- Multi-Lingual -->
+
+
+
+</body>
+
+</html>
